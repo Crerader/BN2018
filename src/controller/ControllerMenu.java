@@ -12,6 +12,10 @@ public class ControllerMenu implements ActionListener {
 
     private Jeu jeu;
 
+    public ControllerMenu(Jeu jeu){
+        this.jeu = jeu;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
@@ -19,6 +23,8 @@ public class ControllerMenu implements ActionListener {
             case PanelMenu.REPRENDRE_COMMANDE:
                 break;
             case PanelMenu.COMMENCER_COMMANDE:
+                VueMenu vueMenu = jeu.getVueMenu();
+                vueMenu.setPanel(VueMenu.creationPartie);
                 break;
             case PanelMenu.QUITTER_COMMANDE:
                 System.exit(0);

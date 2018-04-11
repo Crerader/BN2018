@@ -14,7 +14,7 @@ public class Jeu extends Observable {
      */
     public Jeu(){
         this.partie = new Partie();
-        this.vueMenu = new VueMenu();
+        this.vueMenu = new VueMenu(this);
         this.addObserver(this.vueMenu);
     }
 
@@ -48,5 +48,12 @@ public class Jeu extends Observable {
      */
     public void charger(){
 
+    }
+
+    /**
+     * @return vueMenu
+     */
+    public VueMenu getVueMenu(){
+        return this.vueMenu;
     }
 }

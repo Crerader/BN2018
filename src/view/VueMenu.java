@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerMenu;
+import model.Jeu;
 import model.Partie;
 
 import javax.swing.*;
@@ -12,16 +13,17 @@ import java.util.Observer;
 
 public class VueMenu extends Vue {
 
-    private final PanelMenu menu = new PanelMenu();
+    public static final PanelMenu menu = new PanelMenu();
+    public static final PanelCreationPartie creationPartie = new PanelCreationPartie();
     private final JFrame frame = new JFrame("Bataille Navale : menu");
 
     /**
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
-    public VueMenu() {
+    public VueMenu(Jeu jeu) {
         this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
         this.frame.setLocationRelativeTo(null);
-        this.controller = new ControllerMenu();
+        this.controller = new ControllerMenu(jeu);
         menu.addActionListener((ActionListener)this.controller);
         this.panel = menu;
 
