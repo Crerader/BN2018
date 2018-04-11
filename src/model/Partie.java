@@ -128,5 +128,14 @@ public class Partie extends Observable {
         this.notifyObservers();
     }
 
+    /**
+     * methode permettant de savoir si une partie
+     * peut être reprise ou non.
+     * @return
+     */
+    public boolean existePartie() {
+        // T0D0 : analyse des sauvegardes si existe
+        return true;
+    }
     
 }
