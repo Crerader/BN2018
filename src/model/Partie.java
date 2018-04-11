@@ -3,7 +3,9 @@ package model;
 import dao.AbstractDAOFactory;
 import view.Vue;
 
-public class Partie extends Observable{
+import java.util.Observable;
+
+public class Partie extends Observable {
 
     /**
      * Joueur qui doit jouer
