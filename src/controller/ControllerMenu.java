@@ -1,6 +1,7 @@
 package controller;
 
 import model.Jeu;
+import view.PanelMenu;
 import view.VueMenu;
 
 import javax.swing.*;
@@ -15,11 +16,11 @@ public class ControllerMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
         switch(btn.getActionCommand()) {
-            case VueMenu.REPRENDRE_COMMANDE:
+            case PanelMenu.REPRENDRE_COMMANDE:
                 break;
-            case VueMenu.COMMENCER_COMMANDE:
+            case PanelMenu.COMMENCER_COMMANDE:
                 break;
-            case VueMenu.QUITTER_COMMANDE:
+            case PanelMenu.QUITTER_COMMANDE:
                 System.exit(0);
                 break;
         }
