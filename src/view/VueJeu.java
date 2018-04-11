@@ -1,31 +1,28 @@
 package view;
 
+import controller.ControllerJeu;
 import controller.ControllerMenu;
-import model.Jeu;
 import model.Partie;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 import java.util.Observable;
-import java.util.Observer;
 
-public class VueMenu extends Vue {
+public class VueJeu extends Vue {
 
-    public static final PanelMenu menu = new PanelMenu();
-    public static final PanelCreationPartie creationPartie = new PanelCreationPartie();
-    private final JFrame frame = new JFrame("Bataille Navale : menu");
+    private final PanelPlacement placement = new PanelPlacement();
+    private final JFrame frame = new JFrame("Bataille Navale : partie");
 
     /**
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
-    public VueMenu(Jeu jeu) {
+    public VueJeu() {
         this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
         this.frame.setLocationRelativeTo(null);
-        this.controller = new ControllerMenu(jeu);
-        menu.addActionListener((ActionListener)this.controller);
-        this.panel = menu;
+        this.controller = new ControllerJeu();
+        placement.addActionListener((ActionListener)this.controller);
+        this.panel = placement;
 
         this.setPanel(this.panel);
     }
@@ -40,10 +37,10 @@ public class VueMenu extends Vue {
 
     @Override
     public void update(Observable o, Object arg) {
-        Jeu jeu = (Jeu)o;
-        if (jeu.existePartie()) {
-            this.menu.setReprendreEnabled(true);
-        }
     }
-}
 
+    public static void main(String[] args) {
+        VueJeu v = new VueJeu();
+    }
+
+}
