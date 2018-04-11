@@ -13,23 +13,27 @@ import java.util.Observer;
 public class VueMenu extends Vue {
 
     private final PanelMenu menu = new PanelMenu();
+    private final JFrame frame = new JFrame("Bataille Navale : menu");
 
     /**
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
     public VueMenu() {
-        JFrame f = new JFrame("Bataille Navale : menu");
-        f.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
-        f.setLocationRelativeTo(null);
+        this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
+        this.frame.setLocationRelativeTo(null);
         this.controller = new ControllerMenu();
         menu.addActionListener((ActionListener)this.controller);
         this.panel = menu;
 
-        f.setContentPane(this.panel);
-        f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setVisible(true);
+        this.setPanel(this.panel);
+    }
+
+    public void setPanel(JPanel panel) {
+        this.frame.setContentPane(panel);
+        this.frame.setResizable(false);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();
+        this.frame.setVisible(true);
     }
 
     @Override
