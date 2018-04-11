@@ -1,5 +1,6 @@
 package model;
 
+import dao.AbstractDAOFactory;
 import view.Vue;
 
 public class Partie extends Observable{
@@ -24,7 +25,7 @@ public class Partie extends Observable{
     /**
      * Ordinateur
      */
-    private Jooeur ia;
+    private Joueur ia;
 
     /**
      * DAO pour la sauvegarde et le chargement d'une partie
@@ -113,7 +114,7 @@ public class Partie extends Observable{
      * Set le joueur ordinateur
      * @param ia
      */
-    public void setIa(Jooeur ia) {
+    public void setIa(Joueur ia) {
         this.ia = ia;
     }
 
