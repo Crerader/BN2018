@@ -1,19 +1,19 @@
 package model;
 
+import view.VueJeu;
 import view.VueMenu;
 
 import java.util.Observable;
 
 public class Jeu extends Observable {
 
-    private Partie partie;
+    private Partie partieEnCours;
     private VueMenu vueMenu;
 
     /**
      * Constructeur
      */
     public Jeu(){
-        this.partie = new Partie();
         this.vueMenu = new VueMenu(this);
         this.addObserver(this.vueMenu);
     }
@@ -31,8 +31,10 @@ public class Jeu extends Observable {
      * Créer une partie de bataille navale
      */
     public void commencer(){
-
-
+        this.partieEnCours = new Partie();
+        this.vueMenu.setVisible(false);
+        VueJeu vueJeu = new VueJeu();
+        this.partieEnCours.addObserver(vueJeu);
     }
 
     /**
@@ -40,7 +42,7 @@ public class Jeu extends Observable {
      * @param epoque époque des bateaux, 0 : medievalle, 1 : contemporaine
      */
     public void choixEpoque(int epoque){
-        this.partie.ajouterEpoque(epoque);
+        this.partieEnCours.ajouterEpoque(epoque);
     }
 
     /**

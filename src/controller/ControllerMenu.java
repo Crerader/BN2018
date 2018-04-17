@@ -34,6 +34,7 @@ public class ControllerMenu implements ActionListener {
                 vueMenu.setPanel(VueMenu.menu);
                 break;
             case PanelCreationPartie.VALIDER:
+                jeu.commencer();
                 break;
         }
     }
