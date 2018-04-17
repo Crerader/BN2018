@@ -3,6 +3,8 @@ package model;
 import dao.AbstractDAOFactory;
 import view.Vue;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Partie extends Observable {
@@ -70,8 +72,7 @@ public class Partie extends Observable {
     }
 
     /**
-     *
-     * @return époque medievalle/contemporaine
+     * @return époque medieval/contemporaine
      */
     public Epoque getEpoque() {
         return epoque;
@@ -79,14 +80,16 @@ public class Partie extends Observable {
 
     /**
      * Set une époque via une factory
-     * @param epoque 0 : medievalle, 1 : contemporaine
+     * @param epoque 0 : medieval, 1 : contemporaine
      */
     public void ajouterEpoque(int epoque) {
         if(epoque == 0){
-            //this.epoque = Epoque.getFactory(Epoque.MEDIEVALLE);
+            this.epoque = Epoque.getFactory(Epoque.MEDIEVAL);
         }else{
-            //this.epoque = Epoque.getFactory(Epoque.CONTEMPORAINE);
+            this.epoque = Epoque.getFactory(Epoque.CONTEMPORAINE);
         }
+        this.epoque.creerBateau(humain);
+        //Methode placer bateau pour IA
 
     }
 
@@ -126,6 +129,33 @@ public class Partie extends Observable {
     private void miseAjour(){
         this.setChanged();
         this.notifyObservers();
+    }
+
+    /**
+     * Methode qui ajoute un bateau a un joueur en vérifiant si le bateau peut être placé
+     * @param bateau qui doit être placé
+     * @param joueur qui place le bateau
+     * @param positions différentes cases occupé par le bateau
+     * @return true si placement reussi, false sinon
+     */
+    public boolean placerBateau(Bateau bateau, Joueur joueur, ArrayList<Point> positions){
+        boolean res = true;
+        for (Point p: positions){
+            for (int i = 0 ; i < joueur.getTailleBateaux() ; i++){
+                Bateau tmpBateau = joueur.getBateau(i);
+                for (int j = 0; j < tmpBateau.getTaillePosition(); j++){
+                    Point tmpPoint = tmpBateau.getPostion(j);
+                    if(tmpPoint.getX() == p.getX() && tmpPoint.getY() == p.getY()){
+                        res = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if(res){
+            joueur.ajouterBateau(bateau,positions);
+        }
+        return res;
     }
 
     
