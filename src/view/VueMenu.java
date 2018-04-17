@@ -46,5 +46,9 @@ public class VueMenu extends Vue {
             this.menu.setReprendreEnabled(true);
         }
     }
+
+    public void setVisible(boolean visible) {
+        this.frame.setVisible(visible);
+    }
 }
 
