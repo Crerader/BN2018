@@ -16,7 +16,18 @@ public class PanelPlacement extends JPanel {
     protected JButton troisBateau = new JButton("trois");
     protected JButton deuxBateau = new JButton("deux");
 
+    public final static String BOUTON_BATEAU_2_CASES = "2";
+    public final static String BOUTON_BATEAU_3_CASES = "3";
+    public final static String BOUTON_BATEAU_4_CASES = "4";
+    public final static String BOUTON_BATEAU_5_CASES = "5";
+
     public PanelPlacement() {
+        // on assigne des identifiants aux boutons
+        this.deuxBateau.setActionCommand(BOUTON_BATEAU_2_CASES);
+        this.troisBateau.setActionCommand(BOUTON_BATEAU_3_CASES);
+        this.quatreBateau.setActionCommand(BOUTON_BATEAU_4_CASES);
+        this.cinqBateau.setActionCommand(BOUTON_BATEAU_5_CASES);
+
         this.setPreferredSize(new Dimension(Vue.WIDTH-20, Vue.HEIGHT-100));
 
         JPanel body = new JPanel();
