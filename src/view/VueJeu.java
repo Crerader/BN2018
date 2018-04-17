@@ -18,7 +18,7 @@ public class VueJeu extends Vue {
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
     public VueJeu() {
-        this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
+        this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT+50));
         this.frame.setLocationRelativeTo(null);
         this.controller = new ControllerJeu();
         placement.addActionListener((ActionListener)this.controller);
