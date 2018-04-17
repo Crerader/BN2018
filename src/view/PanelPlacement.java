@@ -1,5 +1,8 @@
 package view;
 
+import controller.ControllerGrille;
+import model.Jeu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
