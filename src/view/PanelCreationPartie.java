@@ -1,5 +1,8 @@
 package view;
 
+import controller.ControllerMenu;
+import model.Jeu;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +22,10 @@ public class PanelCreationPartie extends JPanel {
     private JButton annuler;
 
 
-    public PanelCreationPartie(){
+    public PanelCreationPartie(Jeu jeu){
         super();
         this.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
 
-        JLabel titre = new JLabel("Créer votre partie");
-        this.add(titre);
 
         this.choixEpoque = new JPanel();
         ButtonGroup b1 = new ButtonGroup();
@@ -35,12 +36,15 @@ public class PanelCreationPartie extends JPanel {
         this.annuler = new JButton(ANNULER);
         this.valider.setActionCommand(VALIDER);
         this.annuler.setActionCommand(ANNULER);
+        JPanel boutons = new JPanel();
+        boutons.add(this.valider);
+        boutons.add(this.annuler);
 
         JRadioButton medieval = new JRadioButton("Médiéval");
         JRadioButton contemporaine = new JRadioButton("Contemporaine");
-        medieval.isSelected();
         b1.add(medieval);
         b1.add(contemporaine);
+        medieval.setSelected(true);
         BufferedImage medievalIcon = null;
         BufferedImage contemporaineIcon = null;
         try {
@@ -50,24 +54,24 @@ public class PanelCreationPartie extends JPanel {
             e.printStackTrace();
         }
 
+
         JPanel medievalPanel = new JPanel();
+        medievalPanel.setLayout(new BorderLayout());
         medievalPanel.add(new JLabel(new ImageIcon(medievalIcon)));
-        medievalPanel.add(medieval);
-        medievalPanel.setLayout(new GridLayout(2,1));
+        medievalPanel.add(medieval,BorderLayout.SOUTH);
 
 
         JPanel contemporainelPanel = new JPanel();
+        contemporainelPanel.setLayout(new BorderLayout());
         contemporainelPanel.add(new JLabel(new ImageIcon(contemporaineIcon)));
-        contemporainelPanel.add(contemporaine);
-        contemporainelPanel.setLayout(new GridLayout(2,1));
-
+        contemporainelPanel.add(contemporaine,BorderLayout.SOUTH);
 
 
         JRadioButton aleatoire = new JRadioButton("aléatoire");
         JRadioButton croix = new JRadioButton("en croix");
-        aleatoire.isSelected();
         b2.add(aleatoire);
         b2.add(croix);
+        aleatoire.setSelected(true);
 
         this.choixEpoque.add(medievalPanel);
         this.choixEpoque.add(contemporainelPanel);
@@ -75,9 +79,24 @@ public class PanelCreationPartie extends JPanel {
         this.choixIA.add(aleatoire);
         this.choixIA.add(croix);
 
-        this.add(choixEpoque);
-        this.add(choixIA);
-        this.add(valider);
-        this.add(annuler);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        JLabel titre = new JLabel("Créer votre partie", SwingConstants.CENTER);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.insets = new Insets(60,0,0,0);
+        this.add(titre,c);
+        c.gridy = 1;
+        this.add(choixEpoque,c);
+        c.gridy = 2;
+        this.add(choixIA,c);
+        c.gridy = 3;
+        this.add(boutons,c);
+
+        this.valider.addActionListener(new ControllerMenu(jeu));
+        this.annuler.addActionListener(new ControllerMenu(jeu));
+
     }
 }

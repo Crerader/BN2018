@@ -14,7 +14,7 @@ import java.util.Observer;
 public class VueMenu extends Vue {
 
     public static final PanelMenu menu = new PanelMenu();
-    public static final PanelCreationPartie creationPartie = new PanelCreationPartie();
+    public static PanelCreationPartie creationPartie;
     private final JFrame frame = new JFrame("Bataille Navale : menu");
 
     /**
@@ -28,6 +28,7 @@ public class VueMenu extends Vue {
         this.panel = menu;
 
         this.setPanel(this.panel);
+        this.creationPartie = new PanelCreationPartie(jeu);
     }
 
     public void setPanel(JPanel panel) {

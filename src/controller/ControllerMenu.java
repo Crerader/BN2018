@@ -1,6 +1,7 @@
 package controller;
 
 import model.Jeu;
+import view.PanelCreationPartie;
 import view.PanelMenu;
 import view.VueMenu;
 
@@ -18,16 +19,21 @@ public class ControllerMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        VueMenu vueMenu = jeu.getVueMenu();
         JButton btn = (JButton) e.getSource();
         switch(btn.getActionCommand()) {
             case PanelMenu.REPRENDRE_COMMANDE:
                 break;
             case PanelMenu.COMMENCER_COMMANDE:
-                VueMenu vueMenu = jeu.getVueMenu();
                 vueMenu.setPanel(VueMenu.creationPartie);
                 break;
             case PanelMenu.QUITTER_COMMANDE:
                 System.exit(0);
+                break;
+            case PanelCreationPartie.ANNULER:
+                vueMenu.setPanel(VueMenu.menu);
+                break;
+            case PanelCreationPartie.VALIDER:
                 break;
         }
     }
