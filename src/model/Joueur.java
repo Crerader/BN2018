@@ -6,6 +6,11 @@ import java.util.ArrayList;
 public abstract class Joueur {
 
     /**
+     * Nombre de bateaux par joueurs
+     */
+    public final static int NB_BATEAU = 5;
+
+    /**
      * Plateau des cases attaquées par le joueur
      */
     private boolean[][] attaque;
@@ -23,7 +28,7 @@ public abstract class Joueur {
      */
     public Joueur(){
         this.adversaire = null;
-        this.bateaux = new ArrayList<>();
+        this.bateaux = new ArrayList<Bateau>();
         this.attaque = new boolean[10][10];
     }
 

@@ -158,5 +158,21 @@ public class Partie extends Observable {
         return res;
     }
 
+    /**
+     * permet de savoir si la partie est
+     * prête à être lancée ou non.
+     *
+     * @return statut prêt de la partie
+     */
+    public boolean isReady() {
+        boolean ready = false;
+        if(this.humain != null) {
+            if(this.humain.getTailleBateaux() == Joueur.NB_BATEAU ) {
+                ready = true;
+            }
+        }
+        return ready;
+    }
+
     
 }
