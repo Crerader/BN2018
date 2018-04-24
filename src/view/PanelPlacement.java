@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel affichant une grille de jeu ainsi
+ * qu'un bouton par type de bateau
+ */
 public class PanelPlacement extends JPanel {
 
     protected JPanel bateauxPanel = new JPanel();
@@ -66,7 +70,39 @@ public class PanelPlacement extends JPanel {
         this.add(body);
     }
 
+    /**
+     * ajoute un controller pour gérer les évenements
+     * sur les differents boutons de l'interface
+     * @param controller
+     */
     public void addActionListener(ActionListener controller) {
+        this.deuxBateau.addActionListener(controller);
+        this.troisBateau.addActionListener(controller);
+        this.quatreBateau.addActionListener(controller);
+        this.cinqBateau.addActionListener(controller);
+    }
 
+    /**
+     * Permet de changer l'affichage des boutons
+     * @param enabled
+     *      statut (activé ou non)
+     * @param nbCasesBateau
+     *      bouton choisi
+     */
+    public void setBoutonEnabled(boolean enabled, int nbCasesBateau) {
+        switch(nbCasesBateau) {
+            case 2:
+                this.deuxBateau.setEnabled(enabled);
+                break;
+            case 3:
+                this.troisBateau.setEnabled(enabled);
+                break;
+            case 4:
+                this.quatreBateau.setEnabled(enabled);
+                break;
+            case 5:
+                this.cinqBateau.setEnabled(enabled);
+                break;
+        }
     }
 }

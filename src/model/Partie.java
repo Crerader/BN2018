@@ -5,9 +5,24 @@ import view.Vue;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
 public class Partie extends Observable {
+
+    /**
+     * constantes pour le nombre de bateau
+     * dans une catégorie donnée (2, 3, .., cases données)
+     */
+    public final static int NB_BATEAU_2 = 1;
+    public final static int NB_BATEAU_3 = 2;
+    public final static int NB_BATEAU_4 = 1;
+    public final static int NB_BATEAU_5 = 1;
+
+    /**
+     * Partie lancee ou non
+     */
+    private boolean started;
 
     /**
      * Joueur qui doit jouer
@@ -50,6 +65,7 @@ public class Partie extends Observable {
         this.humain = null;
         this.ia = null;
         this.vueJeu = null;
+        this.started = false;
         //this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
     }
 
@@ -174,5 +190,39 @@ public class Partie extends Observable {
         return ready;
     }
 
-    
+    /**
+     * permet de lancer la partie
+     */
+    public void start() {
+        if(!started) {
+            started = true;
+        }
+    }
+
+    /**
+     * permet de savoir si la partie
+     * est lancee ou non
+     *
+     * @return
+     *      statut lance de la partie
+     */
+    public boolean isStarted() {
+        return started;
+    }
+
+    /**
+     * récupère la liste des bateau d'un des deux joueurs
+     * @param ia
+     *      booléen pour savoir si on veut la liste de l'ia ou non
+     * @return
+     *      liste bateau du joueur demandé
+     */
+    public HashMap<Integer, Integer> getListeBateaux(boolean ia) {
+        if(ia) {
+            return this.ia.getListeBateaux();
+        } else {
+            return this.humain.getListeBateaux();
+        }
+    }
+
 }

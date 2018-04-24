@@ -2,6 +2,7 @@ package model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Joueur {
 
@@ -55,5 +56,18 @@ public abstract class Joueur {
      */
     public int getTailleBateaux(){
         return this.bateaux.size();
+    }
+
+    /**
+     * recupere la liste des bateaux du joueur classée
+     * par nombre de case de bateau
+     */
+    public HashMap<Integer, Integer> getListeBateaux() {
+        HashMap<Integer, Integer> liste = new HashMap<Integer, Integer>();
+        for(Bateau b : this.bateaux) {
+            int taille = b.getTaillePosition();
+            liste.put(taille, liste.get(taille)+1);
+        }
+        return liste;
     }
 }
