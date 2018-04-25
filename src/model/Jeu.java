@@ -31,13 +31,13 @@ public class Jeu extends Observable {
      * Créer une partie de bataille navale
      */
     public void commencer(int epoque, int ia){
+        VueJeu vueJeu = new VueJeu();
         this.partieEnCours = new Partie();
+        this.partieEnCours.addObserver(vueJeu);
         this.partieEnCours.setHumain(new Humain());
         this.choixEpoque(epoque);
         //Ajouter choix IA
         this.vueMenu.setVisible(false);
-        VueJeu vueJeu = new VueJeu();
-        this.partieEnCours.addObserver(vueJeu);
     }
 
     /**

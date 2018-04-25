@@ -20,4 +20,8 @@ public class Croiseur extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Croiseur";
+    }
 }

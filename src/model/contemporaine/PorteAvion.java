@@ -21,4 +21,8 @@ public class PorteAvion extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Porte Avion";
+    }
 }

@@ -20,4 +20,8 @@ public class Torpilleur extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Torpilleur";
+    }
 }

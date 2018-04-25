@@ -68,15 +68,27 @@ public abstract class Joueur {
     }
 
     /**
-     * recupere la liste des bateaux du joueur classée
+     * recupere la liste courante des bateaux du joueur classée
      * par nombre de case de bateau
      */
-    public HashMap<Integer, Integer> getListeBateaux() {
+    public HashMap<Integer, Integer> getListeBateauxBySize() {
         HashMap<Integer, Integer> liste = new HashMap<Integer, Integer>();
         for(Bateau b : this.bateaux) {
             int taille = b.getNbCase();
-            liste.put(taille, liste.get(taille)+1);
+            if(liste.get(taille) != null) {
+                liste.put(taille, liste.get(taille)+1);
+            } else {
+                liste.put(taille, 1);
+            }
         }
         return liste;
+    }
+
+    /**
+     * recupere la liste courante des bateaux du joueur classée
+     * par nombre de case de bateau
+     */
+    public ArrayList<Bateau> getListeBateaux() {
+        return this.bateaux;
     }
 }

@@ -106,7 +106,7 @@ public class Partie extends Observable {
         }
         this.epoque.creerBateau(humain);
         //Methode placer bateau pour IA
-
+        this.miseAjour();
     }
 
     /**
@@ -217,7 +217,22 @@ public class Partie extends Observable {
      * @return
      *      liste bateau du joueur demandé
      */
-    public HashMap<Integer, Integer> getListeBateaux(boolean ia) {
+    public HashMap<Integer, Integer> getListeBateauxBySize(boolean ia) {
+        if(ia) {
+            return this.ia.getListeBateauxBySize();
+        } else {
+            return this.humain.getListeBateauxBySize();
+        }
+    }
+
+    /**
+     * récupère la liste des bateau d'un des deux joueurs
+     * @param ia
+     *      booléen pour savoir si on veut la liste de l'ia ou non
+     * @return
+     *      liste bateau du joueur demandé
+     */
+    public ArrayList<Bateau> getListeBateaux(boolean ia) {
         if(ia) {
             return this.ia.getListeBateaux();
         } else {

@@ -20,4 +20,8 @@ public class SousMarin extends Bateau {
     public void prendreDegat() {
 
     }
+    public String toString() {
+        return "Sous-marin";
+    }
+
 }

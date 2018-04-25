@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+
 public abstract class Epoque {
 
     /**
@@ -32,5 +34,6 @@ public abstract class Epoque {
 
         }
     }
+
 
 }

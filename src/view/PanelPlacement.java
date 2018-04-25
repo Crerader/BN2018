@@ -1,11 +1,14 @@
 package view;
 
 import controller.ControllerGrille;
+import model.Bateau;
 import model.Jeu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Panel affichant une grille de jeu ainsi
@@ -32,7 +35,7 @@ public class PanelPlacement extends JPanel {
         this.quatreBateau.setActionCommand(BOUTON_BATEAU_4_CASES);
         this.cinqBateau.setActionCommand(BOUTON_BATEAU_5_CASES);
 
-        this.setPreferredSize(new Dimension(Vue.WIDTH-20, Vue.HEIGHT-100));
+        this.setPreferredSize(new Dimension(Vue.WIDTH-20, Vue.HEIGHT-200));
 
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension( Vue.WIDTH, Vue.HEIGHT));
@@ -90,7 +93,7 @@ public class PanelPlacement extends JPanel {
      *      bouton choisi
      */
     public void setBoutonEnabled(boolean enabled, int nbCasesBateau) {
-        switch(nbCasesBateau) {
+        switch (nbCasesBateau) {
             case 2:
                 this.deuxBateau.setEnabled(enabled);
                 break;
@@ -104,5 +107,34 @@ public class PanelPlacement extends JPanel {
                 this.cinqBateau.setEnabled(enabled);
                 break;
         }
+    }
+
+    /**
+     * Permet de modifier
+     * @param listeBateau
+     */
+    public void setBateauEpoque(ArrayList<Bateau> listeBateau) {
+        for(Bateau b : listeBateau) {
+            int taille = b.getNbCase();
+            switch (taille) {
+                case 2:
+                    this.deuxBateau.setText(b.toString());
+                    this.deuxBateau.setBackground(b.getColor());
+                    break;
+                case 3:
+                    this.troisBateau.setText(b.toString());
+                    this.troisBateau.setBackground(b.getColor());
+                    break;
+                case 4:
+                    this.quatreBateau.setText(b.toString());
+                    this.quatreBateau.setBackground(b.getColor());
+                    break;
+                case 5:
+                    this.cinqBateau.setText(b.toString());
+                    this.cinqBateau.setBackground(b.getColor());
+                    break;
+            }
+        }
+        this.repaint();
     }
 }

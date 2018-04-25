@@ -21,4 +21,8 @@ public class ManOWar extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "ManOWar";
+    }
 }

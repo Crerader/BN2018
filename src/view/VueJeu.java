@@ -2,6 +2,7 @@ package view;
 
 import controller.ControllerJeu;
 import controller.ControllerMenu;
+import model.Bateau;
 import model.Partie;
 
 import javax.swing.*;
@@ -18,23 +19,26 @@ public class VueJeu extends Vue {
     private final PanelPlacement placement = new PanelPlacement();
     private final PanelJeu jeu = new PanelJeu();
     private final JFrame frame = new JFrame("Bataille Navale : partie");
-    private boolean inGame;
+    private boolean inGame, inPlacement;
     /**
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
     public VueJeu() {
-        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT));
+
         this.frame.setLocationRelativeTo(null);
         this.controller = new ControllerJeu();
         placement.addActionListener((ActionListener)this.controller);
         this.panel = placement;
         this.inGame = false;
+        this.inPlacement = false;
         this.setPanel(this.panel);
+        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH-50, VueJeu.HEIGHT-150));
     }
 
     public void setPanel(JPanel panel) {
+        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT));
         this.frame.setContentPane(panel);
-        this.frame.setResizable(true);
+        this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.pack();
         this.frame.setVisible(true);
@@ -45,12 +49,13 @@ public class VueJeu extends Vue {
     public void update(Observable o, Object arg) {
         Partie p = (Partie)o;
         boolean started = p.isStarted();
-
         if(started && !inGame) {
+            // lancement de la partie
             inGame = true;
             this.setPanel(this.jeu);
-        } else if (!started) {
-            HashMap<Integer, Integer> listeBateauHumain = p.getListeBateaux(false);
+        } else if (!started && inPlacement) {
+            // actualisation de l'interface en fonction des placements de bateaux
+            HashMap<Integer, Integer> listeBateauHumain = p.getListeBateauxBySize(false);
             if(listeBateauHumain.get(2) == Partie.NB_BATEAU_2) {
                 this.placement.setBoutonEnabled(false, 2);
             } else if (listeBateauHumain.get(3) == Partie.NB_BATEAU_3) {
@@ -60,7 +65,12 @@ public class VueJeu extends Vue {
             } else if (listeBateauHumain.get(5) == Partie.NB_BATEAU_5) {
                 this.placement.setBoutonEnabled(false, 5);
             }
+        } else if(!inPlacement) {
+            // actualisation de l'interface en fonction de l'époque choisie
+            this.inPlacement = true;
+            this.placement.setBateauEpoque(p.getListeBateaux(false));
         }
+        this.frame.pack();
     }
 
     public static void main(String[] args) {

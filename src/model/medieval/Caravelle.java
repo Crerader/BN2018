@@ -21,4 +21,8 @@ public class Caravelle extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Caravelle";
+    }
 }

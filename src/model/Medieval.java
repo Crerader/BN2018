@@ -6,6 +6,7 @@ import model.medieval.Galion;
 import model.medieval.ManOWar;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class Medieval extends Epoque {
 
@@ -23,4 +24,5 @@ public class Medieval extends Epoque {
         joueur.ajouterBateauSansPosi(drakkar2);
         joueur.ajouterBateauSansPosi(caravelle);
     }
+
 }

@@ -21,4 +21,8 @@ public class Drakkar extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Drakkar";
+    }
 }

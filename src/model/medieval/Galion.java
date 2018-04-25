@@ -21,4 +21,8 @@ public class Galion extends Bateau {
     public void prendreDegat() {
 
     }
+
+    public String toString() {
+        return "Galion";
+    }
 }

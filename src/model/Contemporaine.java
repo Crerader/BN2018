@@ -6,6 +6,7 @@ import model.contemporaine.SousMarin;
 import model.contemporaine.Torpilleur;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class Contemporaine extends Epoque {
     @Override
@@ -22,4 +23,7 @@ public class Contemporaine extends Epoque {
         joueur.ajouterBateauSansPosi(sousMarin2);
         joueur.ajouterBateauSansPosi(torpilleur);
     }
+
+
+
 }
