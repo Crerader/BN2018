@@ -22,6 +22,5 @@ public class Medieval extends Epoque {
         joueur.ajouterBateauSansPosi(drakkar1);
         joueur.ajouterBateauSansPosi(drakkar2);
         joueur.ajouterBateauSansPosi(caravelle);
-        
     }
 }
