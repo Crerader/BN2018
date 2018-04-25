@@ -38,8 +38,17 @@ public abstract class Joueur {
      * @param bateau qui a été placé
      * @param positions différentes cases occupé par le bateau
      */
-    public void ajouterBateau(Bateau bateau, ArrayList<Point> positions){
+    public void ajouterBateauPositions(Bateau bateau, ArrayList<Point> positions){
         bateau.setPositions(positions);
+        this.bateaux.add(bateau);
+    }
+
+    /**
+     * Ajoute un bateau sans position à un joueur
+     * Utile lors du placement des bateaux, recupere la liste des bateaux disponibles
+     * @param bateau
+     */
+    public void ajouterBateauSansPosi(Bateau bateau){
         this.bateaux.add(bateau);
     }
 
@@ -65,7 +74,7 @@ public abstract class Joueur {
     public HashMap<Integer, Integer> getListeBateaux() {
         HashMap<Integer, Integer> liste = new HashMap<Integer, Integer>();
         for(Bateau b : this.bateaux) {
-            int taille = b.getTaillePosition();
+            int taille = b.getNbCase();
             liste.put(taille, liste.get(taille)+1);
         }
         return liste;

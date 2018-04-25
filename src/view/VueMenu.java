@@ -23,7 +23,7 @@ public class VueMenu extends Vue {
     public VueMenu(Jeu jeu) {
         this.frame.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
         this.frame.setLocationRelativeTo(null);
-        this.controller = new ControllerMenu(jeu);
+        this.controller = new ControllerMenu(jeu,menu);
         menu.addActionListener((ActionListener)this.controller);
         this.panel = menu;
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerMenu;
+import model.Epoque;
 import model.Jeu;
 
 import javax.imageio.ImageIO;
@@ -16,16 +17,20 @@ public class PanelCreationPartie extends JPanel {
     public static final String ANNULER = "annuler";
 
 
+    private JRadioButton medieval;
+    private JRadioButton contemporaine;
+    private JRadioButton aleatoire;
+    private JRadioButton croix;
+
     private JPanel choixEpoque;
     private JPanel choixIA;
     private JButton valider;
     private JButton annuler;
 
 
-    public PanelCreationPartie(Jeu jeu){
+    public PanelCreationPartie(Jeu jeu) {
         super();
         this.setPreferredSize(new Dimension(Vue.WIDTH, Vue.HEIGHT));
-
 
         this.choixEpoque = new JPanel();
         ButtonGroup b1 = new ButtonGroup();
@@ -40,8 +45,8 @@ public class PanelCreationPartie extends JPanel {
         boutons.add(this.valider);
         boutons.add(this.annuler);
 
-        JRadioButton medieval = new JRadioButton("Médiéval");
-        JRadioButton contemporaine = new JRadioButton("Contemporaine");
+        medieval = new JRadioButton("Médiéval");
+        contemporaine = new JRadioButton("Contemporaine");
         b1.add(medieval);
         b1.add(contemporaine);
         medieval.setSelected(true);
@@ -58,17 +63,17 @@ public class PanelCreationPartie extends JPanel {
         JPanel medievalPanel = new JPanel();
         medievalPanel.setLayout(new BorderLayout());
         medievalPanel.add(new JLabel(new ImageIcon(medievalIcon)));
-        medievalPanel.add(medieval,BorderLayout.SOUTH);
+        medievalPanel.add(medieval, BorderLayout.SOUTH);
 
 
         JPanel contemporainelPanel = new JPanel();
         contemporainelPanel.setLayout(new BorderLayout());
         contemporainelPanel.add(new JLabel(new ImageIcon(contemporaineIcon)));
-        contemporainelPanel.add(contemporaine,BorderLayout.SOUTH);
+        contemporainelPanel.add(contemporaine, BorderLayout.SOUTH);
 
 
-        JRadioButton aleatoire = new JRadioButton("aléatoire");
-        JRadioButton croix = new JRadioButton("en croix");
+        aleatoire = new JRadioButton("aléatoire");
+        croix = new JRadioButton("en croix");
         b2.add(aleatoire);
         b2.add(croix);
         aleatoire.setSelected(true);
@@ -86,17 +91,34 @@ public class PanelCreationPartie extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(60,0,0,0);
-        this.add(titre,c);
+        c.insets = new Insets(60, 0, 0, 0);
+        this.add(titre, c);
         c.gridy = 1;
-        this.add(choixEpoque,c);
+        this.add(choixEpoque, c);
         c.gridy = 2;
-        this.add(choixIA,c);
+        this.add(choixIA, c);
         c.gridy = 3;
-        this.add(boutons,c);
+        this.add(boutons, c);
 
-        this.valider.addActionListener(new ControllerMenu(jeu));
-        this.annuler.addActionListener(new ControllerMenu(jeu));
+        this.valider.addActionListener(new ControllerMenu(jeu, this));
+        this.annuler.addActionListener(new ControllerMenu(jeu, this));
 
+    }
+
+    public int getChoixEpoque() {
+        if (this.medieval.isSelected()) {
+            return Epoque.MEDIEVAL;
+        } else {
+            return Epoque.CONTEMPORAINE;
+        }
+    }
+
+    public int getChoixIA() {
+        //A changer
+        if (this.aleatoire.isSelected()) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }

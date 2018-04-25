@@ -12,9 +12,11 @@ import java.awt.event.ActionListener;
 public class ControllerMenu implements ActionListener {
 
     private Jeu jeu;
+    private JPanel panel;
 
-    public ControllerMenu(Jeu jeu){
+    public ControllerMenu(Jeu jeu, JPanel panel){
         this.jeu = jeu;
+        this.panel = panel;
     }
 
     @Override
@@ -34,7 +36,8 @@ public class ControllerMenu implements ActionListener {
                 vueMenu.setPanel(VueMenu.menu);
                 break;
             case PanelCreationPartie.VALIDER:
-                jeu.commencer();
+                PanelCreationPartie tmp = (PanelCreationPartie) this.panel;
+                jeu.commencer(tmp.getChoixEpoque(),tmp.getChoixIA());
                 break;
         }
     }

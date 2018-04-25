@@ -169,7 +169,7 @@ public class Partie extends Observable {
             }
         }
         if(res){
-            joueur.ajouterBateau(bateau,positions);
+            joueur.ajouterBateauPositions(bateau,positions);
         }
         return res;
     }

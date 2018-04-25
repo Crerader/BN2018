@@ -30,8 +30,11 @@ public class Jeu extends Observable {
     /**
      * Créer une partie de bataille navale
      */
-    public void commencer(){
+    public void commencer(int epoque, int ia){
         this.partieEnCours = new Partie();
+        this.partieEnCours.setHumain(new Humain());
+        this.choixEpoque(epoque);
+        //Ajouter choix IA
         this.vueMenu.setVisible(false);
         VueJeu vueJeu = new VueJeu();
         this.partieEnCours.addObserver(vueJeu);
@@ -41,7 +44,7 @@ public class Jeu extends Observable {
      * Choix de l'époque des bateaux
      * @param epoque époque des bateaux, 0 : medievalle, 1 : contemporaine
      */
-    public void choixEpoque(int epoque){
+    private void choixEpoque(int epoque){
         this.partieEnCours.ajouterEpoque(epoque);
     }
 
