@@ -7,6 +7,7 @@ import model.Jeu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -78,11 +79,11 @@ public class PanelPlacement extends JPanel {
      * sur les differents boutons de l'interface
      * @param controller
      */
-    public void addActionListener(ActionListener controller) {
-        this.deuxBateau.addActionListener(controller);
-        this.troisBateau.addActionListener(controller);
-        this.quatreBateau.addActionListener(controller);
-        this.cinqBateau.addActionListener(controller);
+    public void addMouseListener(MouseListener controller) {
+        this.deuxBateau.addMouseListener(controller);
+        this.troisBateau.addMouseListener(controller);
+        this.quatreBateau.addMouseListener(controller);
+        this.cinqBateau.addMouseListener(controller);
     }
 
     /**

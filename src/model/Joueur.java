@@ -60,6 +60,24 @@ public abstract class Joueur {
         return this.bateaux.get(i);
     }
 
+
+    /**
+     * méthode qui récupère le premier bateau de nombre de case donné
+     * qui n'est pas encore positionné sur la grille
+     * @param nbCase
+     *          nombre de case du bateau souhaité
+     * @return
+     *          premier bateau disponible
+     */
+    public Bateau getBateauNoPosition(int nbCase) {
+        for(Bateau b : this.bateaux) {
+            if(b.getTaillePosition() == 0 && b.getNbCase() == nbCase) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     /**
      * @return la taille de la liste de bateaux
      */

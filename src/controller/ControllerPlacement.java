@@ -1,5 +1,6 @@
 package controller;
 
+import model.Bateau;
 import model.Partie;
 import view.PanelPlacement;
 
@@ -18,15 +19,32 @@ public class ControllerPlacement implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         JButton btn = (JButton) e.getSource();
+        Bateau b;
         switch(btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-                //T0D0 : verifier si le bateau du joueur possède une position ou non, s'il n'en as pas on peut le placer
+                b = partie.getHumain().getBateauNoPosition(2);
+                if(b != null) {
+                    // lancement detection click placement
+                    System.out.println("choisir une case et une orientation");
+                }
                 break;
             case PanelPlacement.BOUTON_BATEAU_3_CASES:
+                b = partie.getHumain().getBateauNoPosition(3);
+                if(b != null) {
+
+                }
                 break;
             case PanelPlacement.BOUTON_BATEAU_4_CASES:
+                b = partie.getHumain().getBateauNoPosition(4);
+                if(b != null) {
+
+                }
                 break;
             case PanelPlacement.BOUTON_BATEAU_5_CASES:
+                b = partie.getHumain().getBateauNoPosition(5);
+                if(b != null) {
+
+                }
                 break;
         }
     }

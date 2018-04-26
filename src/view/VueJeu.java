@@ -2,6 +2,7 @@ package view;
 
 import controller.ControllerJeu;
 import controller.ControllerMenu;
+import controller.ControllerPlacement;
 import model.Bateau;
 import model.Partie;
 
@@ -26,8 +27,8 @@ public class VueJeu extends Vue {
     public VueJeu() {
 
         this.frame.setLocationRelativeTo(null);
-        this.controller = new ControllerJeu();
-        placement.addActionListener((ActionListener)this.controller);
+        //this.controller = new ControllerJeu();
+        //placement.addActionListener((ActionListener)this.controller);
         this.panel = placement;
         this.inGame = false;
         this.inPlacement = false;
@@ -68,6 +69,7 @@ public class VueJeu extends Vue {
         } else if(!inPlacement) {
             // actualisation de l'interface en fonction de l'époque choisie
             this.inPlacement = true;
+            this.placement.addMouseListener(new ControllerPlacement(p));
             this.placement.setBateauEpoque(p.getListeBateaux(false));
         }
         this.frame.pack();
