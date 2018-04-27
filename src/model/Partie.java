@@ -171,6 +171,7 @@ public class Partie extends Observable {
         if(res){
             joueur.ajouterBateauPositions(bateau,positions);
         }
+        miseAjour();
         return res;
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerGrille;
+import model.Bateau;
 import model.Jeu;
 
 import javax.swing.*;
@@ -46,6 +47,12 @@ public class PanelGrille extends JPanel {
             for(int j = 0; j < this.cases[i].length; j++) {
                 this.cases[i][j].addMouseListener(listener);
             }
+        }
+    }
+
+    public void afficherBateau(Bateau b) {
+        for(Point p : b.getPositions()) {
+            this.cases[(int)p.getY()][(int)p.getX()].setBackground(b.getColor());
         }
     }
 }

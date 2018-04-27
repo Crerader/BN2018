@@ -61,6 +61,15 @@ public abstract class Bateau {
     }
 
     /**
+     * retourne les positions du bateau
+     * @return
+     *      liste de positions
+     */
+    public ArrayList<Point> getPositions() {
+        return positions;
+    }
+
+    /**
      * @return la taille de la liste des cases (représenter par des points)
      */
     public int getTaillePosition(){

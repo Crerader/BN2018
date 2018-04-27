@@ -9,6 +9,7 @@ import model.Partie;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -72,7 +73,14 @@ public class VueJeu extends Vue {
             this.placement.addMouseListener(new ControllerPlacement(p));
             this.placement.setBateauEpoque(p.getListeBateaux(false));
         }
+        this.afficherBateaux(p.getListeBateaux(false));
         this.frame.pack();
+    }
+
+    public void afficherBateaux(ArrayList<Bateau> bateaux) {
+        if(inPlacement) {
+            this.placement.afficherBateaux(bateaux);
+        }
     }
 
     public static void main(String[] args) {

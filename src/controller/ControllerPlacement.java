@@ -42,29 +42,44 @@ public class ControllerPlacement implements MouseListener {
         Bateau b;
         switch (btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-                b = partie.getHumain().getBateauNoPosition(2);
-                if (b != null) {
-                    // lancement detection click placement
-                    System.out.println("choisir une case et une orientation");
-                    this.bateauSelected = b;
+                if (this.caseSelected == null) {
+                    b = partie.getHumain().getBateauNoPosition(2);
+                    if (b != null) {
+                        // lancement detection click placement
+                        this.bateauSelected = b;
+                    }
+                }else {
+                    cancelSelection();
                 }
                 break;
             case PanelPlacement.BOUTON_BATEAU_3_CASES:
-                b = partie.getHumain().getBateauNoPosition(3);
-                if (b != null) {
-                    this.bateauSelected = b;
+                if (this.caseSelected == null) {
+                    b = partie.getHumain().getBateauNoPosition(3);
+                    if (b != null) {
+                        this.bateauSelected = b;
+                    }
+                }else {
+                    cancelSelection();
                 }
                 break;
             case PanelPlacement.BOUTON_BATEAU_4_CASES:
-                b = partie.getHumain().getBateauNoPosition(4);
-                if (b != null) {
-                    this.bateauSelected = b;
+                if (this.caseSelected == null) {
+                    b = partie.getHumain().getBateauNoPosition(4);
+                    if (b != null) {
+                        this.bateauSelected = b;
+                    }
+                } else {
+                    cancelSelection();
                 }
                 break;
             case PanelPlacement.BOUTON_BATEAU_5_CASES:
-                b = partie.getHumain().getBateauNoPosition(5);
-                if (b != null) {
-                    this.bateauSelected = b;
+                if (this.caseSelected == null) {
+                    b = partie.getHumain().getBateauNoPosition(5);
+                    if (b != null) {
+                        this.bateauSelected = b;
+                    }
+                }else {
+                    cancelSelection();
                 }
                 break;
 
@@ -91,18 +106,17 @@ public class ControllerPlacement implements MouseListener {
                             this.caseSelected.setBackground(this.bateauSelected.getColor());
                             occupiedCases.add(this.caseSelected);
                             this.partie.placerBateau(this.bateauSelected, this.partie.getHumain(), positions);
-                            System.out.println("boat added");
                             this.bateauSelected = null;
                             this.caseSelected = null;
+                            this.prevCases.clear();
                         }
-                    } else {
-                        this.caseSelected.setBackground(new JButton().getBackground());
-                        this.caseSelected = null;
-                        this.refreshGrille();
                     }
+                } else {
+                    System.out.println("right click");
+                    cancelSelection();
                 }
-             }
         }
+    }
 
         @Override
         public void mousePressed (MouseEvent e){
@@ -133,7 +147,7 @@ public class ControllerPlacement implements MouseListener {
                         JButton entered;
                         switch (getDirectionFromPosition(this.caseSelectedX, this.caseSelectedY, (int) pos.getX(), (int) pos.getY())) {
                             case "RIGHT":
-                                if (this.caseSelectedX + this.bateauSelected.getNbCase() < 10) {
+                                if (this.caseSelectedX + this.bateauSelected.getNbCase()-1 < 10) {
                                     refreshGrille();
                                     for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY][this.caseSelectedX + i];
@@ -143,7 +157,7 @@ public class ControllerPlacement implements MouseListener {
                                 }
                                 break;
                             case "LEFT":
-                                if (this.caseSelectedX - this.bateauSelected.getNbCase() >= 0) {
+                                if (this.caseSelectedX - this.bateauSelected.getNbCase()+1 >= 0) {
                                     refreshGrille();
                                     for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY][this.caseSelectedX - i];
@@ -153,7 +167,7 @@ public class ControllerPlacement implements MouseListener {
                                 }
                                 break;
                             case "DOWN":
-                                if (this.caseSelectedY + this.bateauSelected.getNbCase() < 10) {
+                                if (this.caseSelectedY + this.bateauSelected.getNbCase()-1 < 10) {
                                     refreshGrille();
                                     for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY + i][this.caseSelectedX];
@@ -163,7 +177,7 @@ public class ControllerPlacement implements MouseListener {
                                 }
                                 break;
                             case "UP":
-                                if (this.caseSelectedY - this.bateauSelected.getNbCase() >= 0) {
+                                if (this.caseSelectedY - this.bateauSelected.getNbCase()+1 >= 0) {
                                     refreshGrille();
                                     for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY - i][this.caseSelectedX];
@@ -215,6 +229,14 @@ public class ControllerPlacement implements MouseListener {
             }
             this.prevCases.clear();
         }
+    }
+
+    private void cancelSelection() {
+        if (this.caseSelected != null) {
+            this.caseSelected.setBackground(new JButton().getBackground());
+            this.caseSelected = null;
+        }
+        this.refreshGrille();
     }
 
 

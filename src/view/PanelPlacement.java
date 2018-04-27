@@ -114,7 +114,7 @@ public class PanelPlacement extends JPanel {
     }
 
     /**
-     * Permet de modifier
+     * Permet de modifier l'époque
      * @param listeBateau
      */
     public void setBateauEpoque(ArrayList<Bateau> listeBateau) {
@@ -140,5 +140,11 @@ public class PanelPlacement extends JPanel {
             }
         }
         this.repaint();
+    }
+
+    public void afficherBateaux(ArrayList<Bateau> listeBateaux) {
+        for(Bateau b : listeBateaux) {
+            ((PanelGrille)this.grillePanel).afficherBateau(b);
+        }
     }
 }
