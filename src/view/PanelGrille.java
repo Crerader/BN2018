@@ -5,6 +5,7 @@ import model.Jeu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 /**
  * Représente l'affichage de la grille
@@ -13,7 +14,7 @@ import java.awt.*;
 public class PanelGrille extends JPanel {
 
     private JButton[][] cases;
-    private final static int ASCII = 65;
+    public final static int ASCII = 65;
 
     public PanelGrille() {
         super();
@@ -24,9 +25,7 @@ public class PanelGrille extends JPanel {
             char currentLine = (char)(ASCII + i);
             for(int j = 0; j < this.cases.length; j++) {
                 String id = "" + currentLine + j;
-                ControllerGrille cg = new ControllerGrille();
                 this.cases[i][j] = new JButton(id);
-                this.cases[i][j].addMouseListener(cg);
                 this.cases[i][j].setActionCommand(id);
                 this.cases[i][j].setPreferredSize(new Dimension(20,20));
                 this.add(this.cases[i][j]);
@@ -34,8 +33,19 @@ public class PanelGrille extends JPanel {
         }
     }
 
-    public JButton getGrille(int i, int j) {
+    public JButton getCase(int i, int j) {
         return this.cases[i][j];
     }
 
+    public JButton[][] getGrille(){
+        return this.cases;
+    }
+
+    public void addMouseListener(MouseListener listener) {
+        for(int i = 0 ; i < this.cases.length; i++) {
+            for(int j = 0; j < this.cases[i].length; j++) {
+                this.cases[i][j].addMouseListener(listener);
+            }
+        }
+    }
 }

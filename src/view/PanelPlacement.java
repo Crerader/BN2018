@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerGrille;
+import controller.ControllerPlacement;
 import model.Bateau;
 import model.Jeu;
 
@@ -84,6 +85,8 @@ public class PanelPlacement extends JPanel {
         this.troisBateau.addMouseListener(controller);
         this.quatreBateau.addMouseListener(controller);
         this.cinqBateau.addMouseListener(controller);
+        this.grillePanel.addMouseListener(controller);
+        ((ControllerPlacement)controller).setGrille(((PanelGrille)this.grillePanel).getGrille());
     }
 
     /**
