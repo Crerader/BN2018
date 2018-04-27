@@ -14,15 +14,15 @@ public abstract class Joueur {
     /**
      * Plateau des cases attaquées par le joueur
      */
-    private boolean[][] attaque;
+    protected boolean[][] attaque;
     /**
      * Joueur adverse
      */
-    private Joueur adversaire;
+    protected Joueur adversaire;
     /**
      * Liste des bateaux disponibles ou coulés du joueur
      */
-    private ArrayList<Bateau> bateaux;
+    protected ArrayList<Bateau> bateaux;
 
     /**
      * Constructeur vide
