@@ -106,6 +106,7 @@ public class Partie extends Observable {
         }
         this.epoque.creerBateau(humain);
         //Methode placer bateau pour IA
+        this.epoque.creerBateau(ia);
         this.miseAjour();
     }
 
