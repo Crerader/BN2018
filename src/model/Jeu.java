@@ -24,7 +24,7 @@ public class Jeu extends Observable {
      */
     public static void main(String[]args){
         Jeu jeu = new Jeu();
-
+        //jeu.charger("save1.xml");
     }
 
     /**
@@ -37,7 +37,7 @@ public class Jeu extends Observable {
         this.partieEnCours.setHumain(new Humain());
         this.partieEnCours.setIa(new Ordinateur());
         this.choixEpoque(epoque);
-        //Ajouter choix IA
+        this.choixIA(ia);
         this.vueMenu.setVisible(false);
     }
 
@@ -46,14 +46,23 @@ public class Jeu extends Observable {
      * @param epoque époque des bateaux, 0 : medievalle, 1 : contemporaine
      */
     private void choixEpoque(int epoque){
-        this.partieEnCours.ajouterEpoque(epoque);
+        this.partieEnCours.ajouterEpoque(epoque,false);
+    }
+
+    /**
+     * Choix de l'attaque de l'IA
+     * @param ia type d'attaque, 0 : aléatoire, 1 : en croix;
+     */
+    private void choixIA(int ia){
+        this.partieEnCours.setChoixIA(ia);
     }
 
     /**
      * Charge une partie de jeu
      */
-    public void charger(){
-
+    public void charger(String chemin){
+        this.partieEnCours = new Partie();
+        this.partieEnCours.load(chemin);
     }
 
     /**

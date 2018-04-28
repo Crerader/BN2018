@@ -10,23 +10,23 @@ public class Ordinateur extends Joueur{
     //String utilisé pour le jeu en croix afin de savoir quel a été le dernier mouvement
     //Cela permettra de savoir quel est la croix que l'on doit regarder
     private String lastPlay;
-    private String styleDeJeu;
+    private int styleDeJeu;
 
     public Ordinateur(){
         super();
     }
 
-    public void setStyle(String s){
+    public void setStyle(int s){
         this.styleDeJeu = s;
     }
 
 
     public void jouerUnCoup(){
         switch(styleDeJeu){
-            case "aleatoire":
+            case 0:
                 this.jouerAleatoire();
                 break;
-            case "croix":
+            case 1:
                 this.jouerCroix();
                 break;
             default:

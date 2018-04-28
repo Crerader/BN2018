@@ -31,6 +31,11 @@ public abstract class Joueur {
         this.adversaire = null;
         this.bateaux = new ArrayList<Bateau>();
         this.attaque = new boolean[10][10];
+        for(int i = 0 ; i < 10 ; i++){
+            for(int j = 0 ; j < 10 ; j++){
+                this.attaque[i][j] = false;
+            }
+        }
     }
 
     /**
@@ -108,5 +113,14 @@ public abstract class Joueur {
      */
     public ArrayList<Bateau> getListeBateaux() {
         return this.bateaux;
+    }
+
+    /**
+     * Change la valeur de la case du tableau attaque à true
+     * @param x
+     * @param y
+     */
+    public void setAttaque(int x, int y){
+        this.attaque[x][y] = true;
     }
 }

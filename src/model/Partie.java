@@ -66,7 +66,7 @@ public class Partie extends Observable {
         this.ia = null;
         this.vueJeu = null;
         this.started = false;
-        //this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
+        this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
     }
 
     /**
@@ -98,15 +98,17 @@ public class Partie extends Observable {
      * Set une époque via une factory
      * @param epoque 0 : medieval, 1 : contemporaine
      */
-    public void ajouterEpoque(int epoque) {
+    public void ajouterEpoque(int epoque, boolean sauvegarde) {
         if(epoque == 0){
             this.epoque = Epoque.getFactory(Epoque.MEDIEVAL);
         }else{
             this.epoque = Epoque.getFactory(Epoque.CONTEMPORAINE);
         }
         this.epoque.creerBateau(humain);
-        //Methode placer bateau pour IA
         this.epoque.creerBateau(ia);
+        if(!sauvegarde){
+            //Methode placer bateau pour IA
+        }
         this.miseAjour();
     }
 
@@ -240,6 +242,23 @@ public class Partie extends Observable {
         } else {
             return this.humain.getListeBateaux();
         }
+    }
+
+    /**
+     * Charge une partie
+     * @param chemin fichier de sauvegarde à charger
+     */
+    public void load(String chemin){
+        this.dao.getPartieDAO().load(chemin,this);
+    }
+
+    /**
+     * Choix du type d'attaque de l'ia
+     * @param ia type d'attaque
+     */
+    public void setChoixIA(int ia){
+        Ordinateur ordinateur  = (Ordinateur) this.ia;
+        ordinateur.setStyle(ia);
     }
 
 }
