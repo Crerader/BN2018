@@ -1,16 +1,17 @@
 package dao;
 
-import model.Humain;
-import model.Joueur;
-import model.Ordinateur;
-import model.Partie;
+import model.*;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PartieXMLFactory implements PartieDAO {
 
@@ -100,26 +101,14 @@ public class PartieXMLFactory implements PartieDAO {
             //charge les cases attaques par le joueur IA
             this.addAttaque(iaAttaques,ordinateur);
 
-
-
             //Création des bateaux en fonction de l'époque
             partie.ajouterEpoque(partieEpoque,true);
-            //System.out.println(partie.getHumain().getBateau(0).getColor().toString());
-
 
             //charge les bateaux du joueur Humain
-            int nbNodeBateaux = humainBateaux.getLength();
-            for(int i = 0 ; i < nbNodeBateaux ; i++){
-                Node nodeHumainBateau = humainBateaux.item(i);
-                if(nodeHumainBateau.getNodeName().equals("bateau")){
-                    NodeList nodeList = nodeHumainBateau.getChildNodes();
-                    int nbNodeList = nodeList.getLength();
-                    for(int  j = 0 ; j < nbNodeList ; j++){
-                        System.out.println(" j : " + j + " : " + nodeList.item(j).getNodeName());
-                    }
-                }
-                //System.out.println(" i : " + i + " : " + humainBateaux.item(i).getNodeName());
-            }
+            this.addBoat(humainBateaux,humain1);
+
+            //charge les bateaux de l'ordinateur
+            this.addBoat(iaBateaux,ordinateur);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +116,35 @@ public class PartieXMLFactory implements PartieDAO {
     }
 
     @Override
-    public void save(Partie partie) {
+    public void save(String chemin, Partie partie) {
+        try {
+            BufferedWriter save = new BufferedWriter(new FileWriter(chemin));
+            save.write(this.enteteXML.toString());
+            save.write("<Bataille>" + "\n");
+            save.write("<Humain>" + "\n");
+            save.write("<attaques>" + "\n");
+            save.write(this.attaques(partie.getHumain()));
+            save.write("</attaques>" + "\n");
+            save.write("<bateaux>" + "\n");
+            save.write(this.bateaux(partie.getHumain()));
+            save.write("</bateaux>" + "\n");
+            save.write("</Humain>" + "\n");
+            save.write("<IA>" + "\n");
+            save.write("<type>" + ((Ordinateur) partie.getIa()).getStyleDeJeu() + "</type>" + "\n");
+            save.write("<attaques>" + "\n");
+            save.write(this.attaques(partie.getIa()));
+            save.write("</attaques>" + "\n");
+            save.write("<bateaux>" + "\n");
+            save.write(this.bateaux(partie.getIa()));
+            save.write("</bateaux>" + "\n");
+            save.write("</IA>" + "\n");
+            save.write("<Epoque>" + partie.getEpoque().getType() + "</Epoque>" + "\n");
+            save.write("<Courant>" + partie.getJoueurCourant() + "</Courant>" + "\n");
+            save.write("</Bataille>" + "\n");
+            save.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -147,5 +164,93 @@ public class PartieXMLFactory implements PartieDAO {
                 j.setAttaque(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent()));
             }
         }
+    }
+
+    /**
+     * Ajout les bateaux contenu dans la sauvegarde au joueur
+     * @param root sauvegarde des bateaux
+     * @param joueur joueur
+     */
+    private void addBoat(NodeList root, Joueur joueur){
+        int nbNodeBateaux = root.getLength();
+        for(int i = 0 ; i < nbNodeBateaux ; i++){
+            Node nodeRotBateau = root.item(i);
+            if(nodeRotBateau.getNodeName().equals("bateau")){
+                NodeList nodeList = nodeRotBateau.getChildNodes();
+                Node typeBateau = nodeList.item(1);
+                //Recupere le type de bateau
+                String typeB = typeBateau.getTextContent();
+                Node hpBateau = nodeList.item(3);
+                //Recupere son nombre de points de vie
+                int hpB = Integer.parseInt(hpBateau.getTextContent());
+                //Recupere les différentes positions dans le tableau des cases
+                NodeList positions = nodeList.item(5).getChildNodes();
+                ArrayList<Point> pos = new ArrayList<>();
+
+                int nbNodeList = positions.getLength();
+                for(int j = 0 ; j < nbNodeList ; j++){
+                    if(positions.item(j).getNodeName().equals("Position")){
+                        NodeList p = positions.item(j).getChildNodes();
+                        Node x = p.item(1);
+                        Node y = p.item(3);
+                        pos.add(new Point(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent())));
+                    }
+                }
+                for(int j = 0 ; j < joueur.getTailleBateaux() ; j++){
+                    Bateau tmp = joueur.getBateau(j);
+                    if(tmp.toString().equals(typeB)){
+                        if(tmp.getTaillePosition() == 0){
+                            tmp.setHp(hpB);
+                            tmp.setPositions(pos);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    /**
+     * @param joueur joueur
+     * @return un string format XML comprenant les positions où le joueur a attaqué
+     */
+    private String attaques(Joueur joueur){
+        StringBuilder res = new StringBuilder();
+        for(int i = 0 ; i < joueur.getTaillePlateau() ; i++){
+            for(int j = 0 ; j < joueur.getTaillePlateau() ; j++){
+                if(joueur.getAttaque(i,j)){
+                    res.append("<attaque>" + "\n");
+                    res.append("<x>" + i + "</x>" +  "\n");
+                    res.append("<y>" + j + "</y>" + "\n");
+                    res.append("</attaque>" + "\n");
+                }
+            }
+        }
+        return res.toString();
+    }
+
+    /**
+     * @param joueur joueur
+     * @return un string format XML comprenant les informations des bateaux qu'a un joueur
+     */
+    private String bateaux(Joueur joueur){
+        StringBuilder res = new StringBuilder();
+        for(int i = 0 ; i < joueur.getTailleBateaux() ; i++) {
+            Bateau tmp = joueur.getBateau(i);
+            res.append("<bateau>" + "\n");
+            res.append("<type>" + tmp.toString() + "</type>" + "\n");
+            res.append("<hp>" + tmp.getHp() + "</hp>" + "\n");
+            res.append("<Positions>" + "\n");
+            for (int j = 0; j < tmp.getTaillePosition(); j++) {
+                res.append("<Position>" + "\n");
+                res.append("<x>" + tmp.getPostion(j).getX() + "</x>" +  "\n");
+                res.append("<y>" + tmp.getPostion(j).getY() + "</y>" + "\n");
+                res.append("</Position>" + "\n");
+            }
+            res.append("</Positions>" + "\n");
+            res.append("</bateau>" + "\n");
+
+        }
+        return res.toString();
     }
 }

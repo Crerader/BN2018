@@ -24,6 +24,10 @@ public class Contemporaine extends Epoque {
         joueur.ajouterBateauSansPosi(torpilleur);
     }
 
+    @Override
+    public int getType() {
+        return Epoque.CONTEMPORAINE;
+    }
 
 
 }

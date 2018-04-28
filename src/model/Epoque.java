@@ -35,5 +35,10 @@ public abstract class Epoque {
         }
     }
 
+    /**
+     * @return identifiant Epoque
+     */
+    public abstract int getType();
+
 
 }

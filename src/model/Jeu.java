@@ -24,7 +24,6 @@ public class Jeu extends Observable {
      */
     public static void main(String[]args){
         Jeu jeu = new Jeu();
-        //jeu.charger("save1.xml");
     }
 
     /**

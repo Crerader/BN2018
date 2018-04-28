@@ -25,4 +25,9 @@ public class Medieval extends Epoque {
         joueur.ajouterBateauSansPosi(caravelle);
     }
 
+    @Override
+    public int getType() {
+        return Epoque.MEDIEVAL;
+    }
+
 }

@@ -14,6 +14,8 @@ public abstract class Bateau {
     public static final int TAILLE_3_CASES = 3;
     public static final int TAILLE_2_CASES = 2;
 
+
+
     public static final int VIE_5_CASES = 30;
     public static final int VIE_4_CASES = 20;
     public static final int VIE_3_CASES = 15;
@@ -96,6 +98,14 @@ public abstract class Bateau {
      */
     public Color getColor() {
         return this.color;
+    }
+
+    /**
+     * Modifie les hp d'un bateau
+     * @param hp points de vie
+     */
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public abstract void prendreDegat();

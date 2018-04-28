@@ -123,4 +123,20 @@ public abstract class Joueur {
     public void setAttaque(int x, int y){
         this.attaque[x][y] = true;
     }
+
+    /**
+     * @return la taille du plateau
+     */
+    public int getTaillePlateau(){
+        return this.attaque.length;
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @return true si le joueur a attaqué cette position, false sinon
+     */
+    public boolean getAttaque(int x, int y) {
+        return this.attaque[x][y];
+    }
 }

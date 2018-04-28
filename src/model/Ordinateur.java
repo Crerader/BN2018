@@ -49,6 +49,13 @@ public class Ordinateur extends Joueur{
 
     }
 
+    /**
+     * @return le type d'attaque
+     */
+    public int getStyleDeJeu() {
+        return styleDeJeu;
+    }
+
     //TODO : A modifier afin de vérifier que l'on ne passe pas au dessus des autres bateaux déjà placés
     public void placerBateau(){
         Random rand = new Random();
