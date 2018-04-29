@@ -1,6 +1,7 @@
 package ia;
 
 import model.Bateau;
+import model.Joueur;
 import model.Ordinateur;
 
 import java.awt.*;
@@ -15,7 +16,8 @@ public class IAAleatoire extends Ordinateur {
     }
 
     @Override
-    public void jouerUnCoup() {
+    public int jouerUnCoup() {
+        int res = 0;
         Random rand = new Random();
         boolean stop = false;
         int bateau = 0;
@@ -29,22 +31,17 @@ public class IAAleatoire extends Ordinateur {
         }
         stop = false;
         while(!stop){
+            res = 0;
             int x = rand.nextInt(10);
             int y = rand.nextInt(10);
             if(!existePoint(this.attaqueRate,x,y)){
                 if(!existePoint(this.attaqueTouche,x,y)){
-                    Bateau bateauAdvers = this.adversaire.getBateauPosition(new Point(x,y));
-                    if(bateauAdvers != null && bateauAdvers.getHp() > 0){
-                        bateauAdvers.prendreDegat(b.getDegats());
-                        this.addAttaqueTouche(new Point(x,y));
-                        stop = true;
-                    }else{
-                        this.addAttaqueRate(new Point(x,y));
-                        stop = true;
-                    }
+                    res = this.estAttaque(new Point(x,y),b.getDegats());
+                    stop = true;
                 }
             }
         }
+        return  res;
 
 
     }

@@ -281,7 +281,7 @@ public abstract class Joueur {
     public int estAttaque(Point position, int degats) {
         int touche = Joueur.RATE;
         Bateau bateauAttaque = this.getBateauPosition(position);
-        if(bateauAttaque != null) {
+        if(bateauAttaque != null && bateauAttaque.getHp() > 0) {
             if(bateauAttaque.prendreDegat(degats)) {
                 touche = Joueur.COULE;
             } else {

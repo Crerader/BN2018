@@ -21,7 +21,7 @@ public  abstract class Ordinateur extends Joueur{
 
     public abstract int getType();
 
-    public abstract void jouerUnCoup();
+    public abstract int jouerUnCoup();
 
     /**
      * Crée l'IA en fonction de la stratégie d'attaque choisie

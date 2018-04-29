@@ -15,7 +15,7 @@ public class IACroiser extends Ordinateur {
     }
 
     @Override
-    public void jouerUnCoup() {
-
+    public int jouerUnCoup() {
+        return 0;
     }
 }
