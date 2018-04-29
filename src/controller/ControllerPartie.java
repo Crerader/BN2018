@@ -36,7 +36,6 @@ public class ControllerPartie implements MouseListener {
         Bateau b;
         switch (btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-                System.out.println("bateau 2 cases select");
                 b = partie.getHumain().getBateauByNbCaseNoPosition(2);
                 this.bateauSelected = b;
                 break;

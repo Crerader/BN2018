@@ -94,6 +94,14 @@ public abstract class Bateau {
     }
 
     /**
+     * set les degats du bateau
+     * @param degats
+     */
+    public void setDegats(int degats) {
+        this.degats = degats;
+    }
+
+    /**
      * @return la taille d'un bateau (correspond au nombre de cases)
      */
     public int getNbCase() {
@@ -128,7 +136,7 @@ public abstract class Bateau {
     public boolean prendreDegat(int degats) {
         boolean coule = false;
         if(this.hp - degats > 0) {
-            this.hp -= degats;
+            this.hp = this.hp - degats;
         } else {
             this.hp = 0;
             coule = true;

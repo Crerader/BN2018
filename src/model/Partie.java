@@ -240,7 +240,6 @@ public class Partie extends Observable {
      * permet de lancer la partie
      */
     public void start() {
-        System.out.println("start");
         if (!started) {
             started = true;
             this.log("Nouvelle partie lancée...\nC'est à votre tour de jouer.");
@@ -320,6 +319,7 @@ public class Partie extends Observable {
      *      attaque validee ou non
      */
     public int attaquer(Point p, Bateau b) throws InterruptedException {
+        //System.out.println("attaque bateau : " + b.getDegats());
         int res;
         if(getJoueurCourant() == JOUEUR_HUMAIN) {
             res = this.humain.attaque(p, b);
@@ -335,9 +335,7 @@ public class Partie extends Observable {
                     break;
             }
         } else {
-            Thread.sleep(500);
             res = ((Ordinateur)this.ia).jouerUnCoup();
-            miseAjour();
             switch(res) {
                 case Joueur.RATE:
                     this.log("Yes! L'IA vous a raté !");
@@ -356,6 +354,7 @@ public class Partie extends Observable {
             this.vainqueur = this.ia;
         }
         miseAjour();
+        Thread.sleep(300);
         changerJoueur();
         return res;
     }
