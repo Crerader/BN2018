@@ -9,9 +9,12 @@ import java.util.ArrayList;
 
 public class PanelJeu extends JPanel {
 
+
+
     protected JPanel grillePanelIA = new PanelGrille();
     protected JPanel grillePanelHumain = new PanelGrille();
     protected JPanel informationPanel = new InformationPartiePanel();
+
 
 
     public PanelJeu() {
