@@ -112,7 +112,6 @@ public class ControllerPlacement implements MouseListener {
                         }
                     }
                 } else {
-                    System.out.println("right click");
                     cancelSelection();
                 }
         }

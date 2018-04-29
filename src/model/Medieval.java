@@ -14,15 +14,15 @@ public class Medieval extends Epoque {
     public void creerBateau(Joueur joueur) {
         Bateau manowar = new ManOWar(Bateau.VIE_5_CASES,Color.RED);
         Bateau galion = new Galion(Bateau.VIE_4_CASES,Color.BLUE);
-        Bateau drakkar1 = new Drakkar(Bateau.VIE_3_CASES,Color.ORANGE);
-        Bateau drakkar2 = new Drakkar(Bateau.VIE_3_CASES,Color.ORANGE);
-        Bateau caravelle = new Caravelle(Bateau.VIE_2_CASES,Color.GREEN);
+        Bateau drakkar = new Drakkar(Bateau.VIE_3_CASES,Color.ORANGE);
+        Bateau caravelle1 = new Caravelle(Bateau.VIE_2_CASES,Color.GREEN);
+        Bateau caravelle2 = new Caravelle(Bateau.VIE_2_CASES,Color.GREEN);
 
         joueur.ajouterBateauSansPosi(manowar);
         joueur.ajouterBateauSansPosi(galion);
-        joueur.ajouterBateauSansPosi(drakkar1);
-        joueur.ajouterBateauSansPosi(drakkar2);
-        joueur.ajouterBateauSansPosi(caravelle);
+        joueur.ajouterBateauSansPosi(drakkar);
+        joueur.ajouterBateauSansPosi(caravelle1);
+        joueur.ajouterBateauSansPosi(caravelle2);
     }
 
     @Override

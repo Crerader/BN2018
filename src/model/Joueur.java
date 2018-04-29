@@ -39,13 +39,12 @@ public abstract class Joueur {
     }
 
     /**
-     * Ajout de bateau lors de la création de partie
+     * Changement position bateau donné
      * @param bateau qui a été placé
      * @param positions différentes cases occupé par le bateau
      */
     public void ajouterBateauPositions(Bateau bateau, ArrayList<Point> positions){
         bateau.setPositions(positions);
-        this.bateaux.add(bateau);
     }
 
     /**
@@ -97,11 +96,13 @@ public abstract class Joueur {
     public HashMap<Integer, Integer> getListeBateauxBySize() {
         HashMap<Integer, Integer> liste = new HashMap<Integer, Integer>();
         for(Bateau b : this.bateaux) {
+            liste.put(b.getNbCase(), 0);
+        }
+        int i = 0;
+        for(Bateau b : this.bateaux) {
             int taille = b.getNbCase();
-            if(liste.get(taille) != null) {
+            if(b.getTaillePosition() > 0) {
                 liste.put(taille, liste.get(taille)+1);
-            } else {
-                liste.put(taille, 1);
             }
         }
         return liste;
