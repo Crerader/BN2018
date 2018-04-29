@@ -258,11 +258,18 @@ public class Partie extends Observable {
 
     /**
      * Charge une partie
-     *
      * @param chemin fichier de sauvegarde à charger
      */
     public void load(String chemin) {
         this.dao.getPartieDAO().load(chemin, this);
+    }
+
+    /**
+     * Sauvegarde une partie en cours
+     * @param chemin nouveau fichier de sauvegarder creer
+     */
+    public void save(String chemin){
+        this.dao.getPartieDAO().save(chemin,this);
     }
 
     /**
@@ -283,7 +290,7 @@ public class Partie extends Observable {
      * @return
      *      attaque validee ou non
      */
-    public boolean attaquer(Point p, Bateau b) {
+    public int attaquer(Point p, Bateau b) {
         if(getJoueurCourant() == JOUEUR_HUMAIN) {
             return this.humain.attaque(p, b);
         } else {
