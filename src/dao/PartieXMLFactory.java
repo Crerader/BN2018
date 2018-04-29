@@ -244,8 +244,8 @@ public class PartieXMLFactory implements PartieDAO {
             res.append("<Positions>" + "\n");
             for (int j = 0; j < tmp.getTaillePosition(); j++) {
                 res.append("<Position>" + "\n");
-                res.append("<x>" + tmp.getPostion(j).getX() + "</x>" +  "\n");
-                res.append("<y>" + tmp.getPostion(j).getY() + "</y>" + "\n");
+                res.append("<x>" + (int)tmp.getPostion(j).getX() + "</x>" +  "\n");
+                res.append("<y>" + (int)tmp.getPostion(j).getY() + "</y>" + "\n");
                 res.append("</Position>" + "\n");
             }
             res.append("</Positions>" + "\n");

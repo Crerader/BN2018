@@ -255,11 +255,18 @@ public class Partie extends Observable {
 
     /**
      * Charge une partie
-     *
      * @param chemin fichier de sauvegarde à charger
      */
     public void load(String chemin) {
         this.dao.getPartieDAO().load(chemin, this);
+    }
+
+    /**
+     * Sauvegarde une partie en cours
+     * @param chemin nouveau fichier de sauvegarder creer
+     */
+    public void save(String chemin){
+        this.dao.getPartieDAO().save(chemin,this);
     }
 
     /**
@@ -270,5 +277,7 @@ public class Partie extends Observable {
     public void setChoixIA(int ia) {
         this.setIa(Ordinateur.getIA(ia));
     }
+
+
 
 }

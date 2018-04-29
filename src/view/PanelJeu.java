@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 
 public class PanelJeu extends JPanel {
 
+
+
     protected JPanel grillePanelIA = new PanelGrille();
     protected JPanel grillePanelHumain = new PanelGrille();
+
 
 
     public PanelJeu() {

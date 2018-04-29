@@ -3,6 +3,7 @@ package controller;
 import model.Jeu;
 import view.PanelCreationPartie;
 import view.PanelMenu;
+import view.VueJeu;
 import view.VueMenu;
 
 import javax.swing.*;
@@ -34,7 +35,7 @@ public class ControllerMenu implements ActionListener {
                 System.exit(0);
                 break;
             case PanelCreationPartie.ANNULER:
-                vueMenu.setPanel(VueMenu.menu);
+                jeu.activeVueMenu();
                 break;
             case PanelCreationPartie.VALIDER:
                 PanelCreationPartie tmp = (PanelCreationPartie) this.panel;

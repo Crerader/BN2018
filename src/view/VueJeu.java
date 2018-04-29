@@ -2,8 +2,10 @@ package view;
 
 import controller.ControllerJeu;
 import controller.ControllerMenu;
+import controller.ControllerMenuBar;
 import controller.ControllerPlacement;
 import model.Bateau;
+import model.Jeu;
 import model.Partie;
 
 import javax.swing.*;
@@ -17,15 +19,24 @@ public class VueJeu extends Vue {
 
     public final static int WIDTH = Vue.WIDTH + 200;
     public final static int HEIGHT = Vue.HEIGHT + 200;
+    public static final String NOUVEAU = "Nouveau";
+    public static final String SAUVEGARDER = "Sauvegarder";
+    public static final String QUITTER = "Quitter";
 
     private final PanelPlacement placement = new PanelPlacement();
     private final PanelJeu jeu = new PanelJeu();
     private final JFrame frame = new JFrame("Bataille Navale : partie");
     private boolean inGame, inPlacement;
+
+    protected JMenuBar menuBar = new JMenuBar();
+    protected JMenuItem menu = new JMenuItem(NOUVEAU);
+    protected JMenuItem menu_2 = new JMenuItem(SAUVEGARDER);
+    protected JMenuItem menu_3 = new JMenuItem(QUITTER);
+
     /**
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
-    public VueJeu() {
+    public VueJeu(Jeu j) {
 
         this.frame.setLocationRelativeTo(null);
         //this.controller = new ControllerJeu();
@@ -35,6 +46,12 @@ public class VueJeu extends Vue {
         this.inPlacement = false;
         this.setPanel(this.panel);
         this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH-50, VueJeu.HEIGHT-150));
+        this.menuBar.add(menu);
+        this.menuBar.add(menu_2);
+        this.menuBar.add(menu_3);
+        this.menu.addActionListener(new ControllerMenuBar(j));
+        this.menu_2.addActionListener(new ControllerMenuBar(j));
+        this.menu_3.addActionListener(new ControllerMenuBar(j));
     }
 
     public void setPanel(JPanel panel) {
@@ -55,7 +72,9 @@ public class VueJeu extends Vue {
             // lancement de la partie
             inGame = true;
             this.setPanel(this.jeu);
+            this.frame.setJMenuBar(this.menuBar);
         } else if (!started && inPlacement) {
+            this.frame.setJMenuBar(null);
             // actualisation de l'interface en fonction des placements de bateaux
             HashMap<Integer, Integer> listeBateauHumain = p.getListeBateauxBySize(false);
             if(listeBateauHumain.get(2) == Partie.NB_BATEAU_2) {
@@ -89,8 +108,12 @@ public class VueJeu extends Vue {
         }
     }
 
+    public void exit(){
+        this.frame.setVisible(false);
+    }
+
     public static void main(String[] args) {
-        VueJeu v = new VueJeu();
+        VueJeu v = new VueJeu(null);
     }
 
 }
