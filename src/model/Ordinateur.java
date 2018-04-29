@@ -177,6 +177,24 @@ public  abstract class Ordinateur extends Joueur{
         return res;
     }
 
+    /**
+     * @return un bateau aléatoire de l'IA qui est encore en vie
+     */
+    protected Bateau getBateauRandom(){
+        Random rand = new Random();
+        boolean stop = false;
+        int bateau = 0;
+        Bateau b = null;
+        while (!stop){
+            bateau = rand.nextInt(5);
+            b = this.getBateau(bateau);
+            if(b.getHp() > 0 ){
+                stop = true;
+            }
+        }
+        return b;
+    }
+
 
 
 }
