@@ -1,6 +1,7 @@
 package ia;
 
 import model.Bateau;
+import model.Joueur;
 import model.Ordinateur;
 
 import java.awt.*;
@@ -105,6 +106,16 @@ public class IACroiser extends Ordinateur {
             this.nbTitr = new ArrayList<>();
         }
         res = this.adversaire.estAttaque(attaque, b.getDegats());
+        switch (res){
+            case Joueur.RATE :
+                this.addAttaqueRate(attaque);
+                break;
+            case Joueur.TOUCHE :
+                this.addAttaqueTouche(attaque);
+                break;
+            default:
+                break;
+        }
         return res;
     }
 }
