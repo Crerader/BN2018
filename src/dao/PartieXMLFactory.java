@@ -20,14 +20,15 @@ public class PartieXMLFactory implements PartieDAO {
     private DocumentBuilderFactory factory;
     private StringBuilder enteteXML;
 
-    private PartieXMLFactory(){
+    private PartieXMLFactory() {
         this.factory = DocumentBuilderFactory.newInstance();
         this.enteteXML = new StringBuilder();
         this.enteteXML.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n");
         this.enteteXML.append("<!DOCTYPE Bataille [" + "\n");
         this.enteteXML.append("<!ELEMENT Bataille (Humain, IA, Epoque, Courant)>" + "\n");
-        this.enteteXML.append("<!ELEMENT Humain (attaques, bateaux)>" + "\n");
-        this.enteteXML.append("<!ELEMENT attaques (attaque*)>" + "\n");
+        this.enteteXML.append("<!ELEMENT Humain (attaqueRates, attaqueTouches, bateaux)>" + "\n");
+        this.enteteXML.append("<!ELEMENT attaqueRates (attaque*)>" + "\n");
+        this.enteteXML.append("<!ELEMENT attaqueTouches (attaque*)>" + "\n");
         this.enteteXML.append("<!ELEMENT attaque (x, y)>" + "\n");
         this.enteteXML.append("<!ELEMENT x (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT y (#PCDATA)>" + "\n");
@@ -37,16 +38,16 @@ public class PartieXMLFactory implements PartieDAO {
         this.enteteXML.append("<!ELEMENT hp (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT Positions (Position+)>" + "\n");
         this.enteteXML.append("<!ELEMENT Position (x, y)>" + "\n");
-        this.enteteXML.append("<!ELEMENT IA (type, attaques, bateaux)>" + "\n");
+        this.enteteXML.append("<!ELEMENT IA (type, attaqueRates, attaqueTouches, bateaux)>" + "\n");
         this.enteteXML.append("<!ELEMENT Epoque (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT Courant (#PCDATA)>" + "\n");
         this.enteteXML.append("] >" + "\n");
     }
 
-    public static PartieXMLFactory getInstance(){
-        if(instance == null){
-            synchronized (PartieXMLFactory.class){
-                if(instance == null){
+    public static PartieXMLFactory getInstance() {
+        if (instance == null) {
+            synchronized (PartieXMLFactory.class) {
+                if (instance == null) {
                     instance = new PartieXMLFactory();
                 }
             }
@@ -68,8 +69,9 @@ public class PartieXMLFactory implements PartieDAO {
             Joueur humain1 = new Humain();
             partie.setHumain(humain1);
             NodeList humainAttrs = humain.getChildNodes();
-            NodeList humainAttaques = humainAttrs.item(1).getChildNodes();
-            NodeList humainBateaux = humainAttrs.item(3).getChildNodes();
+            NodeList humainAttaquesRate = humainAttrs.item(1).getChildNodes();
+            NodeList humainAttaquesTouche = humainAttrs.item(3).getChildNodes();
+            NodeList humainBateaux = humainAttrs.item(5).getChildNodes();
 
             //Recupere attributs IA
             nodes = root.getElementsByTagName("IA");
@@ -79,8 +81,9 @@ public class PartieXMLFactory implements PartieDAO {
             int choixIA = Integer.parseInt(type.getTextContent());
             Joueur ordinateur = Ordinateur.getIA(choixIA);
             partie.setIa(ordinateur);
-            NodeList iaAttaques = iaAttrs.item(3).getChildNodes();
-            NodeList iaBateaux = iaAttrs.item(5).getChildNodes();
+            NodeList iaAttaquesRate = iaAttrs.item(3).getChildNodes();
+            NodeList iaAttaquesTouche = iaAttrs.item(5).getChildNodes();
+            NodeList iaBateaux = iaAttrs.item(7).getChildNodes();
 
             //Recupere époque
             nodes = root.getElementsByTagName("Epoque");
@@ -91,23 +94,25 @@ public class PartieXMLFactory implements PartieDAO {
             nodes = root.getElementsByTagName("Courant");
             Node courant = nodes.item(0);
             int joueurCourant = Integer.parseInt(courant.getTextContent());
-            if(partie.getJoueurCourant() != joueurCourant){
+            if (partie.getJoueurCourant() != joueurCourant) {
                 partie.changerJoueur();
             }
 
             //charge les cases attaqués par le joueur Humain
-            this.addAttaque(humainAttaques,humain1);
+            this.addAttaqueRate(humainAttaquesRate, humain1);
+            this.addAttaqueTouche(humainAttaquesTouche, humain1);
             //charge les cases attaques par le joueur IA
-            this.addAttaque(iaAttaques,ordinateur);
+            this.addAttaqueRate(iaAttaquesRate, ordinateur);
+            this.addAttaqueTouche(iaAttaquesTouche, ordinateur);
 
             //Création des bateaux en fonction de l'époque
-            partie.ajouterEpoque(partieEpoque,true);
+            partie.ajouterEpoque(partieEpoque, true);
 
             //charge les bateaux du joueur Humain
-            this.addBoat(humainBateaux,humain1);
+            this.addBoat(humainBateaux, humain1);
 
             //charge les bateaux de l'ordinateur
-            this.addBoat(iaBateaux,ordinateur);
+            this.addBoat(iaBateaux, ordinateur);
 
             partie.start();
 
@@ -123,18 +128,24 @@ public class PartieXMLFactory implements PartieDAO {
             save.write(this.enteteXML.toString());
             save.write("<Bataille>" + "\n");
             save.write("<Humain>" + "\n");
-            save.write("<attaques>" + "\n");
-            save.write(this.attaques(partie.getHumain()));
-            save.write("</attaques>" + "\n");
+            save.write("<attaqueRates>" + "\n");
+            save.write(this.attaqueRates(partie.getHumain()));
+            save.write("</attaqueRates>" + "\n");
+            save.write("<attaqueTouches>" + "\n");
+            save.write(this.attaqueTouches(partie.getHumain()));
+            save.write("</attaqueTouches>" + "\n");
             save.write("<bateaux>" + "\n");
             save.write(this.bateaux(partie.getHumain()));
             save.write("</bateaux>" + "\n");
             save.write("</Humain>" + "\n");
             save.write("<IA>" + "\n");
             save.write("<type>" + ((Ordinateur) partie.getIa()).getType() + "</type>" + "\n");
-            save.write("<attaques>" + "\n");
-            save.write(this.attaques(partie.getIa()));
-            save.write("</attaques>" + "\n");
+            save.write("<attaqueRates>" + "\n");
+            save.write(this.attaqueRates(partie.getIa()));
+            save.write("</attaqueRates>" + "\n");
+            save.write("<attaqueTouches>" + "\n");
+            save.write(this.attaqueTouches(partie.getIa()));
+            save.write("</attaqueTouches>" + "\n");
             save.write("<bateaux>" + "\n");
             save.write(this.bateaux(partie.getIa()));
             save.write("</bateaux>" + "\n");
@@ -150,33 +161,54 @@ public class PartieXMLFactory implements PartieDAO {
     }
 
     /**
-     * Ajoute les attaques sauvegarder au joueur
+     * Ajoute les attaques ratées sauvegarder au joueur
+     *
      * @param root sauvegarde des attaques
-     * @param j joueur
+     * @param j    joueur
      */
-    private void addAttaque(NodeList root, Joueur j){
+    private void addAttaqueRate(NodeList root, Joueur j) {
         int nbNodeRootAttaques = root.getLength();
-        for(int i = 0; i < nbNodeRootAttaques; i++) {
+        for (int i = 0; i < nbNodeRootAttaques; i++) {
             Node nodeRootAttaques = root.item(i);
-            if(nodeRootAttaques.getNodeName().equals("attaque")){
+            if (nodeRootAttaques.getNodeName().equals("attaque")) {
                 NodeList coor = nodeRootAttaques.getChildNodes();
                 Node x = coor.item(1);
                 Node y = coor.item(3);
-                j.setAttaque(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent()));
+                j.addAttaqueRate(new Point(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent())));
+            }
+        }
+    }
+
+    /**
+     * Ajoute les attaques touchées sauvegarder au joueur
+     *
+     * @param root sauvegarde des attaques
+     * @param j    joueur
+     */
+    private void addAttaqueTouche(NodeList root, Joueur j) {
+        int nbNodeRootAttaques = root.getLength();
+        for (int i = 0; i < nbNodeRootAttaques; i++) {
+            Node nodeRootAttaques = root.item(i);
+            if (nodeRootAttaques.getNodeName().equals("attaque")) {
+                NodeList coor = nodeRootAttaques.getChildNodes();
+                Node x = coor.item(1);
+                Node y = coor.item(3);
+                j.addAttaqueTouche(new Point(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent())));
             }
         }
     }
 
     /**
      * Ajout les bateaux contenu dans la sauvegarde au joueur
-     * @param root sauvegarde des bateaux
+     *
+     * @param root   sauvegarde des bateaux
      * @param joueur joueur
      */
-    private void addBoat(NodeList root, Joueur joueur){
+    private void addBoat(NodeList root, Joueur joueur) {
         int nbNodeBateaux = root.getLength();
-        for(int i = 0 ; i < nbNodeBateaux ; i++){
+        for (int i = 0; i < nbNodeBateaux; i++) {
             Node nodeRotBateau = root.item(i);
-            if(nodeRotBateau.getNodeName().equals("bateau")){
+            if (nodeRotBateau.getNodeName().equals("bateau")) {
                 NodeList nodeList = nodeRotBateau.getChildNodes();
                 Node typeBateau = nodeList.item(1);
                 //Recupere le type de bateau
@@ -189,8 +221,8 @@ public class PartieXMLFactory implements PartieDAO {
                 ArrayList<Point> pos = new ArrayList<>();
 
                 int nbNodeList = positions.getLength();
-                for(int j = 0 ; j < nbNodeList ; j++){
-                    if(positions.item(j).getNodeName().equals("Position")){
+                for (int j = 0; j < nbNodeList; j++) {
+                    if (positions.item(j).getNodeName().equals("Position")) {
                         NodeList p = positions.item(j).getChildNodes();
                         Node x = p.item(1);
                         Node y = p.item(3);
@@ -198,10 +230,10 @@ public class PartieXMLFactory implements PartieDAO {
                     }
                 }
                 boolean placer = false;
-                for(int j = 0 ; j < joueur.getTailleBateaux() ; j++){
+                for (int j = 0; j < joueur.getTailleBateaux(); j++) {
                     Bateau tmp = joueur.getBateau(j);
-                    if(tmp.toString().equals(typeB)){
-                        if(tmp.getTaillePosition() == 0 && !placer){
+                    if (tmp.toString().equals(typeB)) {
+                        if (tmp.getTaillePosition() == 0 && !placer) {
                             tmp.setHp(hpB);
                             tmp.setPositions(pos);
                             placer = true;
@@ -215,30 +247,50 @@ public class PartieXMLFactory implements PartieDAO {
 
     /**
      * @param joueur joueur
-     * @return un string format XML comprenant les positions où le joueur a attaqué
+     * @return un string format XML comprenant les positions où le joueur a attaqué qui sont ratées
      */
-    private String attaques(Joueur joueur){
+    private String attaqueRates(Joueur joueur) {
         StringBuilder res = new StringBuilder();
-        for(int i = 0 ; i < joueur.getTaillePlateau() ; i++){
-            for(int j = 0 ; j < joueur.getTaillePlateau() ; j++){
-                if(joueur.getAttaque(i,j)){
-                    res.append("<attaque>" + "\n");
-                    res.append("<x>" + i + "</x>" +  "\n");
-                    res.append("<y>" + j + "</y>" + "\n");
-                    res.append("</attaque>" + "\n");
-                }
-            }
+        for (int i = 0; i < joueur.getTailleAttaqueRate(); i++) {
+            Point p = joueur.getAttaqueRate(i);
+            int x = (int) p.getX();
+            int y = (int) p.getY();
+            res.append("<attaque>" + "\n");
+            res.append("<x>" + x + "</x>" + "\n");
+            res.append("<y>" + y + "</y>" + "\n");
+            res.append("</attaque>" + "\n");
         }
+
         return res.toString();
     }
 
     /**
      * @param joueur joueur
+     * @return un string format XML comprenant les positions où le joueur a attaqué qui sont réussies
+     */
+    private String attaqueTouches(Joueur joueur) {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < joueur.getTailleAttaqueTouche(); i++) {
+            Point p = joueur.getAttaqueTouche(i);
+            int x = (int) p.getX();
+            int y = (int) p.getY();
+            res.append("<attaque>" + "\n");
+            res.append("<x>" + x + "</x>" + "\n");
+            res.append("<y>" + y + "</y>" + "\n");
+            res.append("</attaque>" + "\n");
+        }
+
+        return res.toString();
+    }
+
+
+    /**
+     * @param joueur joueur
      * @return un string format XML comprenant les informations des bateaux qu'a un joueur
      */
-    private String bateaux(Joueur joueur){
+    private String bateaux(Joueur joueur) {
         StringBuilder res = new StringBuilder();
-        for(int i = 0 ; i < joueur.getTailleBateaux() ; i++) {
+        for (int i = 0; i < joueur.getTailleBateaux(); i++) {
             Bateau tmp = joueur.getBateau(i);
             res.append("<bateau>" + "\n");
             res.append("<type>" + tmp.toString() + "</type>" + "\n");
@@ -246,8 +298,8 @@ public class PartieXMLFactory implements PartieDAO {
             res.append("<Positions>" + "\n");
             for (int j = 0; j < tmp.getTaillePosition(); j++) {
                 res.append("<Position>" + "\n");
-                res.append("<x>" + (int)tmp.getPostion(j).getX() + "</x>" +  "\n");
-                res.append("<y>" + (int)tmp.getPostion(j).getY() + "</y>" + "\n");
+                res.append("<x>" + (int) tmp.getPostion(j).getX() + "</x>" + "\n");
+                res.append("<y>" + (int) tmp.getPostion(j).getY() + "</y>" + "\n");
                 res.append("</Position>" + "\n");
             }
             res.append("</Positions>" + "\n");

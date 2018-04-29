@@ -18,10 +18,6 @@ public abstract class Joueur {
      */
     public final static int NB_BATEAU = 5;
 
-    /**
-     * Plateau des cases attaquées par le joueur
-     */
-    protected boolean[][] attaque;
 
     /**
      * Plateau des cases attaquées par le joueur
@@ -49,12 +45,6 @@ public abstract class Joueur {
         this.bateaux = new ArrayList<Bateau>();
         this.attaqueRate = new ArrayList<Point>();
         this.attaqueTouche = new ArrayList<Point>();
-        this.attaque = new boolean[10][10];
-        for(int i = 0 ; i < 10 ; i++){
-            for(int j = 0 ; j < 10 ; j++){
-                this.attaque[i][j] = false;
-            }
-        }
     }
 
     /**
@@ -140,7 +130,7 @@ public abstract class Joueur {
         Bateau res = null;
         for(Bateau b : this.bateaux) {
             for(Point pos : b.getPositions()) {
-                if(pos == p) {
+                if(pos.getX() == p.getX() && pos.getY() == p.getY()) {
                     res = b;
                 }
             }
@@ -148,12 +138,6 @@ public abstract class Joueur {
         return res;
     }
 
-    /**
-     * @return la taille du plateau
-     */
-    public int getTaillePlateau(){
-        return this.attaque.length;
-    }
 
     /**
      * @return la taille de la liste de bateaux
@@ -203,25 +187,6 @@ public abstract class Joueur {
         this.attaqueRate.add(pxy);
     }
 
-
-    /**
-     * @param x
-     * @param y
-     * @return true si le joueur a attaqué cette position, false sinon
-     */
-    public boolean getAttaque(int x, int y) {
-        return this.attaque[x][y];
-    }
-
-    /**
-     * Change la valeur de la case du tableau attaque à true
-     * @param x
-     * @param y
-     */
-    public void setAttaque(int x, int y){
-        this.attaque[x][y] = true;
-    }
-
     /**
      * retourne la liste des cases visées
      * mais ratées
@@ -241,6 +206,7 @@ public abstract class Joueur {
     }
 
     /**
+
      * methode qui retourne true si le joueur est prêt à jouer
      * == que tous ses bateaux sont placés
      *
@@ -323,5 +289,70 @@ public abstract class Joueur {
             }
         }
         return touche;
+    }
+
+    /**
+     * La taille de la liste des attaques ratées
+     */
+    public int getTailleAttaqueRate(){
+        return this.attaqueRate.size();
+    }
+
+    /**
+     * @param i identifiant
+     * @return un point à la position i de la liste des attaques ratées
+     */
+    public Point getAttaqueRate(int i ){
+        return this.attaqueRate.get(i);
+    }
+
+    /**
+     * Ajout une  position d'une attaque raté au joueur
+     * @param p position d'une attaque ratée
+     */
+    public void addAttaqueRate(Point p){
+        this.attaqueRate.add(p);
+    }
+
+    /**
+     * La taille de la liste des attaques réussies
+     */
+    public int getTailleAttaqueTouche(){
+        return this.attaqueTouche.size();
+    }
+
+    /**
+     * @param i identifiant
+     * @return un point à la position i de la liste des attaques réussies
+     */
+    public Point getAttaqueTouche(int i ){
+        return this.attaqueTouche.get(i);
+    }
+
+    /**
+     * Ajout une  position d'une attaque réussies au joueur
+     * @param p position d'une attaque réussis
+     */
+    public void addAttaqueTouche(Point p){
+        this.attaqueTouche.add(p);
+    }
+
+    /**
+     * Indique si un point existe dans une liste
+     * @param points liste de points
+     * @param x coord x
+     * @param y coord y
+     * @return true si le point existe, false sinon
+     */
+    public boolean existePoint(ArrayList<Point> points,int x, int y){
+        boolean res = false;
+        for(int i = 0 ; i < points.size() ; i++){
+            Point tmp = points.get(i);
+            if(tmp.getY() == y && tmp.getX() == x){
+                res = true;
+                break;
+            }
+        }
+        return res;
     }
 }
