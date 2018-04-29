@@ -68,8 +68,12 @@ public class ControllerPartie implements MouseListener {
                             btn.setBorder(new LineBorder(Color.GREEN));
                             this.caseSelected = btn;
                             System.out.println("attaque en " + pos);
-                            this.partie.attaquer(posXY, this.bateauSelected);
-                            this.caseSelected = null;
+                            try {
+                                this.partie.attaquer(posXY, this.bateauSelected);
+                                this.caseSelected = null;
+                            } catch (Exception e1) {
+
+                            }
                         }
 //                        } else {
 //                            // cases du bateau selectionnees

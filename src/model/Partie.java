@@ -74,7 +74,7 @@ public class Partie extends Observable {
      * Constructeur vide
      */
     public Partie() {
-        this.joueurCourant = 0;
+        this.joueurCourant = JOUEUR_HUMAIN;
         this.epoque = null;
         this.humain = null;
         this.ia = null;
@@ -95,10 +95,12 @@ public class Partie extends Observable {
     /**
      * Change de joueur
      */
-    public void changerJoueur() {
+    public void changerJoueur() throws InterruptedException {
         if (this.joueurCourant == JOUEUR_HUMAIN) {
             this.joueurCourant = JOUEUR_IA ;
             this.lastMessage = "C'est au tour de l'IA de jouer.";
+            miseAjour();
+            attaquer(null, null);
         } else {
             this.joueurCourant = JOUEUR_HUMAIN;
             this.lastMessage = "C'est à votre tour de jouer.";
@@ -171,6 +173,7 @@ public class Partie extends Observable {
     public void miseAjour() {
         this.setChanged();
         this.notifyObservers();
+        this.lastMessage = "";
     }
 
     /**
@@ -304,33 +307,34 @@ public class Partie extends Observable {
      * @return
      *      attaque validee ou non
      */
-    public int attaquer(Point p, Bateau b) {
+    public int attaquer(Point p, Bateau b) throws InterruptedException {
         int res;
         if(getJoueurCourant() == JOUEUR_HUMAIN) {
             res = this.humain.attaque(p, b);
             switch(res) {
                 case Joueur.RATE:
-                    this.lastMessage = "Oups! Le tir n'a atteint aucune cible.";
+                    this.log("Oups! Le tir n'a atteint aucune cible.");
                     break;
                 case Joueur.COULE:
-                    this.lastMessage = "Bingo! Vous avez coulé un navire adverse.";
+                    this.log("Bingo! Vous avez coulé un navire adverse.");
                     break;
                 case Joueur.TOUCHE:
-                    this.lastMessage = "Yes! Votre tir a atteint une cible.";
+                    this.log("Yes! Votre tir a atteint une cible.");
                     break;
             }
         } else {
+            Thread.sleep(1000);
             res = ((Ordinateur)this.ia).jouerUnCoup();
             miseAjour();
             switch(res) {
                 case Joueur.RATE:
-                    this.lastMessage = "Yes! L'IA vous a raté !";
+                    this.log("Yes! L'IA vous a raté !");
                     break;
                 case Joueur.COULE:
-                    this.lastMessage = "Nooooon, l'IA a coulé votre bateau ! :(";
+                    this.log("Nooooon, l'IA a coulé votre bateau ! :(");
                     break;
                 case Joueur.TOUCHE:
-                    this.lastMessage = "Eh zut! L'IA a touché votre bateau. ";
+                    this.log("Eh zut! L'IA a touché votre bateau. ");
                     break;
             }
         }
@@ -355,7 +359,13 @@ public class Partie extends Observable {
      *          message à afficher
      */
     public void log(String message) {
-        this.lastMessage = message;
+        if(this.lastMessage == "") {
+            this.lastMessage = message;
+        } else if (this.lastMessage == message) {
+            this.lastMessage = message;
+        } else {
+            this.lastMessage += "\n" + message;
+        }
         miseAjour();
     }
 
