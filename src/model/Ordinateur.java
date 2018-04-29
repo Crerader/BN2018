@@ -196,5 +196,9 @@ public  abstract class Ordinateur extends Joueur{
     }
 
 
+    public String toString() {
+        return "Ordinateur";
+    }
+
 
 }

@@ -71,6 +71,11 @@ public class Partie extends Observable {
     private String lastMessage;
 
     /**
+     * joueur vainqueur de la partie
+     */
+    private Joueur vainqueur;
+
+    /**
      * Constructeur vide
      */
     public Partie() {
@@ -82,7 +87,16 @@ public class Partie extends Observable {
         this.started = false;
         this.ready = false;
         this.lastMessage = "";
+        this.vainqueur = null;
         this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
+    }
+
+    /**
+     * getter attribut vainqueur de la partie
+     * @return
+     */
+    public Joueur getVainqueur() {
+        return this.vainqueur;
     }
 
     /**
@@ -98,12 +112,11 @@ public class Partie extends Observable {
     public void changerJoueur() throws InterruptedException {
         if (this.joueurCourant == JOUEUR_HUMAIN) {
             this.joueurCourant = JOUEUR_IA ;
-            this.lastMessage = "C'est au tour de l'IA de jouer.";
-            miseAjour();
+            this.log("C'est au tour de l'IA de jouer.");
             attaquer(null, null);
         } else {
             this.joueurCourant = JOUEUR_HUMAIN;
-            this.lastMessage = "C'est à votre tour de jouer.";
+            this.log("C'est à votre tour de jouer.");
         }
         miseAjour();
     }
@@ -230,8 +243,7 @@ public class Partie extends Observable {
         System.out.println("start");
         if (!started) {
             started = true;
-            this.lastMessage = "Nouvelle partie lancée...";
-            miseAjour();
+            this.log("Nouvelle partie lancée...\nC'est à votre tour de jouer.");
         }
     }
 
@@ -323,7 +335,7 @@ public class Partie extends Observable {
                     break;
             }
         } else {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             res = ((Ordinateur)this.ia).jouerUnCoup();
             miseAjour();
             switch(res) {
@@ -337,6 +349,11 @@ public class Partie extends Observable {
                     this.log("Eh zut! L'IA a touché votre bateau. ");
                     break;
             }
+        }
+        if(this.ia.isDestructed()) {
+            this.vainqueur = this.humain;
+        } else if (this.humain.isDestructed()) {
+            this.vainqueur = this.ia;
         }
         miseAjour();
         changerJoueur();
@@ -364,9 +381,10 @@ public class Partie extends Observable {
         } else if (this.lastMessage == message) {
             this.lastMessage = message;
         } else {
-            this.lastMessage += "\n" + message;
+            //this.lastMessage += "\n" + message;
         }
         miseAjour();
+        this.lastMessage = "";
     }
 
 }

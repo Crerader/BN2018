@@ -86,4 +86,8 @@ public class PanelJeu extends JPanel {
             ((PanelGrille)this.grillePanelIA).afficherAttaqueRate(p);
         }
     }
+
+    public void setBateauEpoque(ArrayList<Bateau> bateauEpoque) {
+        ((InformationPartiePanel)this.informationPanel).setBateauEpoque(bateauEpoque);
+    }
 }

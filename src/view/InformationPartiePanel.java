@@ -1,5 +1,7 @@
 package view;
 
+import model.Bateau;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -7,6 +9,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class InformationPartiePanel extends JPanel {
 
@@ -85,6 +88,35 @@ public class InformationPartiePanel extends JPanel {
         this.troisBateau.addMouseListener(c);
         this.quatreBateau.addMouseListener(c);
         this.cinqBateau.addMouseListener(c);
+    }
+
+    /**
+     * Permet de modifier l'époque
+     * @param listeBateau
+     */
+    public void setBateauEpoque(ArrayList<Bateau> listeBateau) {
+        for(Bateau b : listeBateau) {
+            int taille = b.getNbCase();
+            switch (taille) {
+                case 2:
+                    this.deuxBateau.setText(b.toString());
+                    this.deuxBateau.setBackground(b.getColor());
+                    break;
+                case 3:
+                    this.troisBateau.setText(b.toString());
+                    this.troisBateau.setBackground(b.getColor());
+                    break;
+                case 4:
+                    this.quatreBateau.setText(b.toString());
+                    this.quatreBateau.setBackground(b.getColor());
+                    break;
+                case 5:
+                    this.cinqBateau.setText(b.toString());
+                    this.cinqBateau.setBackground(b.getColor());
+                    break;
+            }
+        }
+        this.repaint();
     }
 
 }

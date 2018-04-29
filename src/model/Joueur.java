@@ -356,4 +356,22 @@ public abstract class Joueur {
         }
         return res;
     }
+
+    /**
+     * Indique si le joueur a perdu
+     * tous ses bateaux ou non
+     *
+     * @return
+     *      joueur perdu
+     */
+    public boolean isDestructed() {
+        boolean destructed = true;
+        for(Bateau b : this.bateaux) {
+            if(b.getHp() > 0) {
+                destructed = false;
+                break;
+            }
+        }
+        return destructed;
+    }
 }
