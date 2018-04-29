@@ -7,6 +7,7 @@ import model.Jeu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 /**
  * Représente l'affichage de la grille
@@ -14,11 +15,16 @@ import java.awt.event.MouseListener;
  */
 public class PanelGrille extends JPanel {
 
+    private ArrayList<Point> casesRatees;
+    private ArrayList<Point> casesTouchees;
+
     private JButton[][] cases;
     public final static int ASCII = 65;
 
     public PanelGrille() {
         super();
+        this.casesRatees = new ArrayList<Point>();
+        this.casesTouchees = new ArrayList<Point>();
 
         this.cases = new JButton[10][10];
         this.setLayout(new GridLayout(10,10));
@@ -55,4 +61,14 @@ public class PanelGrille extends JPanel {
             this.cases[(int)p.getY()][(int)p.getX()].setBackground(b.getColor());
         }
     }
+
+    public void afficherAttaqueTouche(Point pxy) {
+        this.cases[(int)pxy.getY()][(int)pxy.getX()].setBackground(Color.RED);
+    }
+
+    public void afficherAttaqueRate(Point pxy) {
+        this.cases[(int)pxy.getY()][(int)pxy.getX()].setBackground(Color.GREEN);
+    }
+
+
 }

@@ -65,6 +65,12 @@ public class Partie extends Observable {
     private Vue vueJeu;
 
     /**
+     * Dernier message d'action à afficher dans la console
+     * de la partie
+     */
+    private String lastMessage;
+
+    /**
      * Constructeur vide
      */
     public Partie() {
@@ -75,6 +81,7 @@ public class Partie extends Observable {
         this.vueJeu = null;
         this.started = false;
         this.ready = false;
+        this.lastMessage = "";
         this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
     }
 
@@ -91,9 +98,12 @@ public class Partie extends Observable {
     public void changerJoueur() {
         if (this.joueurCourant == JOUEUR_HUMAIN) {
             this.joueurCourant = JOUEUR_IA ;
+            this.lastMessage = "C'est au tour de l'IA de jouer.";
         } else {
             this.joueurCourant = JOUEUR_HUMAIN;
+            this.lastMessage = "C'est à votre tour de jouer";
         }
+        miseAjour();
     }
 
     /**
@@ -214,6 +224,7 @@ public class Partie extends Observable {
     public void start() {
         if (!started) {
             started = true;
+            this.lastMessage = "Nouvelle partie lancée...";
             miseAjour();
         }
     }
@@ -296,6 +307,26 @@ public class Partie extends Observable {
         } else {
             return this.ia.attaque(p, b);
         }
+    }
+
+
+    /**
+     * retourne le dernier message de log
+     * @return
+     *      dernier message log
+     */
+    public String getLastMessage() {
+        return this.lastMessage;
+    }
+
+    /**
+     * Imprime un nouveau message
+     * @param message
+     *          message à afficher
+     */
+    public void log(String message) {
+        this.lastMessage = message;
+        miseAjour();
     }
 
 }

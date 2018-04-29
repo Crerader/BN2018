@@ -70,7 +70,6 @@ public class VueJeu extends Vue {
         boolean started = p.isStarted();
         if(started && !inGame) {
             // lancement de la partie
-            System.out.println("started !");
             inGame = true;
             inPlacement = false;
             this.jeu.addLogLine("Nouvelle partie lancée...", Color.RED);
@@ -118,6 +117,15 @@ public class VueJeu extends Vue {
             this.jeu.afficherBateaux(bateaux);
         }
     }
+
+    public void afficherAttaque(ArrayList<Point> attaquesRate, ArrayList<Point> attaquesTouchee) {
+        if (inGame) {
+            this.jeu.afficherAttaquesRatees(attaquesRate);
+            this.jeu.afficherAttaquesTouchees(attaquesTouchee);
+        }
+    }
+
+
 
     public void exit(){
         this.frame.setVisible(false);
