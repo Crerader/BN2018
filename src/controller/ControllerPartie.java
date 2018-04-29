@@ -36,7 +36,6 @@ public class ControllerPartie implements MouseListener {
         Bateau b;
         switch (btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-                System.out.println("bateau 2 cases select");
                 b = partie.getHumain().getBateauByNbCaseNoPosition(2);
                 this.bateauSelected = b;
                 break;
@@ -54,22 +53,23 @@ public class ControllerPartie implements MouseListener {
 
                 break;
             default:
-                System.out.println("ok1");
                 // selection d'une case de la grille
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     String pos = btn.getActionCommand();
                     if (this.bateauSelected != null) {
-                        System.out.println("ok2");
                         Point posXY = getPointFromActionCommand(pos);
                         if (this.caseSelected == null) {
-                            System.out.println("ok3");
                             this.caseSelectedX = (int) posXY.getX();
                             this.caseSelectedY = (int) posXY.getY();
                             btn.setBorder(new LineBorder(Color.GREEN));
                             this.caseSelected = btn;
-                            System.out.println("attaque en " + pos);
-                            this.partie.attaquer(posXY, this.bateauSelected);
-                            this.caseSelected = null;
+                            partie.log("Vous attaquez en " + pos + ".");
+                            try {
+                                this.partie.attaquer(posXY, this.bateauSelected);
+                                this.caseSelected = null;
+                            } catch (Exception e1) {
+
+                            }
                         }
 //                        } else {
 //                            // cases du bateau selectionnees

@@ -34,7 +34,6 @@ public class VueJeu extends Vue {
      * Constructeur prenant un JPanel et un EventListener comme controller
      */
     public VueJeu(Jeu j) {
-
         this.frame.setLocationRelativeTo(null);
         //this.controller = new ControllerJeu();
         //placement.addActionListener((ActionListener)this.controller);
@@ -65,14 +64,16 @@ public class VueJeu extends Vue {
     public void update(Observable o, Object arg) {
         Partie p = (Partie)o;
         boolean started = p.isStarted();
-        System.out.println("started : " + started + " ingame: " + this.inGame + " inplacement: " + this.inPlacement);
-        if(started && !inGame) {
+        if(p.getVainqueur() != null) {
+            this.jeu.addLogLine("Le vainqueur est l'" + p.getVainqueur() + " !", Color.GREEN);
+        } else if(started && !inGame) {
             // lancement de la partie
             inGame = true;
             inPlacement = false;
             this.jeu.addMouseListener(new ControllerPartie(p));
             this.setPanel(this.jeu);
             this.afficherBateaux(p.getListeBateaux(false));
+            this.jeu.setBateauEpoque(p.getListeBateaux(false));
             this.frame.setJMenuBar(this.menuBar);
             p.miseAjour();
         } else if (!started && inPlacement) {
@@ -103,9 +104,6 @@ public class VueJeu extends Vue {
             this.jeu.addLogLine(p.getLastMessage(), Color.red);
             this.jeu.afficherAttaquesRatees(p.getHumain().getAttaqueRate());
             this.jeu.afficherAttaquesTouchees(p.getHumain().getAttaqueTouche());
-            if(p.getJoueurCourant() == Partie.JOUEUR_HUMAIN) {
-                this.jeu.addLogLine("Choisissez le bâteau allié attaquant...", Color.blue);
-            }
         }
         this.afficherBateaux(p.getListeBateaux(false));
         this.afficherBateauToucher(p.getListeBateaux(false),p);
@@ -139,13 +137,9 @@ public class VueJeu extends Vue {
     }
 
 
-
     public void exit(){
         this.frame.setVisible(false);
     }
 
-    public static void main(String[] args) {
-        VueJeu v = new VueJeu(null);
-    }
 
 }

@@ -87,6 +87,10 @@ public class PanelJeu extends JPanel {
         }
     }
 
+    public void setBateauEpoque(ArrayList<Bateau> bateauEpoque) {
+        ((InformationPartiePanel) this.informationPanel).setBateauEpoque(bateauEpoque);
+    }
+
     public void afficherBateauxToucher(ArrayList<Bateau> bateaux, ArrayList<Point> toucherIA) {
         for(Bateau b : bateaux){
             for(int i = 0 ; i < b.getTaillePosition() ; i++){
