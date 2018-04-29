@@ -17,10 +17,6 @@ public class PorteAvion extends Bateau {
 
     }
 
-    @Override
-    public void prendreDegat() {
-
-    }
 
     public String toString() {
         return "Porte Avion";

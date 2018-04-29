@@ -16,10 +16,6 @@ public class SousMarin extends Bateau {
         this.nbCase = Bateau.TAILLE_3_CASES;
     }
 
-    @Override
-    public void prendreDegat() {
-
-    }
     public String toString() {
         return "Sous-marin";
     }

@@ -1,13 +1,17 @@
 package view;
 
+import model.Bateau;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PanelJeu extends JPanel {
 
     protected JPanel grillePanelIA = new PanelGrille();
     protected JPanel grillePanelHumain = new PanelGrille();
+    protected JPanel informationPanel = new InformationPartiePanel();
 
 
     public PanelJeu() {
@@ -18,11 +22,8 @@ public class PanelJeu extends JPanel {
         body.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT-50));
         body.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel side = new JPanel();
         //side.setPreferredSize(new Dimension(Vue.WIDTH / 3, Vue.HEIGHT));
-        side.setLayout(new BorderLayout());
         // T0D0: changer le bouton par un panel informatif
-        side.add(new JButton("lolilol"));
 
         GridBagConstraints horizontalFill = new GridBagConstraints();
         horizontalFill.anchor = GridBagConstraints.WEST;
@@ -48,8 +49,8 @@ public class PanelJeu extends JPanel {
         gbc.gridx = 16;
         gbc.gridy = 0;
         gbc.gridheight = 32;
-        gbc.gridwidth = 16;
-        body.add(side, gbc);
+        gbc.gridwidth = 32;
+        body.add(this.informationPanel, gbc);
 
         this.add(body, BorderLayout.LINE_START);
 
@@ -57,5 +58,15 @@ public class PanelJeu extends JPanel {
 
     public void addActionListener(ActionListener controller) {
 
+    }
+
+    public void afficherBateaux(ArrayList<Bateau> listeBateaux) {
+        for(Bateau b : listeBateaux) {
+            ((PanelGrille)this.grillePanelHumain).afficherBateau(b);
+        }
+    }
+
+    public void addLogLine(String txt, Color color) {
+        ((InformationPartiePanel)this.informationPanel).addLogLine(txt, color);
     }
 }

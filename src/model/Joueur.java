@@ -7,6 +7,13 @@ import java.util.HashMap;
 public abstract class Joueur {
 
     /**
+     * statuts d'une attaque
+     */
+    public final static int TOUCHE = 1;
+    public final static int RATE = 2;
+    public final static int COULE = 3;
+
+    /**
      * Nombre de bateaux par joueurs
      */
     public final static int NB_BATEAU = 5;
@@ -80,6 +87,27 @@ public abstract class Joueur {
             }
         }
         return null;
+    }
+
+    /**
+     * methode permettant de recuperer un bateau
+     * à une position Point (x, y) donnée
+     *
+     * @param p
+     *      position (Point(x, y)) donnée
+     * @return
+     *      bateau si existe ou null sinon
+     */
+    public Bateau getBateauPosition(Point p) {
+        Bateau res = null;
+        for(Bateau b : this.bateaux) {
+            for(Point pos : b.getPositions()) {
+                if(pos == p) {
+                    res = b;
+                }
+            }
+        }
+        return res;
     }
 
     /**
@@ -179,5 +207,41 @@ public abstract class Joueur {
             }
         }
         return res;
+    }
+
+    /**
+     * methode d'attaque du joueur vers son adversaire
+     * @param position
+     *          position à attaquer
+     * @param bateauAttaquant
+     *          bateau attaquant
+     * @return
+     *          attaque reussie ou non
+     */
+    public int attaque(Point position, Bateau bateauAttaquant) {
+        return this.adversaire.estAttaque(position, bateauAttaquant.getDegats());
+    }
+
+    /**
+     * methode pour recevoir une attaque
+     *
+     * @param position
+     *          position ou le joueur est attaqué
+     * @param degats
+     *          nombre de dégats recus
+     * @return
+     *          attaque reussie ou non
+     */
+    public int estAttaque(Point position, int degats) {
+        int touche = Joueur.RATE;
+        Bateau bateauAttaque = this.getBateauPosition(position);
+        if(bateauAttaque != null) {
+            if(bateauAttaque.prendreDegat(degats)) {
+                touche = Joueur.COULE;
+            } else {
+                touche = Joueur.TOUCHE;
+            }
+        }
+        return touche;
     }
 }

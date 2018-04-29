@@ -17,10 +17,7 @@ public class Caravelle extends Bateau {
         this.nbCase = Bateau.TAILLE_3_CASES;
     }
 
-    @Override
-    public void prendreDegat() {
 
-    }
 
     public String toString() {
         return "Caravelle";

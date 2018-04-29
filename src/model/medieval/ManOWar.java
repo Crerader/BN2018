@@ -17,10 +17,6 @@ public class ManOWar extends Bateau {
 
     }
 
-    @Override
-    public void prendreDegat() {
-
-    }
 
     public String toString() {
         return "ManOWar";

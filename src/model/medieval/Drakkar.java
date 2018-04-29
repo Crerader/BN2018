@@ -17,10 +17,6 @@ public class Drakkar extends Bateau {
         this.nbCase = Bateau.TAILLE_2_CASES;
     }
 
-    @Override
-    public void prendreDegat() {
-
-    }
 
     public String toString() {
         return "Drakkar";

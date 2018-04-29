@@ -10,6 +10,9 @@ import java.util.Observable;
 
 public class Partie extends Observable {
 
+    public final static int JOUEUR_HUMAIN = 0 ;
+    public final static int JOUEUR_IA = 1;
+
     /**
      * constantes pour le nombre de bateau
      * dans une catégorie donnée (2, 3, .., cases données)
@@ -86,10 +89,10 @@ public class Partie extends Observable {
      * Change de joueur
      */
     public void changerJoueur() {
-        if (this.joueurCourant == 0) {
-            this.joueurCourant = 1;
+        if (this.joueurCourant == JOUEUR_HUMAIN) {
+            this.joueurCourant = JOUEUR_IA ;
         } else {
-            this.joueurCourant = 0;
+            this.joueurCourant = JOUEUR_HUMAIN;
         }
     }
 
@@ -269,6 +272,23 @@ public class Partie extends Observable {
      */
     public void setChoixIA(int ia) {
         this.setIa(Ordinateur.getIA(ia));
+    }
+
+    /**
+     * methode d'attaque
+     * @param p
+     *      case à attaquer
+     * @param b
+     *       bateau attaquant
+     * @return
+     *      attaque validee ou non
+     */
+    public boolean attaquer(Point p, Bateau b) {
+        if(getJoueurCourant() == JOUEUR_HUMAIN) {
+            return this.humain.attaque(p, b);
+        } else {
+            return this.ia.attaque(p, b);
+        }
     }
 
 }

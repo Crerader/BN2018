@@ -17,10 +17,6 @@ public class Galion extends Bateau {
         this.nbCase = Bateau.TAILLE_4_CASES;
     }
 
-    @Override
-    public void prendreDegat() {
-
-    }
 
     public String toString() {
         return "Galion";

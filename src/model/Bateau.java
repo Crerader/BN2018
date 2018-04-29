@@ -27,6 +27,7 @@ public abstract class Bateau {
     protected ArrayList<Point> positions;
     protected BufferedImage image;
     protected int nbCase;
+    protected int degats;
 
     //Temporaire
     protected Color color;
@@ -86,6 +87,13 @@ public abstract class Bateau {
     }
 
     /**
+     * @return le nombre force d'attaque du bateau
+     */
+    public int getDegats() {
+        return this.degats;
+    }
+
+    /**
      * @return la taille d'un bateau (correspond au nombre de cases)
      */
     public int getNbCase() {
@@ -108,5 +116,23 @@ public abstract class Bateau {
         this.hp = hp;
     }
 
-    public abstract void prendreDegat();
+    /**
+     * Modifie les hp d'un bateau
+     * en fonction des dégats infligés
+     *
+     * @param degats
+     *          degats infligés
+     * @return
+     *          coule ou non
+     */
+    public boolean prendreDegat(int degats) {
+        boolean coule = false;
+        if(this.hp - degats > 0) {
+            this.hp -= degats;
+        } else {
+            this.hp = 0;
+            coule = true;
+        }
+        return coule;
+    }
 }

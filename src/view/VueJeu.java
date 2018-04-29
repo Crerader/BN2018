@@ -53,8 +53,12 @@ public class VueJeu extends Vue {
         boolean started = p.isStarted();
         if(started && !inGame) {
             // lancement de la partie
+            System.out.println("started !");
             inGame = true;
+            inPlacement = false;
+            this.jeu.addLogLine("Nouvelle partie lancée...", Color.RED);
             this.setPanel(this.jeu);
+            this.afficherBateaux(p.getListeBateaux(false));
         } else if (!started && inPlacement) {
             // actualisation de l'interface en fonction des placements de bateaux
             HashMap<Integer, Integer> listeBateauHumain = p.getListeBateauxBySize(false);
@@ -78,6 +82,11 @@ public class VueJeu extends Vue {
             this.inPlacement = true;
             this.placement.addMouseListener(new ControllerPlacement(p));
             this.placement.setBateauEpoque(p.getListeBateaux(false));
+        } else if(inGame) {
+            if(p.getJoueurCourant() == Partie.JOUEUR_HUMAIN) {
+                this.jeu.addLogLine("A vous de jouer !", Color.blue);
+                this.jeu.addLogLine("Choisissez le bâteau allié attaquant...", Color.blue);
+            }
         }
         this.afficherBateaux(p.getListeBateaux(false));
         this.frame.pack();
@@ -86,6 +95,8 @@ public class VueJeu extends Vue {
     public void afficherBateaux(ArrayList<Bateau> bateaux) {
         if(inPlacement) {
             this.placement.afficherBateaux(bateaux);
+        } else if (inGame) {
+            this.jeu.afficherBateaux(bateaux);
         }
     }
 
