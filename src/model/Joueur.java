@@ -139,4 +139,24 @@ public abstract class Joueur {
     public boolean getAttaque(int x, int y) {
         return this.attaque[x][y];
     }
+
+    /**
+     * @param x coord x
+     * @param y coord y
+     * @return true si un bateau n'est pas placé au coordonnée donnée en paramètre, false sinon
+     */
+    public boolean getPlaceDispo(int x, int y){
+        boolean res = true;
+        for(int i = 0; i < this.getTailleBateaux() ; i++){
+            Bateau tmp = this.getBateau(i);
+            for(int j = 0 ; j < tmp.getTaillePosition() ; j++){
+                Point p = tmp.getPostion(j);
+                if(p.getX() == x && p.getY() == y){
+                    res = false;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 }
