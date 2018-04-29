@@ -21,28 +21,28 @@ public class IAAleatoire extends Ordinateur {
         Random rand = new Random();
         Bateau b = this.getBateauRandom();
         boolean stop = false;
-        while(!stop){
+        while (!stop) {
             res = 0;
             int x = rand.nextInt(10);
             int y = rand.nextInt(10);
-            if(!existePoint(this.attaqueRate,x,y)){
-                if(!existePoint(this.attaqueTouche,x,y)){
-                    res = this.estAttaque(new Point(x,y),b.getDegats());
-                    switch (res){
-                        case Joueur.RATE :
-                            this.addAttaqueRate(new Point(x,y));
+            if (!existePoint(this.attaqueRate, x, y)) {
+                if (!existePoint(this.attaqueTouche, x, y)) {
+                    res = this.estAttaque(new Point(x, y), b.getDegats());
+                    switch (res) {
+                        case Joueur.RATE:
+                            this.addAttaqueRate(new Point(x, y));
                             break;
-                        case Joueur.TOUCHE :
-                            this.addAttaqueTouche(new Point(x,y));
+                        case Joueur.TOUCHE:
+                            this.addAttaqueTouche(new Point(x, y));
                             break;
-                         default:
-                             break;
+                        default:
+                            break;
                     }
                     stop = true;
                 }
             }
         }
-        return  res;
+        return res;
 
 
     }

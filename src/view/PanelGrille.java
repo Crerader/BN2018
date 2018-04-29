@@ -63,7 +63,7 @@ public class PanelGrille extends JPanel {
     }
 
     public void afficherAttaqueTouche(Point pxy) {
-        System.out.println("print red");
+        //System.out.println("print red");
         this.cases[(int)pxy.getY()][(int)pxy.getX()].setBackground(Color.RED);
     }
 

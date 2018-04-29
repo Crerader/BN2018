@@ -132,6 +132,7 @@ public abstract class Joueur {
             for(Point pos : b.getPositions()) {
                 if(pos.getX() == p.getX() && pos.getY() == p.getY()) {
                     res = b;
+                    break;
                 }
             }
         }
