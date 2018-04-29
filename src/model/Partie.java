@@ -25,6 +25,11 @@ public class Partie extends Observable {
     private boolean started;
 
     /**
+     * Partie prête à être lancée ou non
+     */
+    private boolean ready;
+
+    /**
      * Joueur qui doit jouer
      * 0 : humain
      * 1 : ordinateur
@@ -66,6 +71,7 @@ public class Partie extends Observable {
         this.ia = null;
         this.vueJeu = null;
         this.started = false;
+        this.ready = false;
         this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
     }
 
@@ -185,10 +191,16 @@ public class Partie extends Observable {
      */
     public boolean isReady() {
         boolean ready = false;
-        if (this.humain != null) {
-            if (this.humain.getTailleBateaux() == Joueur.NB_BATEAU) {
-                ready = true;
+        if(this.ready == false) {
+            if(this.humain != null && this.ia != null) {
+                if(this.humain.isReady() && this.ia.isReady()) {
+                    this.ready = true;
+                    miseAjour();
+                    return true;
+                }
             }
+        } else {
+            return this.ready;
         }
         return ready;
     }
@@ -199,6 +211,7 @@ public class Partie extends Observable {
     public void start() {
         if (!started) {
             started = true;
+            miseAjour();
         }
     }
 

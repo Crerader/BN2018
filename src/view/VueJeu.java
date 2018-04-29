@@ -60,12 +60,18 @@ public class VueJeu extends Vue {
             HashMap<Integer, Integer> listeBateauHumain = p.getListeBateauxBySize(false);
             if(listeBateauHumain.get(2) == Partie.NB_BATEAU_2) {
                 this.placement.setBoutonEnabled(false, 2);
-            } else if (listeBateauHumain.get(3) == Partie.NB_BATEAU_3) {
+            }
+            if (listeBateauHumain.get(3) == Partie.NB_BATEAU_3) {
                 this.placement.setBoutonEnabled(false, 3);
-            } else if (listeBateauHumain.get(4) == Partie.NB_BATEAU_4) {
+            }
+            if (listeBateauHumain.get(4) == Partie.NB_BATEAU_4) {
                 this.placement.setBoutonEnabled(false, 4);
-            } else if (listeBateauHumain.get(5) == Partie.NB_BATEAU_5) {
+            }
+            if (listeBateauHumain.get(5) == Partie.NB_BATEAU_5) {
                 this.placement.setBoutonEnabled(false, 5);
+            }
+            if(p.isReady()) {
+                this.placement.setJouerVisible();
             }
         } else if(!inPlacement) {
             // actualisation de l'interface en fonction de l'époque choisie
