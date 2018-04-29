@@ -10,12 +10,14 @@ import java.awt.event.MouseListener;
 
 public class InformationPartiePanel extends JPanel {
 
+
     protected JPanel bateauxPanel = new JPanel();
     protected JButton cinqBateau = new JButton("cinq");
     protected JButton quatreBateau = new JButton("quatre");
     protected JButton troisBateau = new JButton("trois");
     protected JButton deuxBateau = new JButton("deux");
     protected JTextPane log = new JTextPane();
+    protected JScrollPane jsp = new JScrollPane(log);
 
     public final static String BOUTON_BATEAU_2_CASES = "2";
     public final static String BOUTON_BATEAU_3_CASES = "3";
@@ -51,7 +53,7 @@ public class InformationPartiePanel extends JPanel {
         this.add(troisBateau);
         this.add(quatreBateau);
         this.add(cinqBateau);
-        this.add(log);
+        this.add(jsp);
     }
 
     public static void main(String[] args) {
@@ -72,6 +74,7 @@ public class InformationPartiePanel extends JPanel {
         StyleConstants.setForeground(style, color);
         try {
             doc.insertString(doc.getLength(), txt + "\n", style);
+            log.setCaretPosition(doc.getLength());
         } catch (BadLocationException e){
 
         }

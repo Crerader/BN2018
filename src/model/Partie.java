@@ -308,9 +308,21 @@ public class Partie extends Observable {
         int res;
         if(getJoueurCourant() == JOUEUR_HUMAIN) {
             res = this.humain.attaque(p, b);
+            switch(res) {
+                case Joueur.RATE:
+                    this.lastMessage = "Oups! Le tir n'a atteint aucune cible.";
+                    break;
+                case Joueur.COULE:
+                    this.lastMessage = "Bingo! Vous avez coulé un navire adverse.";
+                    break;
+                case Joueur.TOUCHE:
+                    this.lastMessage = "Yes! Votre tir a atteint une cible.";
+                    break;
+            }
         } else {
             res = ((Ordinateur)this.ia).jouerUnCoup();
         }
+        miseAjour();
         changerJoueur();
         return res;
     }
