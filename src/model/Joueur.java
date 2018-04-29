@@ -150,7 +150,7 @@ public abstract class Joueur {
      */
     public boolean isReady() {
         boolean pret = true;
-        if(this.getTailleBateaux() == Joueur.NB_BATEAU) {
+        if (this.getTailleBateaux() == Joueur.NB_BATEAU) {
             for (Bateau b : this.getListeBateaux()) {
                 if (b.getTaillePosition() < b.getNbCase()) {
                     pret = false;
@@ -159,5 +159,25 @@ public abstract class Joueur {
             }
         } else pret = false;
         return pret;
+    }
+
+    /**
+     * @param x coord x
+     * @param y coord y
+     * @return true si un bateau n'est pas placé au coordonnée donnée en paramètre, false sinon
+     */
+    public boolean getPlaceDispo(int x, int y){
+        boolean res = true;
+        for(int i = 0; i < this.getTailleBateaux() ; i++){
+            Bateau tmp = this.getBateau(i);
+            for(int j = 0 ; j < tmp.getTaillePosition() ; j++){
+                Point p = tmp.getPostion(j);
+                if(p.getX() == x && p.getY() == y){
+                    res = false;
+                    break;
+                }
+            }
+        }
+        return res;
     }
 }

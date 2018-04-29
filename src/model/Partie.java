@@ -64,7 +64,7 @@ public class Partie extends Observable {
     /**
      * Constructeur vide
      */
-    public Partie(){
+    public Partie() {
         this.joueurCourant = 0;
         this.epoque = null;
         this.humain = null;
@@ -86,9 +86,9 @@ public class Partie extends Observable {
      * Change de joueur
      */
     public void changerJoueur() {
-        if(this.joueurCourant == 0){
+        if (this.joueurCourant == 0) {
             this.joueurCourant = 1;
-        }else{
+        } else {
             this.joueurCourant = 0;
         }
     }
@@ -102,18 +102,20 @@ public class Partie extends Observable {
 
     /**
      * Set une époque via une factory
+     *
      * @param epoque 0 : medieval, 1 : contemporaine
      */
     public void ajouterEpoque(int epoque, boolean sauvegarde) {
-        if(epoque == 0){
+        if (epoque == 0) {
             this.epoque = Epoque.getFactory(Epoque.MEDIEVAL);
-        }else{
+        } else {
             this.epoque = Epoque.getFactory(Epoque.CONTEMPORAINE);
         }
         this.epoque.creerBateau(humain);
         this.epoque.creerBateau(ia);
-        if(!sauvegarde){
-            //Methode placer bateau pour IA
+        if (!sauvegarde) {
+           Ordinateur tmp = (Ordinateur) this.getIa();
+           tmp.placerBateau();
         }
         this.miseAjour();
     }
@@ -127,6 +129,7 @@ public class Partie extends Observable {
 
     /**
      * Set le joueur humain
+     *
      * @param humain
      */
     public void setHumain(Joueur humain) {
@@ -142,6 +145,7 @@ public class Partie extends Observable {
 
     /**
      * Set le joueur ordinateur
+     *
      * @param ia
      */
     public void setIa(Joueur ia) {
@@ -151,34 +155,29 @@ public class Partie extends Observable {
     /**
      * Actualise la vue du joueur humain
      */
-    private void miseAjour(){
+    private void miseAjour() {
         this.setChanged();
         this.notifyObservers();
     }
 
     /**
      * Methode qui ajoute un bateau a un joueur en vérifiant si le bateau peut être placé
-     * @param bateau qui doit être placé
-     * @param joueur qui place le bateau
+     *
+     * @param bateau    qui doit être placé
+     * @param joueur    qui place le bateau
      * @param positions différentes cases occupé par le bateau
      * @return true si placement reussi, false sinon
      */
-    public boolean placerBateau(Bateau bateau, Joueur joueur, ArrayList<Point> positions){
+    public boolean placerBateau(Bateau bateau, Joueur joueur, ArrayList<Point> positions) {
         boolean res = true;
-        for (Point p: positions){
-            for (int i = 0 ; i < joueur.getTailleBateaux() ; i++){
-                Bateau tmpBateau = joueur.getBateau(i);
-                for (int j = 0; j < tmpBateau.getTaillePosition(); j++){
-                    Point tmpPoint = tmpBateau.getPostion(j);
-                    if(tmpPoint.getX() == p.getX() && tmpPoint.getY() == p.getY()){
-                        res = false;
-                        break;
-                    }
-                }
+        for (Point p : positions) {
+            if (!joueur.getPlaceDispo((int) p.getX(), (int) p.getY())) {
+                res = false;
+                break;
             }
         }
-        if(res){
-            joueur.ajouterBateauPositions(bateau,positions);
+        if (res) {
+            joueur.ajouterBateauPositions(bateau, positions);
         }
         miseAjour();
         return res;
@@ -210,7 +209,7 @@ public class Partie extends Observable {
      * permet de lancer la partie
      */
     public void start() {
-        if(!started) {
+        if (!started) {
             started = true;
         }
     }
@@ -219,8 +218,7 @@ public class Partie extends Observable {
      * permet de savoir si la partie
      * est lancee ou non
      *
-     * @return
-     *      statut lance de la partie
+     * @return statut lance de la partie
      */
     public boolean isStarted() {
         return started;
@@ -228,13 +226,12 @@ public class Partie extends Observable {
 
     /**
      * récupère la liste des bateau d'un des deux joueurs
-     * @param ia
-     *      booléen pour savoir si on veut la liste de l'ia ou non
-     * @return
-     *      liste bateau du joueur demandé
+     *
+     * @param ia booléen pour savoir si on veut la liste de l'ia ou non
+     * @return liste bateau du joueur demandé
      */
     public HashMap<Integer, Integer> getListeBateauxBySize(boolean ia) {
-        if(ia) {
+        if (ia) {
             return this.ia.getListeBateauxBySize();
         } else {
             return this.humain.getListeBateauxBySize();
@@ -243,13 +240,12 @@ public class Partie extends Observable {
 
     /**
      * récupère la liste des bateau d'un des deux joueurs
-     * @param ia
-     *      booléen pour savoir si on veut la liste de l'ia ou non
-     * @return
-     *      liste bateau du joueur demandé
+     *
+     * @param ia booléen pour savoir si on veut la liste de l'ia ou non
+     * @return liste bateau du joueur demandé
      */
     public ArrayList<Bateau> getListeBateaux(boolean ia) {
-        if(ia) {
+        if (ia) {
             return this.ia.getListeBateaux();
         } else {
             return this.humain.getListeBateaux();
@@ -258,19 +254,20 @@ public class Partie extends Observable {
 
     /**
      * Charge une partie
+     *
      * @param chemin fichier de sauvegarde à charger
      */
-    public void load(String chemin){
-        this.dao.getPartieDAO().load(chemin,this);
+    public void load(String chemin) {
+        this.dao.getPartieDAO().load(chemin, this);
     }
 
     /**
      * Choix du type d'attaque de l'ia
+     *
      * @param ia type d'attaque
      */
-    public void setChoixIA(int ia){
-        Ordinateur ordinateur  = (Ordinateur) this.ia;
-        ordinateur.setStyle(ia);
+    public void setChoixIA(int ia) {
+        this.setIa(Ordinateur.getIA(ia));
     }
 
 }
