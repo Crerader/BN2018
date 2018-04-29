@@ -72,4 +72,16 @@ public class PanelJeu extends JPanel {
     public void addLogLine(String txt, Color color) {
         ((InformationPartiePanel)this.informationPanel).addLogLine(txt, color);
     }
+
+    public void afficherAttaquesTouchees(ArrayList<Point> attaques) {
+        for(Point p : attaques) {
+            ((PanelGrille)this.grillePanelIA).afficherAttaqueTouche(p);
+        }
+    }
+
+    public void afficherAttaquesRatees(ArrayList<Point> attaques) {
+        for(Point p : attaques) {
+            ((PanelGrille)this.grillePanelIA).afficherAttaqueRate(p);
+        }
+    }
 }

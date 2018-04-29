@@ -6,6 +6,7 @@ import view.PanelGrille;
 import view.PanelPlacement;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,15 +36,20 @@ public class ControllerPartie implements MouseListener {
         Bateau b;
         switch (btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-
+                b = partie.getHumain().getBateauNoPosition(2);
+                this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_3_CASES:
-
+                b = partie.getHumain().getBateauNoPosition(3);
+                this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_4_CASES:
-
+                b = partie.getHumain().getBateauNoPosition(4);
+                this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_5_CASES:
+                b = partie.getHumain().getBateauNoPosition(5);
+                this.bateauSelected = b;
 
                 break;
             default:
@@ -55,15 +61,18 @@ public class ControllerPartie implements MouseListener {
                         if (this.caseSelected == null) {
                             this.caseSelectedX = (int) posXY.getX();
                             this.caseSelectedY = (int) posXY.getY();
-                            btn.setBackground(Color.RED);
+                            btn.setBorder(new LineBorder(Color.GREEN));
                             this.caseSelected = btn;
-                        } else {
-                            // cases du bateau selectionnees
-                            ArrayList<Point> positions = new ArrayList<Point>();
-
-                            this.bateauSelected = null;
+                            this.partie.attaquer(posXY, this.bateauSelected);
                             this.caseSelected = null;
                         }
+//                        } else {
+//                            // cases du bateau selectionnees
+//                            ArrayList<Point> positions = new ArrayList<Point>();
+//
+//                            this.bateauSelected = null;
+//                            this.caseSelected = null;
+//                        }
                     }
                 }
         }

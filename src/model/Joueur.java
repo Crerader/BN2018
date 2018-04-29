@@ -22,6 +22,16 @@ public abstract class Joueur {
      * Plateau des cases attaquées par le joueur
      */
     protected boolean[][] attaque;
+
+    /**
+     * Plateau des cases attaquées par le joueur
+     */
+    protected ArrayList<Point> attaqueRate;
+
+    /**
+     * Plateau des cases attaquées par le joueur
+     */
+    protected ArrayList<Point> attaqueTouche;
     /**
      * Joueur adverse
      */
@@ -37,6 +47,8 @@ public abstract class Joueur {
     public Joueur(){
         this.adversaire = null;
         this.bateaux = new ArrayList<Bateau>();
+        this.attaqueRate = new ArrayList<Point>();
+        this.attaqueTouche = new ArrayList<Point>();
         this.attaque = new boolean[10][10];
         for(int i = 0 ; i < 10 ; i++){
             for(int j = 0 ; j < 10 ; j++){
@@ -111,6 +123,13 @@ public abstract class Joueur {
     }
 
     /**
+     * @return la taille du plateau
+     */
+    public int getTaillePlateau(){
+        return this.attaque.length;
+    }
+
+    /**
      * @return la taille de la liste de bateaux
      */
     public int getTailleBateaux(){
@@ -145,20 +164,19 @@ public abstract class Joueur {
     }
 
     /**
-     * Change la valeur de la case du tableau attaque à true
-     * @param x
-     * @param y
+     * Ajoute la position touche
      */
-    public void setAttaque(int x, int y){
-        this.attaque[x][y] = true;
+    public void setAttaqueTouche(Point pxy){
+        this.attaqueTouche.add(pxy);
     }
 
     /**
-     * @return la taille du plateau
+     * Ajoute la position rate
      */
-    public int getTaillePlateau(){
-        return this.attaque.length;
+    public void setAttaqueRatee(Point pxy){
+        this.attaqueRate.add(pxy);
     }
+
 
     /**
      * @param x
@@ -167,6 +185,15 @@ public abstract class Joueur {
      */
     public boolean getAttaque(int x, int y) {
         return this.attaque[x][y];
+    }
+
+    /**
+     * Change la valeur de la case du tableau attaque à true
+     * @param x
+     * @param y
+     */
+    public void setAttaque(int x, int y){
+        this.attaque[x][y] = true;
     }
 
     /**
@@ -219,7 +246,16 @@ public abstract class Joueur {
      *          attaque reussie ou non
      */
     public int attaque(Point position, Bateau bateauAttaquant) {
-        return this.adversaire.estAttaque(position, bateauAttaquant.getDegats());
+        int res =  this.adversaire.estAttaque(position, bateauAttaquant.getDegats());
+        switch(res) {
+            case Joueur.TOUCHE | Joueur.COULE:
+                this.setAttaqueTouche(position);
+                break;
+            case Joueur.RATE :
+                this.setAttaqueRatee(position);
+                break;
+        }
+        return res;
     }
 
     /**
