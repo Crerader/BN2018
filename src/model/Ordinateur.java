@@ -1,60 +1,42 @@
 package model;
 
+import ia.IAAleatoire;
+import ia.IACroiser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ordinateur extends Joueur{
+public  abstract class Ordinateur extends Joueur{
+
+    public static final int ALEATOIRE = 0;
+    public static final int CROISER = 1;
+
 
     //String utilisé pour le jeu en croix afin de savoir quel a été le dernier mouvement
     //Cela permettra de savoir quel est la croix que l'on doit regarder
     private String lastPlay;
-    private int styleDeJeu;
 
     public Ordinateur(){
         super();
     }
 
-    public void setStyle(int s){
-        this.styleDeJeu = s;
-    }
+    public abstract int getType();
 
+    public abstract void jouerUnCoup();
 
-    public void jouerUnCoup(){
-        switch(styleDeJeu){
-            case 0:
-                this.jouerAleatoire();
-                break;
-            case 1:
-                this.jouerCroix();
-                break;
+    public static Ordinateur getIA(int id){
+        switch (id){
+            case ALEATOIRE :
+                return new IAAleatoire();
+            case CROISER :
+                return new IACroiser();
             default:
-                JOptionPane.showMessageDialog(null, "Aucun style de jeu sélectionné");
-                break;
+                return new IAAleatoire();
         }
     }
 
-    private void jouerAleatoire() {
-        Random rand = new Random();
-        int i = rand.nextInt(10);
-        int j = rand.nextInt(10);
-        if(attaque[i][j] ==false ){
-            attaque[i][j] = true;
-        }
-
-    }
-
-    private void jouerCroix() {
-
-    }
-
-    /**
-     * @return le type d'attaque
-     */
-    public int getStyleDeJeu() {
-        return styleDeJeu;
-    }
 
     //TODO : A modifier afin de vérifier que l'on ne passe pas au dessus des autres bateaux déjà placés
     public void placerBateau(){

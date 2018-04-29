@@ -74,12 +74,11 @@ public class PartieXMLFactory implements PartieDAO {
             //Recupere attributs IA
             nodes = root.getElementsByTagName("IA");
             Node ia = nodes.item(0);
-            Joueur ordinateur = new Ordinateur();
-            partie.setIa(ordinateur);
             NodeList iaAttrs = ia.getChildNodes();
             Node type = iaAttrs.item(1);
             int choixIA = Integer.parseInt(type.getTextContent());
-            ((Ordinateur) ordinateur).setStyle(choixIA);
+            Joueur ordinateur = Ordinateur.getIA(choixIA);
+            partie.setIa(ordinateur);
             NodeList iaAttaques = iaAttrs.item(3).getChildNodes();
             NodeList iaBateaux = iaAttrs.item(5).getChildNodes();
 
@@ -110,6 +109,8 @@ public class PartieXMLFactory implements PartieDAO {
             //charge les bateaux de l'ordinateur
             this.addBoat(iaBateaux,ordinateur);
 
+            partie.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +131,7 @@ public class PartieXMLFactory implements PartieDAO {
             save.write("</bateaux>" + "\n");
             save.write("</Humain>" + "\n");
             save.write("<IA>" + "\n");
-            save.write("<type>" + ((Ordinateur) partie.getIa()).getStyleDeJeu() + "</type>" + "\n");
+            save.write("<type>" + ((Ordinateur) partie.getIa()).getType() + "</type>" + "\n");
             save.write("<attaques>" + "\n");
             save.write(this.attaques(partie.getIa()));
             save.write("</attaques>" + "\n");
