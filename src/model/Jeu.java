@@ -34,7 +34,6 @@ public class Jeu extends Observable {
         this.partieEnCours = new Partie();
         this.partieEnCours.addObserver(vueJeu);
         this.partieEnCours.setHumain(new Humain());
-        this.partieEnCours.setIa(new Ordinateur());
         this.choixEpoque(epoque);
         this.choixIA(ia);
         this.vueMenu.setVisible(false);

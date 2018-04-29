@@ -257,8 +257,7 @@ public class Partie extends Observable {
      * @param ia type d'attaque
      */
     public void setChoixIA(int ia){
-        Ordinateur ordinateur  = (Ordinateur) this.ia;
-        ordinateur.setStyle(ia);
+       this.setIa(Ordinateur.getIA(ia));
     }
 
 }
