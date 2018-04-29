@@ -113,7 +113,9 @@ public class PartieXMLFactory implements PartieDAO {
 
             //charge les bateaux de l'ordinateur
             this.addBoat(iaBateaux, ordinateur);
-
+            humain1.setAdversaire(ordinateur);
+            ordinateur.setAdversaire(humain1);
+            
             partie.start();
 
         } catch (Exception e) {
