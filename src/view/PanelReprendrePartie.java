@@ -1,5 +1,8 @@
 package view;
 
+import controller.ControllerReprendrePartie;
+import model.Jeu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -41,9 +44,15 @@ public class PanelReprendrePartie extends JPanel {
         this.add(new JPanel());
         this.add(this.annuler).setLocation(3,1);
 
+
     }
 
     public String getListeSelected(){
         return (String) this.listePartie.getSelectedItem();
+    }
+
+    public void addActionListener(Jeu jeu){
+        this.valider.addActionListener(new ControllerReprendrePartie(jeu,this));
+        this.annuler.addActionListener(new ControllerReprendrePartie(jeu,this));
     }
 }

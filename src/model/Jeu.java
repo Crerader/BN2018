@@ -63,7 +63,10 @@ public class Jeu extends Observable {
      */
     public void charger(String chemin){
         this.partieEnCours = new Partie();
+        VueJeu vueJeu = new VueJeu();
+        this.partieEnCours.addObserver(vueJeu);
         this.partieEnCours.load(chemin);
+        this.vueMenu.setVisible(false);
     }
 
     /**

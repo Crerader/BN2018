@@ -45,6 +45,7 @@ public class VueMenu extends Vue {
         Jeu jeu = (Jeu)o;
         if (jeu.existePartie().size() != 0) {
             reprendrePartie = new PanelReprendrePartie(jeu.existePartie());
+            reprendrePartie.addActionListener(jeu);
             this.menu.setReprendreEnabled(true);
         }
     }
