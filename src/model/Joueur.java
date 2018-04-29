@@ -140,4 +140,24 @@ public abstract class Joueur {
     public boolean getAttaque(int x, int y) {
         return this.attaque[x][y];
     }
+
+    /**
+     * methode qui retourne true si le joueur est prêt à jouer
+     * == que tous ses bateaux sont placés
+     *
+     * @return
+     *      true si joueur prêt
+     */
+    public boolean isReady() {
+        boolean pret = true;
+        if(this.getTailleBateaux() == Joueur.NB_BATEAU) {
+            for (Bateau b : this.getListeBateaux()) {
+                if (b.getTaillePosition() < b.getNbCase()) {
+                    pret = false;
+                    break;
+                }
+            }
+        } else pret = false;
+        return pret;
+    }
 }

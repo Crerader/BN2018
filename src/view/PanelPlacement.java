@@ -24,18 +24,22 @@ public class PanelPlacement extends JPanel {
     protected JButton quatreBateau = new JButton("quatre");
     protected JButton troisBateau = new JButton("trois");
     protected JButton deuxBateau = new JButton("deux");
+    protected JButton jouer = new JButton("Jouer");
 
     public final static String BOUTON_BATEAU_2_CASES = "2";
     public final static String BOUTON_BATEAU_3_CASES = "3";
     public final static String BOUTON_BATEAU_4_CASES = "4";
     public final static String BOUTON_BATEAU_5_CASES = "5";
+    public final static String BOUTON_JOUER = "JOUER";
 
     public PanelPlacement() {
+        jouer.setVisible(false);
         // on assigne des identifiants aux boutons
         this.deuxBateau.setActionCommand(BOUTON_BATEAU_2_CASES);
         this.troisBateau.setActionCommand(BOUTON_BATEAU_3_CASES);
         this.quatreBateau.setActionCommand(BOUTON_BATEAU_4_CASES);
         this.cinqBateau.setActionCommand(BOUTON_BATEAU_5_CASES);
+        this.jouer.setActionCommand(BOUTON_JOUER);
 
         this.setPreferredSize(new Dimension(Vue.WIDTH-20, Vue.HEIGHT-200));
 
@@ -68,7 +72,7 @@ public class PanelPlacement extends JPanel {
         this.bateauxPanel.add(new JPanel());
 
         this.bateauxPanel.add(new JPanel());
-        this.bateauxPanel.add(new JPanel());
+        this.bateauxPanel.add(jouer);
         this.bateauxPanel.add(new JPanel());
         body.add(this.grillePanel);
         body.add(this.bateauxPanel, BorderLayout.LINE_END);
@@ -146,5 +150,9 @@ public class PanelPlacement extends JPanel {
         for(Bateau b : listeBateaux) {
             ((PanelGrille)this.grillePanel).afficherBateau(b);
         }
+    }
+
+    public void setJouerVisible() {
+        this.jouer.setVisible(true);
     }
 }

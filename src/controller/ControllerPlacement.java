@@ -82,7 +82,10 @@ public class ControllerPlacement implements MouseListener {
                     cancelSelection();
                 }
                 break;
-
+            case PanelPlacement.BOUTON_JOUER:
+                if(partie.isReady()) {
+                    partie.start();
+                }
             default:
                 // selection d'une case de la grille
                 if (SwingUtilities.isLeftMouseButton(e)) {

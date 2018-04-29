@@ -70,6 +70,11 @@ public class VueJeu extends Vue {
             if (listeBateauHumain.get(5) == Partie.NB_BATEAU_5) {
                 this.placement.setBoutonEnabled(false, 5);
             }
+            System.out.println("not started inPlacement");
+            if(p.isReady()) {
+                System.out.println("ready!");
+                this.placement.setJouerVisible();
+            }
         } else if(!inPlacement) {
             // actualisation de l'interface en fonction de l'époque choisie
             this.inPlacement = true;
