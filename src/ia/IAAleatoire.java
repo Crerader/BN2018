@@ -17,8 +17,6 @@ public class IAAleatoire extends Ordinateur {
         Random rand = new Random();
         int i = rand.nextInt(10);
         int j = rand.nextInt(10);
-        if(attaque[i][j] ==false ){
-            attaque[i][j] = true;
-        }
+        //TODO : completer
     }
 }
