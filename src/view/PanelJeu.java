@@ -86,4 +86,17 @@ public class PanelJeu extends JPanel {
             ((PanelGrille)this.grillePanelIA).afficherAttaqueRate(p);
         }
     }
+
+    public void afficherBateauxToucher(ArrayList<Bateau> bateaux, ArrayList<Point> toucherIA) {
+        for(Bateau b : bateaux){
+            for(int i = 0 ; i < b.getTaillePosition() ; i++){
+                Point p = b.getPostion(i);
+                for(Point tmp : toucherIA){
+                    if(p.getX() == tmp.getX() && p.getY() == tmp.getY()){
+                        ((PanelGrille)this.grillePanelHumain).afficherBateauToucher(p);
+                    }
+                }
+            }
+        }
+    }
 }

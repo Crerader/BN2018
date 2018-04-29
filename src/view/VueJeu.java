@@ -108,6 +108,7 @@ public class VueJeu extends Vue {
             }
         }
         this.afficherBateaux(p.getListeBateaux(false));
+        this.afficherBateauToucher(p.getListeBateaux(false),p);
         this.frame.pack();
     }
 
@@ -116,6 +117,16 @@ public class VueJeu extends Vue {
             this.placement.afficherBateaux(bateaux);
         } else if (inGame) {
             this.jeu.afficherBateaux(bateaux);
+        }
+    }
+
+    public void afficherBateauToucher(ArrayList<Bateau> bateaux, Partie partie){
+        if(inGame){
+            ArrayList<Point> toucherIA = new ArrayList<>();
+            for(int i = 0 ; i < partie.getIa().getTailleAttaqueTouche() ; i++){
+                toucherIA.add(partie.getIa().getAttaqueTouche(i));
+            }
+            this.jeu.afficherBateauxToucher(bateaux,toucherIA);
         }
     }
 
