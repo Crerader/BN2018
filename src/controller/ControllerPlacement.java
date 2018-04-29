@@ -84,6 +84,7 @@ public class ControllerPlacement implements MouseListener {
                 break;
             case PanelPlacement.BOUTON_JOUER:
                 if(partie.isReady()) {
+                    System.out.println("bjr");
                     partie.start();
                 }
             default:
@@ -151,7 +152,7 @@ public class ControllerPlacement implements MouseListener {
                             case "RIGHT":
                                 if (this.caseSelectedX + this.bateauSelected.getNbCase()-1 < 10) {
                                     refreshGrille();
-                                    for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
+                                    for (int i = 0; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY][this.caseSelectedX + i];
                                         this.prevCases.add(entered);
                                         entered.setBackground(Color.RED);
@@ -161,7 +162,7 @@ public class ControllerPlacement implements MouseListener {
                             case "LEFT":
                                 if (this.caseSelectedX - this.bateauSelected.getNbCase()+1 >= 0) {
                                     refreshGrille();
-                                    for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
+                                    for (int i = 0; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY][this.caseSelectedX - i];
                                         this.prevCases.add(entered);
                                         entered.setBackground(Color.RED);
@@ -171,7 +172,7 @@ public class ControllerPlacement implements MouseListener {
                             case "DOWN":
                                 if (this.caseSelectedY + this.bateauSelected.getNbCase()-1 < 10) {
                                     refreshGrille();
-                                    for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
+                                    for (int i = 0; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY + i][this.caseSelectedX];
                                         this.prevCases.add(entered);
                                         entered.setBackground(Color.RED);
@@ -181,7 +182,7 @@ public class ControllerPlacement implements MouseListener {
                             case "UP":
                                 if (this.caseSelectedY - this.bateauSelected.getNbCase()+1 >= 0) {
                                     refreshGrille();
-                                    for (int i = 1; i < this.bateauSelected.getNbCase(); i++) {
+                                    for (int i = 0; i < this.bateauSelected.getNbCase(); i++) {
                                         entered = this.cases[this.caseSelectedY - i][this.caseSelectedX];
                                         this.prevCases.add(entered);
                                         entered.setBackground(Color.RED);

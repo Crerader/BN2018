@@ -90,6 +90,7 @@ public class PanelPlacement extends JPanel {
         this.quatreBateau.addMouseListener(controller);
         this.cinqBateau.addMouseListener(controller);
         this.grillePanel.addMouseListener(controller);
+        this.jouer.addMouseListener(controller);
         ((ControllerPlacement)controller).setGrille(((PanelGrille)this.grillePanel).getGrille());
     }
 

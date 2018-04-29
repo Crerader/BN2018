@@ -211,6 +211,7 @@ public class Partie extends Observable {
     public void start() {
         if (!started) {
             started = true;
+            miseAjour();
         }
     }
 
