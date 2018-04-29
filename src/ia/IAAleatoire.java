@@ -1,6 +1,7 @@
 package ia;
 
 import model.Bateau;
+import model.Joueur;
 import model.Ordinateur;
 
 import java.awt.*;
@@ -27,6 +28,16 @@ public class IAAleatoire extends Ordinateur {
             if(!existePoint(this.attaqueRate,x,y)){
                 if(!existePoint(this.attaqueTouche,x,y)){
                     res = this.estAttaque(new Point(x,y),b.getDegats());
+                    switch (res){
+                        case Joueur.RATE :
+                            this.addAttaqueRate(new Point(x,y));
+                            break;
+                        case Joueur.TOUCHE :
+                            this.addAttaqueTouche(new Point(x,y));
+                            break;
+                         default:
+                             break;
+                    }
                     stop = true;
                 }
             }
