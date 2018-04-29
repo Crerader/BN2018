@@ -71,4 +71,7 @@ public class PanelGrille extends JPanel {
     }
 
 
+    public void afficherBateauToucher(Point p) {
+        this.cases[(int)p.getY()][(int)p.getX()].setBackground(Color.BLACK);
+    }
 }
