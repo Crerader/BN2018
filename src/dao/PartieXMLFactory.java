@@ -197,12 +197,14 @@ public class PartieXMLFactory implements PartieDAO {
                         pos.add(new Point(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent())));
                     }
                 }
+                boolean placer = false;
                 for(int j = 0 ; j < joueur.getTailleBateaux() ; j++){
                     Bateau tmp = joueur.getBateau(j);
                     if(tmp.toString().equals(typeB)){
-                        if(tmp.getTaillePosition() == 0){
+                        if(tmp.getTaillePosition() == 0 && !placer){
                             tmp.setHp(hpB);
                             tmp.setPositions(pos);
+                            placer = true;
                         }
                     }
                 }
