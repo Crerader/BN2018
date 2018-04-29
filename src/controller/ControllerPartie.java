@@ -36,33 +36,38 @@ public class ControllerPartie implements MouseListener {
         Bateau b;
         switch (btn.getActionCommand()) {
             case PanelPlacement.BOUTON_BATEAU_2_CASES:
-                b = partie.getHumain().getBateauNoPosition(2);
+                System.out.println("bateau 2 cases select");
+                b = partie.getHumain().getBateauByNbCaseNoPosition(2);
                 this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_3_CASES:
-                b = partie.getHumain().getBateauNoPosition(3);
+                b = partie.getHumain().getBateauByNbCaseNoPosition(3);
                 this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_4_CASES:
-                b = partie.getHumain().getBateauNoPosition(4);
+                b = partie.getHumain().getBateauByNbCaseNoPosition(4);
                 this.bateauSelected = b;
                 break;
             case PanelPlacement.BOUTON_BATEAU_5_CASES:
-                b = partie.getHumain().getBateauNoPosition(5);
+                b = partie.getHumain().getBateauByNbCaseNoPosition(5);
                 this.bateauSelected = b;
 
                 break;
             default:
+                System.out.println("ok1");
                 // selection d'une case de la grille
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     String pos = btn.getActionCommand();
                     if (this.bateauSelected != null) {
+                        System.out.println("ok2");
                         Point posXY = getPointFromActionCommand(pos);
                         if (this.caseSelected == null) {
+                            System.out.println("ok3");
                             this.caseSelectedX = (int) posXY.getX();
                             this.caseSelectedY = (int) posXY.getY();
                             btn.setBorder(new LineBorder(Color.GREEN));
                             this.caseSelected = btn;
+                            System.out.println("attaque en " + pos);
                             this.partie.attaquer(posXY, this.bateauSelected);
                             this.caseSelected = null;
                         }
@@ -98,7 +103,6 @@ public class ControllerPartie implements MouseListener {
     public void mouseExited (MouseEvent e){
 
     }
-
 
     public void setGrille(JButton[][] cases) {
         this.cases = cases;

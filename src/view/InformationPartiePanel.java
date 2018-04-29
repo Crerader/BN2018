@@ -6,6 +6,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 public class InformationPartiePanel extends JPanel {
 
@@ -22,9 +23,10 @@ public class InformationPartiePanel extends JPanel {
     public final static String BOUTON_BATEAU_5_CASES = "5";
 
     public InformationPartiePanel() {
-
+        this.setPreferredSize(new Dimension(200, Vue.HEIGHT));
         //configuration JTextPane
         log.setEditable(false);
+        log.setPreferredSize(new Dimension(200, Vue.HEIGHT));
         // on assigne des identifiants aux boutons
         this.deuxBateau.setActionCommand(BOUTON_BATEAU_2_CASES);
         this.troisBateau.setActionCommand(BOUTON_BATEAU_3_CASES);
@@ -73,6 +75,13 @@ public class InformationPartiePanel extends JPanel {
         } catch (BadLocationException e){
 
         }
+    }
+
+    public void addMouseListener(MouseListener c) {
+        this.deuxBateau.addMouseListener(c);
+        this.troisBateau.addMouseListener(c);
+        this.quatreBateau.addMouseListener(c);
+        this.cinqBateau.addMouseListener(c);
     }
 
 }

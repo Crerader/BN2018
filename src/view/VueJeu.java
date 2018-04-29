@@ -1,9 +1,6 @@
 package view;
 
-import controller.ControllerJeu;
-import controller.ControllerMenu;
-import controller.ControllerMenuBar;
-import controller.ControllerPlacement;
+import controller.*;
 import model.Bateau;
 import model.Jeu;
 import model.Partie;
@@ -55,7 +52,7 @@ public class VueJeu extends Vue {
     }
 
     public void setPanel(JPanel panel) {
-        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT));
+        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH+100, VueJeu.HEIGHT));
         this.frame.setContentPane(panel);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,14 +65,16 @@ public class VueJeu extends Vue {
     public void update(Observable o, Object arg) {
         Partie p = (Partie)o;
         boolean started = p.isStarted();
+        System.out.println("started : " + started + " ingame: " + this.inGame + " inplacement: " + this.inPlacement);
         if(started && !inGame) {
             // lancement de la partie
             inGame = true;
             inPlacement = false;
-            this.jeu.addLogLine("Nouvelle partie lancée...", Color.RED);
+            this.jeu.addMouseListener(new ControllerPartie(p));
             this.setPanel(this.jeu);
             this.afficherBateaux(p.getListeBateaux(false));
             this.frame.setJMenuBar(this.menuBar);
+            p.miseAjour();
         } else if (!started && inPlacement) {
             this.frame.setJMenuBar(null);
             // actualisation de l'interface en fonction des placements de bateaux
@@ -95,14 +94,16 @@ public class VueJeu extends Vue {
             if(p.isReady()) {
                 this.placement.setJouerVisible();
             }
-        } else if(!inPlacement) {
+        } else if(!inPlacement && !inGame) {
             // actualisation de l'interface en fonction de l'époque choisie
             this.inPlacement = true;
             this.placement.addMouseListener(new ControllerPlacement(p));
             this.placement.setBateauEpoque(p.getListeBateaux(false));
         } else if(inGame) {
+            this.jeu.addLogLine(p.getLastMessage(), Color.red);
+            this.jeu.afficherAttaquesRatees(p.getHumain().getAttaqueRate());
+            this.jeu.afficherAttaquesTouchees(p.getHumain().getAttaqueTouche());
             if(p.getJoueurCourant() == Partie.JOUEUR_HUMAIN) {
-                this.jeu.addLogLine("A vous de jouer !", Color.blue);
                 this.jeu.addLogLine("Choisissez le bâteau allié attaquant...", Color.blue);
             }
         }

@@ -101,7 +101,7 @@ public class Partie extends Observable {
             this.lastMessage = "C'est au tour de l'IA de jouer.";
         } else {
             this.joueurCourant = JOUEUR_HUMAIN;
-            this.lastMessage = "C'est à votre tour de jouer";
+            this.lastMessage = "C'est à votre tour de jouer.";
         }
         miseAjour();
     }
@@ -168,7 +168,7 @@ public class Partie extends Observable {
     /**
      * Actualise la vue du joueur humain
      */
-    private void miseAjour() {
+    public void miseAjour() {
         this.setChanged();
         this.notifyObservers();
     }
@@ -208,6 +208,8 @@ public class Partie extends Observable {
             if(this.humain != null && this.ia != null) {
                 if(this.humain.isReady() && this.ia.isReady()) {
                     this.ready = true;
+                    this.humain.setAdversaire(this.ia);
+                    this.ia.setAdversaire(this.humain);
                     miseAjour();
                     return true;
                 }
@@ -222,6 +224,7 @@ public class Partie extends Observable {
      * permet de lancer la partie
      */
     public void start() {
+        System.out.println("start");
         if (!started) {
             started = true;
             this.lastMessage = "Nouvelle partie lancée...";
@@ -302,11 +305,14 @@ public class Partie extends Observable {
      *      attaque validee ou non
      */
     public int attaquer(Point p, Bateau b) {
+        int res;
         if(getJoueurCourant() == JOUEUR_HUMAIN) {
-            return this.humain.attaque(p, b);
+            res = this.humain.attaque(p, b);
         } else {
-            return this.ia.attaque(p, b);
+            res = ((Ordinateur)this.ia).jouerUnCoup();
         }
+        changerJoueur();
+        return res;
     }
 
 
