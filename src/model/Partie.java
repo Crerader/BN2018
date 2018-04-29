@@ -321,6 +321,7 @@ public class Partie extends Observable {
             }
         } else {
             res = ((Ordinateur)this.ia).jouerUnCoup();
+            miseAjour();
             switch(res) {
                 case Joueur.RATE:
                     this.lastMessage = "Yes! L'IA vous a raté !";

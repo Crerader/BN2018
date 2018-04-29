@@ -258,7 +258,8 @@ public abstract class Joueur {
     public int attaque(Point position, Bateau bateauAttaquant) {
         int res =  this.adversaire.estAttaque(position, bateauAttaquant.getDegats());
         switch(res) {
-            case Joueur.TOUCHE | Joueur.COULE:
+            case Joueur.TOUCHE :
+            case Joueur.COULE:
                 this.setAttaqueTouche(position);
                 break;
             case Joueur.RATE :
