@@ -321,6 +321,17 @@ public class Partie extends Observable {
             }
         } else {
             res = ((Ordinateur)this.ia).jouerUnCoup();
+            switch(res) {
+                case Joueur.RATE:
+                    this.lastMessage = "Yes! L'IA vous a raté !";
+                    break;
+                case Joueur.COULE:
+                    this.lastMessage = "Nooooon, l'IA a coulé votre bateau ! :(";
+                    break;
+                case Joueur.TOUCHE:
+                    this.lastMessage = "Eh zut! L'IA a touché votre bateau. ";
+                    break;
+            }
         }
         miseAjour();
         changerJoueur();
