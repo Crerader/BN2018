@@ -129,18 +129,22 @@ public class PanelPlacement extends JPanel {
                 case 2:
                     this.deuxBateau.setText(b.toString());
                     this.deuxBateau.setBackground(b.getColor());
+                    this.deuxBateau.setOpaque(true);
                     break;
                 case 3:
                     this.troisBateau.setText(b.toString());
                     this.troisBateau.setBackground(b.getColor());
+                    this.troisBateau.setOpaque(true);
                     break;
                 case 4:
                     this.quatreBateau.setText(b.toString());
                     this.quatreBateau.setBackground(b.getColor());
+                    this.quatreBateau.setOpaque(true);
                     break;
                 case 5:
                     this.cinqBateau.setText(b.toString());
                     this.cinqBateau.setBackground(b.getColor());
+                    this.cinqBateau.setOpaque(true);
                     break;
             }
         }

@@ -59,19 +59,23 @@ public class PanelGrille extends JPanel {
     public void afficherBateau(Bateau b) {
         for(Point p : b.getPositions()) {
             this.cases[(int)p.getY()][(int)p.getX()].setBackground(b.getColor());
+            this.cases[(int)p.getY()][(int)p.getX()].setOpaque(true);
         }
     }
 
     public void afficherAttaqueTouche(Point pxy) {
         this.cases[(int)pxy.getY()][(int)pxy.getX()].setBackground(Color.RED);
+        this.cases[(int)pxy.getY()][(int)pxy.getX()].setOpaque(true);
     }
 
     public void afficherAttaqueRate(Point pxy) {
         this.cases[(int)pxy.getY()][(int)pxy.getX()].setBackground(Color.GREEN);
+        this.cases[(int)pxy.getY()][(int)pxy.getX()].setOpaque(true);
     }
 
 
     public void afficherBateauToucher(Point p) {
         this.cases[(int)p.getY()][(int)p.getX()].setBackground(Color.BLACK);
+        this.cases[(int)p.getY()][(int)p.getX()].setOpaque(true);
     }
 }
