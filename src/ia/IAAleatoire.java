@@ -34,6 +34,7 @@ public class IAAleatoire extends Ordinateur {
                             break;
                         case Joueur.TOUCHE:
                             this.addAttaqueTouche(new Point(x, y));
+                            System.out.println("-----------------------------------------TOUCHER");
                             break;
                         default:
                             break;

@@ -357,4 +357,8 @@ public abstract class Joueur {
         }
         return res;
     }
+
+    public ArrayList<Point> getArrayAttaqueTouche(){
+        return this.attaqueTouche;
+    }
 }
