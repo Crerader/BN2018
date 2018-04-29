@@ -48,6 +48,15 @@ public abstract class Joueur {
     }
 
     /**
+     * permet de set un adversaire à ce joueur
+     * @param adv
+     *      autre Joueur
+     */
+    public void setAdversaire(Joueur adv) {
+        this.adversaire = adv;
+    }
+
+    /**
      * Changement position bateau donné
      * @param bateau qui a été placé
      * @param positions différentes cases occupé par le bateau
@@ -85,6 +94,23 @@ public abstract class Joueur {
     public Bateau getBateauNoPosition(int nbCase) {
         for(Bateau b : this.bateaux) {
             if(b.getTaillePosition() == 0 && b.getNbCase() == nbCase) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * méthode qui récupère le premier bateau de nombre de case donné
+     * qui n'est pas encore positionné sur la grille
+     * @param nbCase
+     *          nombre de case du bateau souhaité
+     * @return
+     *          premier bateau disponible
+     */
+    public Bateau getBateauByNbCaseNoPosition(int nbCase) {
+        for(Bateau b : this.bateaux) {
+            if(b.getNbCase() == nbCase) {
                 return b;
             }
         }
@@ -161,8 +187,26 @@ public abstract class Joueur {
         this.attaqueRate.add(pxy);
     }
 
+    /**
+     * retourne la liste des cases visées
+     * mais ratées
+     * @return
+     */
+    public ArrayList<Point> getAttaqueRate() {
+        return this.attaqueRate;
+    }
 
     /**
+     * retourne la liste des cases visées et
+     * touchées
+     * @return
+     */
+    public ArrayList<Point> getAttaqueTouche() {
+        return attaqueTouche;
+    }
+
+    /**
+
      * methode qui retourne true si le joueur est prêt à jouer
      * == que tous ses bateaux sont placés
      *

@@ -5,6 +5,7 @@ import model.Bateau;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class PanelJeu extends JPanel {
@@ -22,7 +23,7 @@ public class PanelJeu extends JPanel {
 
         this.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT-50));
         JPanel body = new JPanel();
-        body.setPreferredSize(new Dimension(VueJeu.WIDTH, VueJeu.HEIGHT-50));
+        body.setPreferredSize(new Dimension(VueJeu.WIDTH+100, VueJeu.HEIGHT-50));
         body.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         //side.setPreferredSize(new Dimension(Vue.WIDTH / 3, Vue.HEIGHT));
@@ -52,15 +53,16 @@ public class PanelJeu extends JPanel {
         gbc.gridx = 16;
         gbc.gridy = 0;
         gbc.gridheight = 32;
-        gbc.gridwidth = 32;
+        gbc.gridwidth = 48;
         body.add(this.informationPanel, gbc);
 
         this.add(body, BorderLayout.LINE_START);
 
     }
 
-    public void addActionListener(ActionListener controller) {
-
+    public void addMouseListener(MouseListener controller) {
+        this.grillePanelIA.addMouseListener(controller);
+        this.informationPanel.addMouseListener(controller);
     }
 
     public void afficherBateaux(ArrayList<Bateau> listeBateaux) {
