@@ -104,7 +104,7 @@ public abstract class Joueur {
         Bateau res = null;
         for(Bateau b : this.bateaux) {
             for(Point pos : b.getPositions()) {
-                if(pos == p) {
+                if(pos.getX() == p.getX() && pos.getY() == p.getY()) {
                     res = b;
                 }
             }
@@ -291,5 +291,24 @@ public abstract class Joueur {
      */
     public void addAttaqueTouche(Point p){
         this.attaqueTouche.add(p);
+    }
+
+    /**
+     * Indique si un point existe dans une liste
+     * @param points liste de points
+     * @param x coord x
+     * @param y coord y
+     * @return true si le point existe, false sinon
+     */
+    public boolean existePoint(ArrayList<Point> points,int x, int y){
+        boolean res = false;
+        for(int i = 0 ; i < points.size() ; i++){
+            Point tmp = points.get(i);
+            if(tmp.getY() == y && tmp.getX() == x){
+                res = true;
+                break;
+            }
+        }
+        return res;
     }
 }
