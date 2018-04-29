@@ -25,6 +25,7 @@ public class ControllerMenu implements ActionListener {
         JButton btn = (JButton) e.getSource();
         switch(btn.getActionCommand()) {
             case PanelMenu.REPRENDRE_COMMANDE:
+                vueMenu.setPanel(VueMenu.reprendrePartie);
                 break;
             case PanelMenu.COMMENCER_COMMANDE:
                 vueMenu.setPanel(VueMenu.creationPartie);

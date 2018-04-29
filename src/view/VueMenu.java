@@ -14,6 +14,7 @@ import java.util.Observer;
 public class VueMenu extends Vue {
 
     public static final PanelMenu menu = new PanelMenu();
+    public static PanelReprendrePartie reprendrePartie;
     public static PanelCreationPartie creationPartie;
     private final JFrame frame = new JFrame("Bataille Navale : menu");
 
@@ -42,7 +43,8 @@ public class VueMenu extends Vue {
     @Override
     public void update(Observable o, Object arg) {
         Jeu jeu = (Jeu)o;
-        if (jeu.existePartie()) {
+        if (jeu.existePartie().size() != 0) {
+            reprendrePartie = new PanelReprendrePartie(jeu.existePartie());
             this.menu.setReprendreEnabled(true);
         }
     }

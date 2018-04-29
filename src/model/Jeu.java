@@ -3,6 +3,8 @@ package model;
 import view.VueJeu;
 import view.VueMenu;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Jeu extends Observable {
@@ -24,6 +26,7 @@ public class Jeu extends Observable {
      */
     public static void main(String[]args){
         Jeu jeu = new Jeu();
+        jeu.miseAjour();
     }
 
     /**
@@ -68,9 +71,18 @@ public class Jeu extends Observable {
      * peut être reprise ou non.
      * @return
      */
-    public boolean existePartie() {
-        // T0D0 : analyse des sauvegardes si existe
-        return true;
+    public ArrayList<String> existePartie() {
+        File directory = new File("save");
+        String [] listefichiers;
+        ArrayList<String> res = new ArrayList<>();
+        int i;
+        listefichiers = directory.list();
+        for(i = 0; i < listefichiers.length; i++){
+            if(listefichiers[i].endsWith(".xml")){
+                res.add(listefichiers[i]);
+            }
+        }
+        return res;
     }
 
     /**
@@ -79,4 +91,13 @@ public class Jeu extends Observable {
     public VueMenu getVueMenu(){
         return this.vueMenu;
     }
+
+    /**
+     * Actualise la vue du joueur humain
+     */
+    private void miseAjour() {
+        this.setChanged();
+        this.notifyObservers();
+    }
+
 }
