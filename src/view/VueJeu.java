@@ -120,11 +120,6 @@ public class VueJeu extends Vue {
 
     public void afficherBateauToucher(ArrayList<Bateau> bateaux, Partie partie){
         if(inGame){
-            //ArrayList<Point> toucherIA = new ArrayList<>();
-            //for(int i = 0 ; i < partie.getIa().getTailleAttaqueTouche() ; i++){
-               // toucherIA.add(partie.getIa().getAttaqueTouche(i));
-            //}
-            //this.jeu.afficherBateauxToucher(bateaux,toucherIA);
             this.jeu.afficherBateauxToucher(bateaux,partie.getIa().getArrayAttaqueTouche());
         }
     }

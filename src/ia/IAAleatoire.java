@@ -27,14 +27,13 @@ public class IAAleatoire extends Ordinateur {
             int y = rand.nextInt(10);
             if (!existePoint(this.attaqueRate, x, y)) {
                 if (!existePoint(this.attaqueTouche, x, y)) {
-                    res = this.estAttaque(new Point(x, y), b.getDegats());
+                    res = this.adversaire.estAttaque(new Point(x, y), b.getDegats());
                     switch (res) {
                         case Joueur.RATE:
                             this.addAttaqueRate(new Point(x, y));
                             break;
                         case Joueur.TOUCHE:
                             this.addAttaqueTouche(new Point(x, y));
-                            System.out.println("-----------------------------------------TOUCHER");
                             break;
                         default:
                             break;

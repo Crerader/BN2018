@@ -96,11 +96,15 @@ public class PanelJeu extends JPanel {
             for(int i = 0 ; i < b.getTaillePosition() ; i++){
                 Point p = b.getPostion(i);
                 for(Point tmp : toucherIA){
-                    if(p == tmp){
+                    if(p.getX() == tmp.getX() && p.getY() == tmp.getY()){
                         ((PanelGrille)this.grillePanelHumain).afficherBateauToucher(p);
                     }
                 }
+                if(b.getHp() <= 0){
+                    ((PanelGrille)this.grillePanelHumain).afficherBateauToucher(p);
+                }
             }
+
         }
     }
 }
