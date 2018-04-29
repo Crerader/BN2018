@@ -14,9 +14,6 @@ public  abstract class Ordinateur extends Joueur{
     public static final int CROISER = 1;
 
 
-    //String utilisé pour le jeu en croix afin de savoir quel a été le dernier mouvement
-    //Cela permettra de savoir quel est la croix que l'on doit regarder
-    private String lastPlay;
 
     public Ordinateur(){
         super();
