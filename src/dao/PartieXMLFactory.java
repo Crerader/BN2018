@@ -2,6 +2,7 @@ package dao;
 
 import model.*;
 import org.w3c.dom.*;
+import view.InformationPartiePanel;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,9 +34,10 @@ public class PartieXMLFactory implements PartieDAO {
         this.enteteXML.append("<!ELEMENT x (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT y (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT bateaux (bateau*)>" + "\n");
-        this.enteteXML.append("<!ELEMENT bateau (type, hp, Positions)>" + "\n");
+        this.enteteXML.append("<!ELEMENT bateau (type, hp, projectile, Positions)>" + "\n");
         this.enteteXML.append("<!ELEMENT type (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT hp (#PCDATA)>" + "\n");
+        this.enteteXML.append("<!ELEMENT projectile (#PCDATA)>" + "\n");
         this.enteteXML.append("<!ELEMENT Positions (Position+)>" + "\n");
         this.enteteXML.append("<!ELEMENT Position (x, y)>" + "\n");
         this.enteteXML.append("<!ELEMENT IA (type, attaqueRates, attaqueTouches, bateaux)>" + "\n");
@@ -218,8 +220,10 @@ public class PartieXMLFactory implements PartieDAO {
                 Node hpBateau = nodeList.item(3);
                 //Recupere son nombre de points de vie
                 int hpB = Integer.parseInt(hpBateau.getTextContent());
+                Node projectileBateau = nodeList.item(5);
+                int projectile = Integer.parseInt(projectileBateau.getTextContent());
                 //Recupere les différentes positions dans le tableau des cases
-                NodeList positions = nodeList.item(5).getChildNodes();
+                NodeList positions = nodeList.item(7).getChildNodes();
                 ArrayList<Point> pos = new ArrayList<>();
 
                 int nbNodeList = positions.getLength();
@@ -238,6 +242,7 @@ public class PartieXMLFactory implements PartieDAO {
                         if (tmp.getTaillePosition() == 0 && !placer) {
                             tmp.setHp(hpB);
                             tmp.setPositions(pos);
+                            tmp.setProjectile(projectile);
                             placer = true;
                         }
                     }
@@ -297,6 +302,7 @@ public class PartieXMLFactory implements PartieDAO {
             res.append("<bateau>" + "\n");
             res.append("<type>" + tmp.toString() + "</type>" + "\n");
             res.append("<hp>" + tmp.getHp() + "</hp>" + "\n");
+            res.append("<projectile>" + tmp.getProjectile() + "</projectile>" + "\n");
             res.append("<Positions>" + "\n");
             for (int j = 0; j < tmp.getTaillePosition(); j++) {
                 res.append("<Position>" + "\n");

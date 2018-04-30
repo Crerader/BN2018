@@ -110,7 +110,7 @@ public abstract class Joueur {
      */
     public Bateau getBateauByNbCaseNoPosition(int nbCase) {
         for(Bateau b : this.bateaux) {
-            if(b.getNbCase() == nbCase) {
+            if(b.getNbCase() == nbCase && b.getProjectile() > 0) {
                 return b;
             }
         }

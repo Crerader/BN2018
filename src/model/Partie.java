@@ -369,10 +369,30 @@ public class Partie extends Observable {
                     break;
             }
         }
-        if(this.ia.isDestructed()) {
+        if(this.ia.isDestructed() || (this.ia.getProjectileRestant() <= 0 && this.getHumain().getProjectileRestant() > 0)) {
             this.vainqueur = this.humain;
-        } else if (this.humain.isDestructed()) {
+        } else if (this.humain.isDestructed() || (this.getHumain().getProjectileRestant() <= 0 && this.getIa().getProjectileRestant() > 0)) {
             this.vainqueur = this.ia;
+        }else if(this.humain.getProjectileRestant() == 0 && this.getIa().getProjectileRestant() == 0){
+            int bateauHumainEnVie = 0;
+            for(int i = 0 ; i < this.humain.getTailleBateaux() ; i++){
+                if(this.humain.getBateau(i).getHp() > 0){
+                    bateauHumainEnVie++;
+                }
+            }
+            int bateauIAEnVie = 0;
+            for(int i = 0 ; i < this.ia.getTailleBateaux() ; i++){
+                if(this.ia.getBateau(i).getHp() > 0){
+                    bateauIAEnVie++;
+                }
+            }
+            if(bateauHumainEnVie > bateauIAEnVie){
+                this.vainqueur = this.humain;
+            }else if(bateauIAEnVie > bateauHumainEnVie){
+                this.vainqueur = this.ia;
+            }else{
+                this.vainqueur = this.humain;
+            }
         }
         miseAjour();
         Thread.sleep(300);

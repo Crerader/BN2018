@@ -142,4 +142,8 @@ public abstract class Bateau {
     public void retirerProjectile(){
         this.projectile = this.projectile - 1;
     }
+
+    public void setProjectile(int projectile){
+        this.projectile = projectile;
+    }
 }
