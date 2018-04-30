@@ -41,7 +41,7 @@ public class VueJeu extends Vue {
         this.inGame = false;
         this.inPlacement = false;
         this.setPanel(this.panel);
-        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH-50, VueJeu.HEIGHT-150));
+        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH - 50, VueJeu.HEIGHT - 150));
         this.menuBar.add(menu);
         this.menuBar.add(menu_2);
         this.menuBar.add(menu_3);
@@ -51,7 +51,7 @@ public class VueJeu extends Vue {
     }
 
     public void setPanel(JPanel panel) {
-        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH+100, VueJeu.HEIGHT));
+        this.frame.setPreferredSize(new Dimension(VueJeu.WIDTH + 100, VueJeu.HEIGHT));
         this.frame.setContentPane(panel);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +62,7 @@ public class VueJeu extends Vue {
 
     @Override
     public void update(Observable o, Object arg) {
-        Partie p = (Partie)o;
+        Partie p = (Partie) o;
         boolean started = p.isStarted();
         Joueur vainqueur = p.getVainqueur();
         if(vainqueur != null && !p.isEnded()) {
@@ -91,7 +91,7 @@ public class VueJeu extends Vue {
             this.frame.setJMenuBar(null);
             // actualisation de l'interface en fonction des placements de bateaux
             HashMap<Integer, Integer> listeBateauHumain = p.getListeBateauxBySize(false);
-            if(listeBateauHumain.get(2) == Partie.NB_BATEAU_2) {
+            if (listeBateauHumain.get(2) == Partie.NB_BATEAU_2) {
                 this.placement.setBoutonEnabled(false, 2);
             }
             if (listeBateauHumain.get(3) == Partie.NB_BATEAU_3) {
@@ -103,47 +103,48 @@ public class VueJeu extends Vue {
             if (listeBateauHumain.get(5) == Partie.NB_BATEAU_5) {
                 this.placement.setBoutonEnabled(false, 5);
             }
-            if(p.isReady()) {
+            if (p.isReady()) {
                 this.placement.setJouerVisible();
             }
-        } else if(!inPlacement && !inGame) {
+        } else if (!inPlacement && !inGame) {
             // actualisation de l'interface en fonction de l'époque choisie
             this.inPlacement = true;
             this.placement.addMouseListener(new ControllerPlacement(p));
             this.placement.setBateauEpoque(p.getListeBateaux(false));
-        } else if(inGame) {
+        } else if (inGame) {
             this.jeu.addLogLine(p.getLastMessage(), Color.red);
             this.jeu.afficherAttaquesRatees(p.getHumain().getAttaqueRate());
             this.jeu.afficherAttaquesTouchees(p.getHumain().getAttaqueTouche());
+            this.bloquerBoutonBateauMort(p);
         }
         this.afficherBateaux(p.getListeBateaux(false));
-        this.afficherBateauToucher(p.getListeBateaux(false),p);
+        this.afficherBateauToucher(p.getListeBateaux(false), p);
+        this.bloquerBoutonBateauMort(p);
         this.frame.pack();
     }
 
     public void afficherBateaux(ArrayList<Bateau> bateaux) {
-        if(inPlacement) {
+        if (inPlacement) {
             this.placement.afficherBateaux(bateaux);
         } else if (inGame) {
             this.jeu.afficherBateaux(bateaux);
         }
     }
 
-    public void afficherBateauToucher(ArrayList<Bateau> bateaux, Partie partie){
-        if(inGame){
-            this.jeu.afficherBateauxToucher(bateaux,partie.getIa().getArrayAttaqueTouche());
-        }
-    }
-
-    public void afficherAttaque(ArrayList<Point> attaquesRate, ArrayList<Point> attaquesTouchee) {
+    public void afficherBateauToucher(ArrayList<Bateau> bateaux, Partie partie) {
         if (inGame) {
-            this.jeu.afficherAttaquesRatees(attaquesRate);
-            this.jeu.afficherAttaquesTouchees(attaquesTouchee);
+            this.jeu.afficherBateauxToucher(bateaux, partie.getIa().getArrayAttaqueTouche());
+        }
+    }
+
+    public void bloquerBoutonBateauMort(Partie partie) {
+        if (inGame) {
+            this.jeu.bloquerBoutonBateauMort(partie.getHumain());
         }
     }
 
 
-    public void exit(){
+    public void exit() {
         this.frame.setVisible(false);
     }
 

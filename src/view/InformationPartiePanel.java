@@ -1,6 +1,7 @@
 package view;
 
 import model.Bateau;
+import model.Joueur;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -39,7 +40,7 @@ public class InformationPartiePanel extends JPanel {
         this.cinqBateau.setActionCommand(BOUTON_BATEAU_5_CASES);
 
         //this.setPreferredSize(new Dimension(100, 300));
-        this.setLayout(new GridLayout(0,1, 0, 5));
+        this.setLayout(new GridLayout(0, 1, 0, 5));
 //
 //        // bateau panel set
 //        this.bateauxPanel.setLayout(new GridLayout(0,1, 0, 5));
@@ -78,7 +79,7 @@ public class InformationPartiePanel extends JPanel {
         try {
             doc.insertString(doc.getLength(), txt + "\n", style);
             log.setCaretPosition(doc.getLength());
-        } catch (BadLocationException e){
+        } catch (BadLocationException e) {
 
         }
     }
@@ -92,10 +93,11 @@ public class InformationPartiePanel extends JPanel {
 
     /**
      * Permet de modifier l'époque
+     *
      * @param listeBateau
      */
     public void setBateauEpoque(ArrayList<Bateau> listeBateau) {
-        for(Bateau b : listeBateau) {
+        for (Bateau b : listeBateau) {
             int taille = b.getNbCase();
             switch (taille) {
                 case 2:
@@ -119,6 +121,24 @@ public class InformationPartiePanel extends JPanel {
                     this.cinqBateau.setOpaque(true);
                     break;
             }
+        }
+        this.repaint();
+    }
+
+    public void bloquerBoutonBateauMort(int taille) {
+        switch (taille) {
+            case Bateau.TAILLE_2_CASES:
+                this.deuxBateau.setEnabled(false);
+                break;
+            case Bateau.TAILLE_3_CASES:
+                this.troisBateau.setEnabled(false);
+                break;
+            case Bateau.TAILLE_4_CASES:
+                this.quatreBateau.setEnabled(false);
+                break;
+            case Bateau.TAILLE_5_CASES:
+                this.cinqBateau.setEnabled(false);
+                break;
         }
         this.repaint();
     }
