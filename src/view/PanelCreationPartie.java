@@ -81,6 +81,7 @@ public class PanelCreationPartie extends JPanel {
         this.choixEpoque.add(medievalPanel);
         this.choixEpoque.add(contemporainelPanel);
 
+        this.choixIA.add(new JLabel("Stratégie de l'IA : "));
         this.choixIA.add(aleatoire);
         this.choixIA.add(croix);
 
