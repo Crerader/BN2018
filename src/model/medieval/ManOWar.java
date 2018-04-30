@@ -8,7 +8,7 @@ public class ManOWar extends Bateau {
 
     public final static int DAMAGES = 15;
     public final static int HP = 45;
-    public final static int PROJECTILE = 5;
+    public final static int PROJECTILE = 8;
 
     public ManOWar(String chemin) {
         super(chemin);

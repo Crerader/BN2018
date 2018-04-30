@@ -9,7 +9,7 @@ public class Galion extends Bateau {
 
     public final static int DAMAGES = 10;
     public final static int HP = 40;
-    public final static int PROJECTILE = 6;
+    public final static int PROJECTILE = 10;
 
     public Galion(String chemin) {
         super(chemin);

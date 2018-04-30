@@ -8,7 +8,7 @@ public class PorteAvion extends Bateau {
 
     public final static int DAMAGES = 35;
     public final static int HP = 120;
-    public final static int PROJECTILE = 5;
+    public final static int PROJECTILE = 8;
 
     public PorteAvion(String chemin) {
         super(chemin);

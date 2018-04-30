@@ -8,7 +8,7 @@ public class Torpilleur extends Bateau {
 
     public final static int DAMAGES = 24;
     public final static int HP = 48;
-    public final static int PROJECTILE = 10;
+    public final static int PROJECTILE = 25;
 
     public Torpilleur(String chemin) {
         super(chemin);

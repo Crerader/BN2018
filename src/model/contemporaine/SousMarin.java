@@ -8,7 +8,7 @@ public class SousMarin extends Bateau {
 
     public final static int DAMAGES = 24;
     public final static int HP = 72;
-    public final static int PROJECTILE = 8;
+    public final static int PROJECTILE = 15;
 
     public SousMarin(String chemin) {
         super(chemin);

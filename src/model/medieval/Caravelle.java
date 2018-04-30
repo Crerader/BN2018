@@ -8,7 +8,7 @@ public class Caravelle extends Bateau {
 
     public final static int DAMAGES = 8;
     public final static int HP = 24;
-    public final static int PROJECTILE = 5;
+    public final static int PROJECTILE = 20;
 
     public Caravelle(String chemin) {
         super(chemin);
