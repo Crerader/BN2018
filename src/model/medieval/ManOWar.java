@@ -7,7 +7,7 @@ import java.awt.*;
 public class ManOWar extends Bateau {
 
     public final static int DAMAGES = 15;
-    public final static int HP = 40;
+    public final static int HP = 45;
     public final static int PROJECTILE = 5;
 
     public ManOWar(String chemin) {

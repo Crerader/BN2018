@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class Galion extends Bateau {
 
-    public final static int DAMAGES = 8;
-    public final static int HP = 32;
+    public final static int DAMAGES = 10;
+    public final static int HP = 40;
     public final static int PROJECTILE = 6;
 
     public Galion(String chemin) {

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Torpilleur extends Bateau {
 
-    public final static int DAMAGES = 12;
+    public final static int DAMAGES = 24;
     public final static int HP = 48;
     public final static int PROJECTILE = 10;
 
