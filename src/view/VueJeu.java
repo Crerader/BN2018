@@ -35,7 +35,6 @@ public class VueJeu extends Vue {
      */
     public VueJeu(Jeu j) {
         this.frame.setLocationRelativeTo(null);
-        //this.controller = new ControllerJeu();
         //placement.addActionListener((ActionListener)this.controller);
         this.panel = placement;
         this.inGame = false;
