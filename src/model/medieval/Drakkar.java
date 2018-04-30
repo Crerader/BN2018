@@ -8,7 +8,7 @@ public class Drakkar extends Bateau {
 
     public final static int DAMAGES = 4;
     public final static int HP = 16;
-    public final static int PROJECTILE = 6;
+    public final static int PROJECTILE = 12;
 
     public Drakkar(String chemin) {
         super(chemin);

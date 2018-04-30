@@ -8,7 +8,7 @@ public class Croiseur extends Bateau {
 
     public final static int DAMAGES = 14;
     public final static int HP = 96;
-    public final static int PROJECTILE = 4;
+    public final static int PROJECTILE = 18;
 
     public Croiseur(String chemin) {
         super(chemin);
