@@ -8,17 +8,20 @@ import java.awt.*;
 public class Galion extends Bateau {
 
     public final static int DAMAGES = 8;
+    public final static int HP = 32;
 
-    public Galion(int hp, String chemin) {
-        super(hp, chemin);
+    public Galion(String chemin) {
+        super(chemin);
         this.nbCase = Bateau.TAILLE_4_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
-    public Galion(int hp, Color color) {
-        super(hp, color);
+    public Galion(Color color) {
+        super(color);
         this.nbCase = Bateau.TAILLE_4_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
 

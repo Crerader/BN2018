@@ -6,18 +6,21 @@ import java.awt.*;
 
 public class Torpilleur extends Bateau {
 
-    public final static int DAMAGES = 4;
+    public final static int DAMAGES = 12;
+    public final static int HP = 48;
 
-    public Torpilleur(int hp, String chemin) {
-        super(hp, chemin);
+    public Torpilleur(String chemin) {
+        super(chemin);
         this.nbCase = Bateau.TAILLE_2_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
-    public Torpilleur(int hp, Color color) {
-        super(hp, color);
+    public Torpilleur(Color color) {
+        super(color);
         this.nbCase = Bateau.TAILLE_2_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
 
     }
 

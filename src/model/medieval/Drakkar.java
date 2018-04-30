@@ -7,17 +7,20 @@ import java.awt.*;
 public class Drakkar extends Bateau {
 
     public final static int DAMAGES = 4;
+    public final static int HP = 16;
 
-    public Drakkar(int hp, String chemin) {
-        super(hp, chemin);
+    public Drakkar(String chemin) {
+        super(chemin);
         this.nbCase = Bateau.TAILLE_2_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
-    public Drakkar(int hp, Color color) {
-        super(hp, color);
+    public Drakkar(Color color) {
+        super(color);
         this.nbCase = Bateau.TAILLE_2_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
 
