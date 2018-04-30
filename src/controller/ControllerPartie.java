@@ -70,6 +70,7 @@ public class ControllerPartie implements MouseListener {
                             try {
                                 this.partie.attaquer(posXY, this.bateauSelected);
                                 this.caseSelected = null;
+                                this.bateauSelected = null;
                             } catch (Exception e1) {
 
                             }

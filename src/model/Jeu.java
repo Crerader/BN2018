@@ -120,7 +120,6 @@ public class Jeu extends Observable {
         dateHeure = dateHeure.replace("/","-");
         dateHeure = dateHeure.replace(":","-");
         String chemin = cheminSauvegarde + "/Partie_" + dateHeure + ".xml";
-        System.out.println(chemin);
         this.partieEnCours.save(chemin);
 
     }

@@ -267,6 +267,7 @@ public abstract class Joueur {
                 this.setAttaqueRatee(position);
                 break;
         }
+        bateauAttaquant.retirerProjectile();
         return res;
     }
 
@@ -378,5 +379,13 @@ public abstract class Joueur {
 
     public ArrayList<Point> getArrayAttaqueTouche(){
         return this.attaqueTouche;
+    }
+
+    public int getProjectileRestant(){
+        int count = 0;
+        for(int i = 0 ; i < this.getTailleBateaux() ; i++){
+            count += this.getBateau(i).getProjectile();
+        }
+        return count;
     }
 }

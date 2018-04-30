@@ -6,14 +6,16 @@ import java.awt.*;
 
 public class PorteAvion extends Bateau {
 
-    public final static int DAMAGES = 24;
-    public final static int HP = 96;
+    public final static int DAMAGES = 30;
+    public final static int HP = 120;
+    public final static int PROJECTILE = 3;
 
     public PorteAvion(String chemin) {
         super(chemin);
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public PorteAvion(Color color) {
@@ -21,6 +23,7 @@ public class PorteAvion extends Bateau {
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
 
     }
 

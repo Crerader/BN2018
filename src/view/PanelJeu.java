@@ -114,7 +114,7 @@ public class PanelJeu extends JPanel {
         int case5 = 0;
         for(int i = 0 ; i < humain.getTailleBateaux() ; i++){
             Bateau b = humain.getBateau(i);
-            if(b.getHp() > 0){
+            if(b.getHp() > 0 && b.getProjectile() > 0){
                 switch (b.getNbCase()){
                     case Bateau.TAILLE_2_CASES:
                         case2++;

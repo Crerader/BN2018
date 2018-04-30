@@ -38,6 +38,7 @@ public class IAAleatoire extends Ordinateur {
                         default:
                             break;
                     }
+                    b.retirerProjectile();
                     stop = true;
                 }
             }

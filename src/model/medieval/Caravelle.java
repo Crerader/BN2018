@@ -8,12 +8,14 @@ public class Caravelle extends Bateau {
 
     public final static int DAMAGES = 6;
     public final static int HP = 24;
+    public final static int PROJECTILE = 5;
 
     public Caravelle(String chemin) {
         super(chemin);
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public Caravelle( Color color) {
@@ -21,6 +23,7 @@ public class Caravelle extends Bateau {
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
 

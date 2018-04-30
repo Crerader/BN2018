@@ -8,12 +8,14 @@ public class SousMarin extends Bateau {
 
     public final static int DAMAGES = 18;
     public final static int HP = 72;
+    public final static int PROJECTILE = 5;
 
     public SousMarin(String chemin) {
         super(chemin);
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public SousMarin(Color color) {
@@ -21,6 +23,7 @@ public class SousMarin extends Bateau {
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
 
     }
 
