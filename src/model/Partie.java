@@ -76,6 +76,11 @@ public class Partie extends Observable {
     private Joueur vainqueur;
 
     /**
+     * Partie entièrement finie
+     */
+    private boolean ended;
+
+    /**
      * Constructeur vide
      */
     public Partie() {
@@ -86,9 +91,25 @@ public class Partie extends Observable {
         this.vueJeu = null;
         this.started = false;
         this.ready = false;
+        this.ended = false;
         this.lastMessage = "";
         this.vainqueur = null;
         this.dao = AbstractDAOFactory.getAbstractDAOFactory(AbstractDAOFactory.XML);
+    }
+
+    /**
+     * getter setter
+     * etat final de la partie
+     *
+     * @return
+     *          partie finie ou non
+     */
+    public boolean isEnded() {
+        return this.ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 
     /**
@@ -355,7 +376,9 @@ public class Partie extends Observable {
         }
         miseAjour();
         Thread.sleep(300);
-        changerJoueur();
+        if(this.vainqueur == null) {
+            changerJoueur();
+        }
         return res;
     }
 

@@ -2,6 +2,7 @@ package controller;
 
 import model.Bateau;
 import model.Partie;
+import view.PanelFin;
 import view.PanelGrille;
 import view.PanelPlacement;
 
@@ -50,8 +51,10 @@ public class ControllerPartie implements MouseListener {
             case PanelPlacement.BOUTON_BATEAU_5_CASES:
                 b = partie.getHumain().getBateauByNbCaseNoPosition(5);
                 this.bateauSelected = b;
-
                 break;
+            case PanelFin.RETOUR_MENU :
+                partie.setEnded(true);
+                partie.miseAjour();
             default:
                 // selection d'une case de la grille
                 if (SwingUtilities.isLeftMouseButton(e)) {

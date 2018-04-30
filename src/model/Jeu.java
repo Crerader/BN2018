@@ -104,7 +104,7 @@ public class Jeu extends Observable {
     /**
      * Actualise la vue du joueur humain
      */
-    private void miseAjour() {
+    public void miseAjour() {
         this.setChanged();
         this.notifyObservers();
     }

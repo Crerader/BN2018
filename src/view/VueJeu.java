@@ -3,6 +3,7 @@ package view;
 import controller.*;
 import model.Bateau;
 import model.Jeu;
+import model.Joueur;
 import model.Partie;
 
 import javax.swing.*;
@@ -63,8 +64,19 @@ public class VueJeu extends Vue {
     public void update(Observable o, Object arg) {
         Partie p = (Partie)o;
         boolean started = p.isStarted();
-        if(p.getVainqueur() != null) {
-            this.jeu.addLogLine("Le vainqueur est l'" + p.getVainqueur() + " !", Color.GREEN);
+        Joueur vainqueur = p.getVainqueur();
+        if(vainqueur != null && !p.isEnded()) {
+            this.jeu.addLogLine("Le vainqueur est l'" + vainqueur + " !", Color.GREEN);
+            PanelFin pf = new PanelFin(false);
+            if (vainqueur == p.getHumain()) {
+                pf = new PanelFin(true);
+            }
+            pf.addMouseListener(new ControllerPartie(p));
+            this.setPanel(pf);
+        } else if (p.isEnded()) {
+            this.frame.dispose();
+            Jeu j = new Jeu();
+            j.miseAjour();
         } else if(started && !inGame) {
             // lancement de la partie
             inGame = true;
