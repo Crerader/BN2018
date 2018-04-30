@@ -7,17 +7,20 @@ import java.awt.*;
 public class ManOWar extends Bateau {
 
     public final static int DAMAGES = 10;
+    public final static int HP = 40;
 
-    public ManOWar(int hp, String chemin) {
-        super(hp, chemin);
+    public ManOWar(String chemin) {
+        super(chemin);
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
-    public ManOWar(int hp, Color color) {
-        super(hp, color);
+    public ManOWar(Color color) {
+        super(color);
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
 

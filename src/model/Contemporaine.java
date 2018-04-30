@@ -11,11 +11,11 @@ import java.util.HashMap;
 public class Contemporaine extends Epoque {
     @Override
     public void creerBateau(Joueur joueur) {
-        Bateau porteAvion = new PorteAvion(Bateau.VIE_5_CASES,Color.GRAY);
-        Bateau croiseur = new Croiseur(Bateau.VIE_4_CASES,Color.YELLOW);
-        Bateau sousMarin1 = new SousMarin(Bateau.VIE_3_CASES,Color.PINK);
-        Bateau sousMarin2 = new SousMarin(Bateau.VIE_3_CASES,Color.PINK);
-        Bateau torpilleur = new Torpilleur(Bateau.VIE_2_CASES,Color.CYAN);
+        Bateau porteAvion = new PorteAvion(Color.GRAY);
+        Bateau croiseur = new Croiseur(Color.YELLOW);
+        Bateau sousMarin1 = new SousMarin(Color.PINK);
+        Bateau sousMarin2 = new SousMarin(Color.PINK);
+        Bateau torpilleur = new Torpilleur(Color.CYAN);
 
         joueur.ajouterBateauSansPosi(porteAvion);
         joueur.ajouterBateauSansPosi(croiseur);

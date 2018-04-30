@@ -15,14 +15,6 @@ public abstract class Bateau {
     public static final int TAILLE_2_CASES = 2;
 
 
-
-    public static final int VIE_5_CASES = 30;
-    public static final int VIE_4_CASES = 20;
-    public static final int VIE_3_CASES = 15;
-    public static final int VIE_2_CASES = 10;
-
-
-
     protected int hp;
     protected ArrayList<Point> positions;
     protected BufferedImage image;
@@ -33,8 +25,7 @@ public abstract class Bateau {
     protected Color color;
 
 
-    public Bateau(int hp,String chemin){
-        this.hp = hp;
+    public Bateau(String chemin){
         this.positions = new ArrayList<>();
         try {
              image = ImageIO.read(new File(chemin));
@@ -45,8 +36,7 @@ public abstract class Bateau {
     }
 
     //En attendant d'avoir les images, on utilise des couleurs différentes pour les bateaux
-    public Bateau(int hp, Color color){
-        this.hp = hp;
+    public Bateau(Color color){
         this.positions = new ArrayList<>();
         this.color = color;
     }

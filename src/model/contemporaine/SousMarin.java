@@ -6,18 +6,21 @@ import java.awt.*;
 
 public class SousMarin extends Bateau {
 
-    public final static int DAMAGES = 6;
+    public final static int DAMAGES = 18;
+    public final static int HP = 72;
 
-    public SousMarin(int hp, String chemin) {
-        super(hp, chemin);
+    public SousMarin(String chemin) {
+        super(chemin);
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
     }
 
-    public SousMarin(int hp, Color color) {
-        super(hp, color);
+    public SousMarin(Color color) {
+        super(color);
         this.nbCase = Bateau.TAILLE_3_CASES;
         this.degats = DAMAGES;
+        this.hp = HP;
 
     }
 
