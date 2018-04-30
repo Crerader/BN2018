@@ -8,12 +8,14 @@ public class ManOWar extends Bateau {
 
     public final static int DAMAGES = 10;
     public final static int HP = 40;
+    public final static int PROJECTILE = 3;
 
     public ManOWar(String chemin) {
         super(chemin);
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public ManOWar(Color color) {
@@ -21,6 +23,7 @@ public class ManOWar extends Bateau {
         this.nbCase = Bateau.TAILLE_5_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
 

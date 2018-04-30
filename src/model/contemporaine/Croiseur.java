@@ -6,14 +6,16 @@ import java.awt.*;
 
 public class Croiseur extends Bateau {
 
-    public final static int DAMAGES = 30;
-    public final static int HP = 120;
+    public final static int DAMAGES = 14;
+    public final static int HP = 96;
+    public final static int PROJECTILE = 4;
 
     public Croiseur(String chemin) {
         super(chemin);
         this.nbCase = Bateau.TAILLE_4_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public Croiseur(Color color) {
@@ -21,6 +23,7 @@ public class Croiseur extends Bateau {
         this.nbCase = Bateau.TAILLE_4_CASES;
         this.degats = DAMAGES;
         this.hp = HP;
+        this.projectile = PROJECTILE;
     }
 
     public String toString() {

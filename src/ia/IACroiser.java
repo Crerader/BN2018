@@ -116,6 +116,7 @@ public class IACroiser extends Ordinateur {
             default:
                 break;
         }
+        b.retirerProjectile();
         return res;
     }
 }

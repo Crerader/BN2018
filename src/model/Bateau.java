@@ -20,6 +20,7 @@ public abstract class Bateau {
     protected BufferedImage image;
     protected int nbCase;
     protected int degats;
+    protected int projectile;
 
     //Temporaire
     protected Color color;
@@ -132,5 +133,13 @@ public abstract class Bateau {
             coule = true;
         }
         return coule;
+    }
+
+    public int getProjectile(){
+        return this.projectile;
+    }
+
+    public void retirerProjectile(){
+        this.projectile = this.projectile - 1;
     }
 }

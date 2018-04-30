@@ -188,7 +188,7 @@ public  abstract class Ordinateur extends Joueur{
         while (!stop){
             bateau = rand.nextInt(5);
             b = this.getBateau(bateau);
-            if(b.getHp() > 0 ){
+            if(b.getHp() > 0 && b.getProjectile() > 0 ){
                 stop = true;
             }
         }
