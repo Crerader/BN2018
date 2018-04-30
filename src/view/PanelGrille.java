@@ -15,16 +15,11 @@ import java.util.ArrayList;
  */
 public class PanelGrille extends JPanel {
 
-    private ArrayList<Point> casesRatees;
-    private ArrayList<Point> casesTouchees;
-
     private JButton[][] cases;
     public final static int ASCII = 65;
 
     public PanelGrille() {
         super();
-        this.casesRatees = new ArrayList<Point>();
-        this.casesTouchees = new ArrayList<Point>();
 
         this.cases = new JButton[10][10];
         this.setLayout(new GridLayout(10,10));
@@ -40,9 +35,6 @@ public class PanelGrille extends JPanel {
         }
     }
 
-    public JButton getCase(int i, int j) {
-        return this.cases[i][j];
-    }
 
     public JButton[][] getGrille(){
         return this.cases;
