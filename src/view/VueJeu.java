@@ -113,7 +113,8 @@ public class VueJeu extends Vue {
             this.placement.setBateauEpoque(p.getListeBateaux(false));
         } else if (inGame) {
             this.jeu.addLogLine(p.getLastMessage(), Color.red);
-            this.jeu.afficherAttaquesRatees(p.getHumain().getAttaqueRate());
+            this.jeu.afficherAttaquesRatees(p.getHumain().getAttaqueRate(),"joueur");
+            this.jeu.afficherAttaquesRatees(p.getIa().getAttaqueRate(),"IA");
             this.jeu.afficherAttaquesTouchees(p.getHumain().getAttaqueTouche());
             this.bloquerBoutonBateauMort(p);
         }

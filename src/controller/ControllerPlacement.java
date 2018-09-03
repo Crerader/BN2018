@@ -1,6 +1,6 @@
 package controller;
 
-import javafx.scene.layout.Pane;
+
 import model.Bateau;
 import model.Partie;
 import view.PanelGrille;

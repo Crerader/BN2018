@@ -58,6 +58,7 @@ public class IACroiser extends Ordinateur {
                     }
                 }
             } else {
+                System.out.println("On entre bien ici");
                 boolean arret = false;
                 while (!arret) {
                     int id = rand.nextInt(4) + 1;
@@ -112,6 +113,7 @@ public class IACroiser extends Ordinateur {
                 break;
             case Joueur.TOUCHE :
                 this.addAttaqueTouche(attaque);
+                this.nbTitr.add(6);
                 break;
             default:
                 break;

@@ -80,10 +80,17 @@ public class PanelJeu extends JPanel {
         }
     }
 
-    public void afficherAttaquesRatees(ArrayList<Point> attaques) {
-        for (Point p : attaques) {
-            ((PanelGrille) this.grillePanelIA).afficherAttaqueRate(p);
+    public void afficherAttaquesRatees(ArrayList<Point> attaques, String s) {
+        if(s.equals("joueur")){
+            for (Point p : attaques) {
+                ((PanelGrille) this.grillePanelIA).afficherAttaqueRate(p);
+            }
+        }else{
+            for (Point p : attaques) {
+                ((PanelGrille) this.grillePanelHumain).afficherAttaqueRate(p);
+            }
         }
+
     }
 
     public void setBateauEpoque(ArrayList<Bateau> bateauEpoque) {
