@@ -21,6 +21,7 @@ public class PanelCreationPartie extends JPanel {
     private JRadioButton contemporaine;
     private JRadioButton aleatoire;
     private JRadioButton croix;
+    private JRadioButton search;
 
     private JPanel choixEpoque;
     private JPanel choixIA;
@@ -74,8 +75,10 @@ public class PanelCreationPartie extends JPanel {
 
         aleatoire = new JRadioButton("aléatoire");
         croix = new JRadioButton("en croix");
+        search = new JRadioButton("par recherche");
         b2.add(aleatoire);
         b2.add(croix);
+        b2.add(search);
         aleatoire.setSelected(true);
 
         this.choixEpoque.add(medievalPanel);
@@ -84,6 +87,7 @@ public class PanelCreationPartie extends JPanel {
         this.choixIA.add(new JLabel("Stratégie de l'IA : "));
         this.choixIA.add(aleatoire);
         this.choixIA.add(croix);
+        this.choixIA.add(search);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -119,7 +123,10 @@ public class PanelCreationPartie extends JPanel {
         if (this.aleatoire.isSelected()) {
             return 0;
         } else {
-            return 1;
+            if(this.croix.isSelected()) {
+                return 1;
+            }else
+                return 2;
         }
     }
 }

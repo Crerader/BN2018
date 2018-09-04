@@ -2,6 +2,7 @@ package model;
 
 import ia.IAAleatoire;
 import ia.IACroiser;
+import ia.IASearch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ public  abstract class Ordinateur extends Joueur{
 
     public static final int ALEATOIRE = 0;
     public static final int CROISER = 1;
+    public static final int SEARCH = 2;
 
 
 
@@ -34,6 +36,8 @@ public  abstract class Ordinateur extends Joueur{
                 return new IAAleatoire();
             case CROISER :
                 return new IACroiser();
+            case SEARCH:
+                return new IASearch();
             default:
                 return new IAAleatoire();
         }
