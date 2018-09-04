@@ -6,20 +6,16 @@ import model.Ordinateur;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.Set;
 
 public class IACroiser extends Ordinateur {
 
 
-    public static final int EST = 1;
+    public static final int NORTH = 1;
     public static final int SOUTH = 2;
-    public static final int NORTH = -2;
-    public static final int WEST = -1;
+    public static final int EST = 3;
+    public static final int WEST = 4;
     public static final int NEW = 0;
-    public static int directionAttaque = 0 ;
-    public int coupPrecedent = 0;
 
 
     /**
@@ -50,7 +46,6 @@ public class IACroiser extends Ordinateur {
         boolean stop = false;
         Bateau b = this.getBateauRandom();
         Point attaque = null;
-        int tmpDir = 0;
         while (!stop) {
             if (this.nbTitr.size() == NEW) {
                 int x = rand.nextInt(10);
@@ -65,24 +60,38 @@ public class IACroiser extends Ordinateur {
             } else {
                 boolean arret = false;
                 while (!arret) {
-                    if (directionAttaque == 0) {
-                        int id = (rand.nextInt(4) + 1)-2
-                                ;
-                        HashMap<Boolean, Point> resMethodAttaque = this.attaqueMethod(id);
-                        Set<Boolean> set = resMethodAttaque.keySet();
-                        for(boolean bool : set) {
-                            attaque = resMethodAttaque.get(bool);
-                            arret = bool;
+                    int id = rand.nextInt(4) + 1;
+                    if (!this.nbTitr.contains(id)) {
+                        switch (id) {
+                            case NORTH:
+                                if (this.middle.getX() + 1 < 10) {
+                                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()-1);
+                                    arret = true;
+                                }
+                                this.nbTitr.add(NORTH);
+                                break;
+                            case SOUTH:
+                                if (this.middle.getX() - 1 >= 0) {
+                                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()+1);
+                                    arret = true;
+                                }
+                                this.nbTitr.add(SOUTH);
+                                break;
+                            case EST:
+                                if (this.middle.getY() + 1 < 10) {
+                                    attaque = new Point((int) this.middle.getX() +1, (int) this.middle.getY());
+                                    arret = true;
+                                }
+                                this.nbTitr.add(EST);
+                                break;
+                            case WEST:
+                                if (this.middle.getY() - 1 >= 0) {
+                                    attaque = new Point((int) this.middle.getX() -1, (int) this.middle.getY());
+                                    arret = true;
+                                }
+                                this.nbTitr.add(WEST);
+                                break;
                         }
-                        tmpDir = id;
-                    }else{
-                        HashMap<Boolean, Point> resMethodAttaque = this.attaqueMethod(directionAttaque);
-                        Set<Boolean> set = resMethodAttaque.keySet();
-                        for(boolean bool : set) {
-                            attaque = resMethodAttaque.get(bool);
-                            arret = bool;
-                        }
-
                     }
                     if(attaque == null && this.nbTitr.size() == 5){
                         arret = true;
@@ -100,67 +109,19 @@ public class IACroiser extends Ordinateur {
         switch (res){
             case Joueur.RATE :
                 this.addAttaqueRate(attaque);
-                /*switch(coupPrecedent) {
-                    case 0:
-                    case Joueur.RATE:
-                    case Joueur.COULE:
-                        directionAttaque = 0;
-                        break;
-                    default:
-                        directionAttaque = (directionAttaque * -1);
-                }*/
-                coupPrecedent = Joueur.RATE;
                 break;
             case Joueur.TOUCHE :
                 this.addAttaqueTouche(attaque);
-                this.nbTitr.add(5); //On ajoute le centre à nbtitr, sinon on ne rentrera jamais dans le else
-                if(directionAttaque == 0){
-                    directionAttaque = tmpDir;
+                if(this.nbTitr.size() == 0){
+                    this.nbTitr.add(5); //On ajoute le centre à nbtitr, sinon on ne rentrera jamais dans le else
                 }
-                coupPrecedent = Joueur.TOUCHE;
                 break;
             case Joueur.COULE:
                 this.nbTitr = new ArrayList<>();
-                coupPrecedent = Joueur.COULE;
             default:
                 break;
         }
         b.retirerProjectile();
         return res;
-    }
-
-    private HashMap<Boolean, Point> attaqueMethod(int i){
-        HashMap<Boolean, Point> retour = new HashMap<>();
-        boolean arret =false;
-        Point attaque = null;
-        int add = this.nbTitr.size();
-        switch (i) {
-            case NORTH:
-                if (this.middle.getY() + 1 < 10) {
-                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()-add);
-                    arret = true;
-                }
-                break;
-            case SOUTH:
-                if (this.middle.getY() - 1 >= 0) {
-                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()+add);
-                    arret = true;
-                }
-                break;
-            case EST:
-                if (this.middle.getX() + 1 < 10) {
-                    attaque = new Point((int) this.middle.getX() +add, (int) this.middle.getY());
-                    arret = true;
-                }
-                break;
-            case WEST:
-                if (this.middle.getX() - 1 >= 0) {
-                    attaque = new Point((int) this.middle.getX() -add, (int) this.middle.getY());
-                    arret = true;
-                }
-                break;
-        }
-        retour.put(arret,attaque);
-        return retour;
     }
 }
