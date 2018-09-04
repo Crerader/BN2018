@@ -58,7 +58,6 @@ public class IACroiser extends Ordinateur {
                     }
                 }
             } else {
-                System.out.println("On entre bien ici");
                 boolean arret = false;
                 while (!arret) {
                     int id = rand.nextInt(4) + 1;
@@ -66,28 +65,28 @@ public class IACroiser extends Ordinateur {
                         switch (id) {
                             case NORTH:
                                 if (this.middle.getX() + 1 < 10) {
-                                    attaque = new Point((int) this.middle.getX() + 1, (int) this.middle.getY());
+                                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()-1);
                                     arret = true;
                                 }
                                 this.nbTitr.add(NORTH);
                                 break;
                             case SOUTH:
                                 if (this.middle.getX() - 1 >= 0) {
-                                    attaque = new Point((int) this.middle.getX() - 1, (int) this.middle.getY());
+                                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY()+1);
                                     arret = true;
                                 }
                                 this.nbTitr.add(SOUTH);
                                 break;
                             case EST:
                                 if (this.middle.getY() + 1 < 10) {
-                                    attaque = new Point((int) this.middle.getX() , (int) this.middle.getY() + 1);
+                                    attaque = new Point((int) this.middle.getX() +1, (int) this.middle.getY());
                                     arret = true;
                                 }
                                 this.nbTitr.add(EST);
                                 break;
                             case WEST:
                                 if (this.middle.getY() - 1 >= 0) {
-                                    attaque = new Point((int) this.middle.getX(), (int) this.middle.getY() - 1);
+                                    attaque = new Point((int) this.middle.getX() -1, (int) this.middle.getY());
                                     arret = true;
                                 }
                                 this.nbTitr.add(WEST);
@@ -103,9 +102,9 @@ public class IACroiser extends Ordinateur {
                 }
             }
         }
-        if(this.nbTitr.size() == 5){
+        /*if(this.nbTitr.size() == 5){
             this.nbTitr = new ArrayList<>();
-        }
+        }*/
         res = this.adversaire.estAttaque(attaque, b.getDegats());
         switch (res){
             case Joueur.RATE :
@@ -113,8 +112,12 @@ public class IACroiser extends Ordinateur {
                 break;
             case Joueur.TOUCHE :
                 this.addAttaqueTouche(attaque);
-                this.nbTitr.add(6);
+                if(this.nbTitr.size() == 0){
+                    this.nbTitr.add(5); //On ajoute le centre à nbtitr, sinon on ne rentrera jamais dans le else
+                }
                 break;
+            case Joueur.COULE:
+                this.nbTitr = new ArrayList<>();
             default:
                 break;
         }
