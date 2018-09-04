@@ -84,7 +84,6 @@ public class ControllerPlacement implements MouseListener {
                 break;
             case PanelPlacement.BOUTON_JOUER:
                 if(partie.isReady()) {
-                    System.out.println("bjr");
                     partie.start();
                 }
             default:

@@ -61,6 +61,8 @@ public class ControllerPartie implements MouseListener {
                     String pos = btn.getActionCommand();
                     if (this.bateauSelected != null) {
                         Point posXY = getPointFromActionCommand(pos);
+                        //Il faut rajouter ici une condition pour éviter de réattaquer une case
+                        //précédemment attaquer.
                         if (this.caseSelected == null) {
                             this.caseSelectedX = (int) posXY.getX();
                             this.caseSelectedY = (int) posXY.getY();
